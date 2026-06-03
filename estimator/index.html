@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Project Cost Estimator | AI Cost Calculator</title>
+  <meta name="description" content="Estimate total AI costs for your entire project. Set project type, duration, team size, and usage intensity to get realistic cost projections.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/estimator/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .est-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .est-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; }
+    .res-stat { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .res-stat span { display: block; color: var(--muted); font-size: .78rem; }
+    .res-stat strong { display: block; font-size: 1.2rem; margin-top: 4px; }
+    .res-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 14px; }
+    .projects-list { display: grid; gap: 10px; }
+    .project-card { border: 1px solid var(--line); padding: 14px; background: var(--surface); display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 10px; }
+    .project-card button { border: 1px solid var(--line); background: none; cursor: pointer; padding: 5px 10px; font-size: .78rem; color: #c0392b; }
+    .intensity-badge { display: inline-block; padding: 2px 8px; font-size: .72rem; font-weight: 700; border-radius: 2px; }
+    .intensity-low { background: #dcfce7; color: #166534; }
+    .intensity-medium { background: #dbeafe; color: #1e40af; }
+    .intensity-high { background: #fef3c7; color: #92400e; }
+    .intensity-intensive { background: #fee2e2; color: #991b1b; }
+    .rec-model { display: inline-block; padding: 4px 12px; background: color-mix(in srgb,var(--accent),transparent 88%); border: 1px solid color-mix(in srgb,var(--accent),transparent 70%); color: var(--accent); font-size: .85rem; font-weight: 700; }
+    @media(max-width:800px) { .est-grid,.res-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/" aria-current="page">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="10" y="10" width="28" height="28" rx="2" stroke="var(--accent)" stroke-width="2" fill="none"/>
+            <line x1="10" y1="20" x2="38" y2="20" stroke="var(--accent)" stroke-width="1.5"/>
+            <circle cx="18" cy="32" r="3" fill="var(--accent-2)"/>
+            <circle cx="28" cy="28" r="3" fill="var(--accent)"/>
+            <circle cx="34" cy="26" r="3" fill="var(--accent)" opacity=".5"/>
+          </svg>
+          <p class="eyebrow">Project Planning</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Project Cost Estimator</h1>
+          <p class="lede">Estimate total AI API costs for an entire project. Set project type, duration, team size, and intensity to get realistic cost projections with model recommendations.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="est-grid">
+          <!-- Inputs -->
+          <div class="est-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Project Details</h2>
+            <div class="fields-grid">
+              <label class="field field-wide">
+                <span>Project name</span>
+                <input type="text" id="projName" value="My AI Project" placeholder="e.g. Customer Support Bot v2">
+              </label>
+              <label class="field field-wide">
+                <span>Project type</span>
+                <select id="projType">
+                  <option value="chatbot">Chatbot</option>
+                  <option value="content">Content Generation</option>
+                  <option value="code">Code Assistant</option>
+                  <option value="analysis">Data Analysis</option>
+                  <option value="multiagent">Multi-Agent Pipeline</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Duration (weeks)</span>
+                <input type="number" id="projWeeks" value="12" min="1" max="520">
+              </label>
+              <label class="field">
+                <span>Team size (users)</span>
+                <input type="number" id="teamSize" value="5" min="1">
+              </label>
+              <label class="field field-wide">
+                <span>Daily usage intensity</span>
+                <select id="intensity">
+                  <option value="low">Low — occasional use, few requests/day</option>
+                  <option value="medium" selected>Medium — regular production use</option>
+                  <option value="high">High — heavy daily workloads</option>
+                  <option value="intensive">Intensive — continuous, high-volume</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="autoParams" style="margin-top:14px;padding:12px;border:1px solid var(--line);background:var(--surface);font-size:.85rem;color:var(--muted)">
+              Auto-suggested parameters will appear here.
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="est-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Cost Projection</h2>
+            <div class="res-grid">
+              <div class="res-stat"><span>Total project cost</span><strong id="r-total">—</strong></div>
+              <div class="res-stat"><span>Weekly cost</span><strong id="r-weekly">—</strong></div>
+              <div class="res-stat"><span>Per-user cost</span><strong id="r-perUser">—</strong></div>
+              <div class="res-stat"><span>Daily API cost</span><strong id="r-daily">—</strong></div>
+            </div>
+            <div style="margin-bottom:12px">
+              <div style="font-size:.82rem;color:var(--muted);margin-bottom:6px">Recommended model</div>
+              <span class="rec-model" id="r-model">—</span>
+            </div>
+            <div style="border-left:3px solid var(--accent);padding:10px 14px;background:color-mix(in srgb,var(--accent),transparent 94%);font-size:.85rem;margin-bottom:14px" id="r-advice"></div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="button" id="saveProjectBtn" type="button">Save estimate</button>
+              <button class="button secondary" id="exportBtn" type="button">Export JSON</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved projects -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:22px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <h2 style="margin:0;font-size:1.1rem">Saved Estimates</h2>
+            <button class="button secondary" id="clearProjectsBtn" style="font-size:.82rem;padding:7px 10px">Clear all</button>
+          </div>
+          <div class="projects-list" id="projectsList">
+            <p style="color:var(--muted);font-size:.88rem">No saved estimates yet.</p>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">About these estimates</h2>
+          <div class="example-grid">
+            <article>
+              <h3>Usage intensity</h3>
+              <p>Low = ~50 req/day/user. Medium = ~200 req/day/user. High = ~800 req/day/user. Intensive = ~3,000 req/day/user. Adjust based on your actual workload expectations.</p>
+            </article>
+            <article>
+              <h3>Project type defaults</h3>
+              <p>Each type auto-suggests typical token sizes. Chatbots average 300 input / 200 output. Content generation uses 500 input / 800 output. Multi-agent pipelines use 1,500 input / 600 output per step.</p>
+            </article>
+            <article>
+              <h3>Add contingency</h3>
+              <p>AI usage often exceeds initial estimates by 20-40% as users discover new workflows. We recommend adding a 30% contingency buffer to any project estimate.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const EST_MODELS = {
+  'gpt4o-mini':    { in: 0.15,  out: 0.6  },
+  'gpt4o':         { in: 2.5,   out: 10   },
+  'claude-haiku':  { in: 0.25,  out: 1.25 },
+  'claude-sonnet': { in: 3,     out: 15   },
+  'gemini-flash':  { in: 0.075, out: 0.3  },
+};
+
+const PROJECT_DEFAULTS = {
+  chatbot:    { inputTok: 300,  outputTok: 200,  recModel: 'claude-haiku',  recName: 'Claude 3 Haiku',    note: 'Chatbots need fast responses and good context handling. Economy models work well for most queries.' },
+  content:    { inputTok: 500,  outputTok: 800,  recModel: 'claude-sonnet', recName: 'Claude 3.5 Sonnet', note: 'Content generation benefits from high-quality output. Balanced models offer the best quality-cost ratio.' },
+  code:       { inputTok: 800,  outputTok: 600,  recModel: 'gpt4o',         recName: 'GPT-4o',            note: 'Code assistance requires strong reasoning. GPT-4o or Claude Sonnet are recommended for accuracy.' },
+  analysis:   { inputTok: 2000, outputTok: 400,  recModel: 'gemini-flash',  recName: 'Gemini 1.5 Flash',  note: 'Data analysis often processes large documents. Gemini Flash offers 1M context window at low cost.' },
+  multiagent: { inputTok: 1500, outputTok: 600,  recModel: 'gpt4o',         recName: 'GPT-4o',            note: 'Multi-agent pipelines multiply token usage. Plan for 3-5x more tokens than single-model flows.' },
+};
+
+const INTENSITY_MULT = { low: 50, medium: 200, high: 800, intensive: 3000 };
+
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+
+let savedProjects = [];
+try { savedProjects = JSON.parse(localStorage.getItem('ai_projects') || '[]'); } catch(e) {}
+
+function calc() {
+  const type = document.getElementById('projType').value;
+  const weeks = +document.getElementById('projWeeks').value || 1;
+  const teamSize = +document.getElementById('teamSize').value || 1;
+  const intensity = document.getElementById('intensity').value;
+  const defaults = PROJECT_DEFAULTS[type];
+
+  const reqPerUserPerDay = INTENSITY_MULT[intensity];
+  const totalDailyReqs = reqPerUserPerDay * teamSize;
+  const m = EST_MODELS[defaults.recModel];
+
+  const dailyCost = totalDailyReqs * ((defaults.inputTok / 1e6) * m.in + (defaults.outputTok / 1e6) * m.out);
+  const totalDays = weeks * 7;
+  const totalCost = dailyCost * totalDays;
+  const weeklyCost = dailyCost * 7;
+  const perUser = totalCost / teamSize;
+
+  document.getElementById('r-total').textContent = fmt(totalCost);
+  document.getElementById('r-weekly').textContent = fmt(weeklyCost);
+  document.getElementById('r-perUser').textContent = fmt(perUser);
+  document.getElementById('r-daily').textContent = fmt(dailyCost);
+  document.getElementById('r-model').textContent = defaults.recName;
+  document.getElementById('r-advice').textContent = defaults.note;
+
+  const intensityLabel = { low: 'Low', medium: 'Medium', high: 'High', intensive: 'Intensive' };
+  document.getElementById('autoParams').innerHTML = `
+    <strong>Auto-suggested parameters for <em>${type}</em>:</strong><br>
+    Input tokens/request: <strong>${defaults.inputTok.toLocaleString()}</strong> ·
+    Output tokens/request: <strong>${defaults.outputTok.toLocaleString()}</strong> ·
+    Daily requests: <strong>${totalDailyReqs.toLocaleString()}</strong>
+    (${reqPerUserPerDay} × ${teamSize} users) ·
+    Intensity: <span class="intensity-badge intensity-${intensity}">${intensityLabel[intensity]}</span>
+  `;
+}
+
+['projType','projWeeks','teamSize','intensity'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+calc();
+
+function renderProjects() {
+  const el = document.getElementById('projectsList');
+  if (savedProjects.length === 0) {
+    el.innerHTML = '<p style="color:var(--muted);font-size:.88rem">No saved estimates yet.</p>';
+    return;
+  }
+  el.innerHTML = savedProjects.map((p, i) => `
+    <div class="project-card">
+      <div>
+        <strong>${p.name}</strong>
+        <div style="color:var(--muted);font-size:.82rem;margin-top:4px">${p.type} · ${p.weeks} weeks · ${p.teamSize} users · <span class="intensity-badge intensity-${p.intensity}">${p.intensity}</span></div>
+        <div style="font-size:1.1rem;font-weight:700;margin-top:6px;color:var(--accent)">${fmt(p.totalCost)} total</div>
+        <div style="font-size:.78rem;color:var(--muted)">${fmt(p.weekly)}/wk · ${fmt(p.perUser)}/user · Recommended: ${p.recModel}</div>
+      </div>
+      <button data-idx="${i}">Remove</button>
+    </div>
+  `).join('');
+  el.querySelectorAll('[data-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      savedProjects.splice(+btn.dataset.idx, 1);
+      localStorage.setItem('ai_projects', JSON.stringify(savedProjects));
+      renderProjects();
+    });
+  });
+}
+
+document.getElementById('saveProjectBtn').addEventListener('click', () => {
+  const type = document.getElementById('projType').value;
+  const weeks = +document.getElementById('projWeeks').value || 1;
+  const teamSize = +document.getElementById('teamSize').value || 1;
+  const intensity = document.getElementById('intensity').value;
+  const defaults = PROJECT_DEFAULTS[type];
+  const reqPerUserPerDay = INTENSITY_MULT[intensity];
+  const totalDailyReqs = reqPerUserPerDay * teamSize;
+  const m = EST_MODELS[defaults.recModel];
+  const dailyCost = totalDailyReqs * ((defaults.inputTok / 1e6) * m.in + (defaults.outputTok / 1e6) * m.out);
+
+  savedProjects.push({
+    name: document.getElementById('projName').value || 'Unnamed project',
+    type, weeks, teamSize, intensity,
+    totalCost: dailyCost * weeks * 7,
+    weekly: dailyCost * 7,
+    perUser: (dailyCost * weeks * 7) / teamSize,
+    recModel: defaults.recName,
+    savedAt: new Date().toLocaleDateString()
+  });
+  localStorage.setItem('ai_projects', JSON.stringify(savedProjects));
+  renderProjects();
+  const btn = document.getElementById('saveProjectBtn');
+  btn.textContent = 'Saved!';
+  setTimeout(() => btn.textContent = 'Save estimate', 2000);
+});
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const data = {
+    project: document.getElementById('projName').value,
+    type: document.getElementById('projType').value,
+    weeks: +document.getElementById('projWeeks').value,
+    teamSize: +document.getElementById('teamSize').value,
+    intensity: document.getElementById('intensity').value,
+    estimates: {
+      total: document.getElementById('r-total').textContent,
+      weekly: document.getElementById('r-weekly').textContent,
+      perUser: document.getElementById('r-perUser').textContent,
+      daily: document.getElementById('r-daily').textContent,
+    },
+    recommendedModel: document.getElementById('r-model').textContent,
+    exportedAt: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ai-project-estimate.json';
+  a.click();
+});
+
+document.getElementById('clearProjectsBtn').addEventListener('click', () => {
+  if (confirm('Clear all saved estimates?')) {
+    savedProjects = [];
+    localStorage.removeItem('ai_projects');
+    renderProjects();
+  }
+});
+
+renderProjects();
+</script>
+</body>
+</html>

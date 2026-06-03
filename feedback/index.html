@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback | AI Cost Calculator</title>
+  <meta name="description" content="Submit feature requests and bug reports for AI Cost Calculator. Help shape the product roadmap by sharing your ideas and feedback.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/feedback/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .feedback-wrap { width:min(760px,calc(100% - 32px)); margin:40px auto 60px; }
+    .tab-bar { display:flex; gap:0; border:1px solid var(--line); border-radius:var(--radius-sm); overflow:hidden; margin-bottom:28px; background:var(--surface); }
+    .tab-btn {
+      flex:1; padding:12px 16px; border:none; background:none;
+      font-weight:700; font-size:0.92rem; color:var(--muted);
+      cursor:pointer; transition:all 0.15s; border-right:1px solid var(--line);
+    }
+    .tab-btn:last-child { border-right:none; }
+    .tab-btn.active { background:var(--accent); color:#fff; }
+    .tab-btn:hover:not(.active) { background:rgba(14,165,233,0.05); color:var(--ink); }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .form-card { border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); padding:clamp(20px,4vw,36px); box-shadow:var(--shadow); }
+    .form-row { margin-bottom:18px; }
+    .form-row label { display:block; font-weight:700; font-size:0.88rem; margin-bottom:7px; }
+    .radio-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .radio-item { display:flex; align-items:center; gap:7px; cursor:pointer; }
+    .radio-item input { width:auto; cursor:pointer; accent-color:var(--accent); }
+    .radio-item span { font-size:0.9rem; color:var(--muted); }
+    .success-msg {
+      display:none; padding:20px 24px;
+      border:1px solid rgba(16,185,129,0.3); border-radius:var(--radius-sm);
+      background:rgba(16,185,129,0.07);
+    }
+    .success-msg p { margin:0; color:var(--ink); }
+    .feedback-history { margin-top:40px; }
+    .feedback-history h2 { font-size:1.25rem; margin-bottom:16px; }
+    .history-item {
+      border:1px solid var(--line); border-radius:var(--radius-sm);
+      background:var(--surface); padding:16px; margin-bottom:10px;
+      display:grid; gap:8px;
+      transition: all 0.15s;
+    }
+    .history-item:hover { box-shadow:var(--shadow); }
+    .history-meta { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .history-type { padding:3px 10px; border-radius:999px; font-size:0.75rem; font-weight:700; }
+    .type-feature { background:rgba(14,165,233,0.1); color:var(--accent); }
+    .type-bug { background:rgba(245,158,11,0.1); color:#d97706; }
+    .history-date { font-size:0.82rem; color:var(--muted); }
+    .history-title { font-weight:700; font-size:0.95rem; }
+    .history-desc { font-size:0.88rem; color:var(--muted); }
+    .history-actions { display:flex; gap:8px; align-items:center; }
+    .upvote-btn {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:5px 12px; border:1px solid var(--line);
+      border-radius:999px; background:var(--surface);
+      font-size:0.82rem; font-weight:600; cursor:pointer;
+      transition:all 0.15s; color:var(--muted);
+    }
+    .upvote-btn:hover, .upvote-btn.upvoted { border-color:var(--accent); color:var(--accent); background:rgba(14,165,233,0.05); }
+    .empty-state { text-align:center; padding:40px; color:var(--muted); }
+    .char-counter { font-size:0.82rem; color:var(--muted); text-align:right; margin-top:4px; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/" aria-current="page">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Community</p>
+          <h1>Feedback</h1>
+          <p class="lede">Share feature ideas and bug reports. We read everything and use your feedback to prioritize the roadmap.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0 0 24px">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="tab-bar" role="tablist">
+          <button class="tab-btn active" data-tab="feature" role="tab" aria-selected="true">
+            💡 Feature Request
+          </button>
+          <button class="tab-btn" data-tab="bug" role="tab" aria-selected="false">
+            🐛 Bug Report
+          </button>
+        </div>
+
+        <!-- Feature Request Tab -->
+        <div class="tab-panel active" id="tab-feature">
+          <div class="form-card">
+            <div id="featureSuccess" class="success-msg">
+              <strong style="display:block;margin-bottom:6px">✅ Feature request submitted!</strong>
+              <p>Thanks for your suggestion. We review all requests and use them to prioritize our roadmap. You can view your submissions below.</p>
+            </div>
+            <form id="featureForm" novalidate>
+              <div class="form-row">
+                <label for="featureTitle">Feature Title <span style="color:#dc2626">*</span></label>
+                <input type="text" id="featureTitle" placeholder="e.g., Add Claude 3.7 pricing data" maxlength="100" required>
+              </div>
+              <div class="form-row">
+                <label for="featureDesc">Description <span style="color:#dc2626">*</span></label>
+                <textarea id="featureDesc" rows="4" maxlength="800" placeholder="Describe the feature and how it would help your workflow..." required></textarea>
+                <div class="char-counter"><span id="featDescCount">0</span>/800</div>
+              </div>
+              <div class="form-row">
+                <label>Priority</label>
+                <div class="radio-row">
+                  <label class="radio-item"><input type="radio" name="featurePriority" value="Low"><span>Low — Nice to have</span></label>
+                  <label class="radio-item"><input type="radio" name="featurePriority" value="Medium" checked><span>Medium — Would use regularly</span></label>
+                  <label class="radio-item"><input type="radio" name="featurePriority" value="High"><span>High — Blocking my workflow</span></label>
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="featureCategory">Category</label>
+                <select id="featureCategory">
+                  <option value="Tools">Tools &amp; Calculators</option>
+                  <option value="UI">UI / Design</option>
+                  <option value="Data">Pricing Data</option>
+                  <option value="Integration">Integrations</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <button type="submit" class="button primary-accent" style="width:100%">Submit Feature Request</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Bug Report Tab -->
+        <div class="tab-panel" id="tab-bug">
+          <div class="form-card">
+            <div id="bugSuccess" class="success-msg">
+              <strong style="display:block;margin-bottom:6px">✅ Bug report submitted!</strong>
+              <p>Thanks for reporting this. We take all bug reports seriously and will investigate. You can view your submissions below.</p>
+            </div>
+            <form id="bugForm" novalidate>
+              <div class="form-row">
+                <label for="bugTitle">Bug Title <span style="color:#dc2626">*</span></label>
+                <input type="text" id="bugTitle" placeholder="e.g., Token counter shows wrong count for code" maxlength="100" required>
+              </div>
+              <div class="form-row">
+                <label for="bugSteps">Steps to Reproduce <span style="color:#dc2626">*</span></label>
+                <textarea id="bugSteps" rows="3" maxlength="600" placeholder="1. Go to...\n2. Enter...\n3. Click..." required></textarea>
+                <div class="char-counter"><span id="bugStepsCount">0</span>/600</div>
+              </div>
+              <div class="form-row fields-grid">
+                <div class="field">
+                  <span>Expected Behavior</span>
+                  <textarea id="bugExpected" rows="2" maxlength="300" placeholder="What should happen?"></textarea>
+                </div>
+                <div class="field">
+                  <span>Actual Behavior</span>
+                  <textarea id="bugActual" rows="2" maxlength="300" placeholder="What actually happened?"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <label>Severity</label>
+                <div class="radio-row">
+                  <label class="radio-item"><input type="radio" name="bugSeverity" value="Low"><span>Low — Minor cosmetic issue</span></label>
+                  <label class="radio-item"><input type="radio" name="bugSeverity" value="Medium" checked><span>Medium — Feature broken</span></label>
+                  <label class="radio-item"><input type="radio" name="bugSeverity" value="High"><span>High — Site unusable</span></label>
+                </div>
+              </div>
+              <button type="submit" class="button primary-accent" style="width:100%;background:linear-gradient(135deg,#f59e0b,#ef4444);border-color:transparent">Submit Bug Report</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Feedback History -->
+        <div class="feedback-history">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+            <h2 style="margin:0">My Feedback</h2>
+            <button id="exportBtn" class="button secondary" style="font-size:0.84rem;padding:7px 14px">Export as Text</button>
+          </div>
+          <div id="historyList">
+            <div class="empty-state" id="emptyState">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="margin:0 auto 12px;display:block"><rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="1.5" opacity=".4"/><path d="M16 20h16M16 26h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".4"/></svg>
+              <p>No feedback submitted yet. Share your first idea above!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected','true');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Char counters
+    function setupCounter(textareaId, counterId) {
+      const ta = document.getElementById(textareaId);
+      const ct = document.getElementById(counterId);
+      if (!ta || !ct) return;
+      ta.addEventListener('input', () => { ct.textContent = ta.value.length; });
+    }
+    setupCounter('featureDesc', 'featDescCount');
+    setupCounter('bugSteps', 'bugStepsCount');
+
+    // LocalStorage key
+    const LS_KEY = 'aicost_feedback_v1';
+    function loadFeedback() { try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; } }
+    function saveFeedback(items) { localStorage.setItem(LS_KEY, JSON.stringify(items)); }
+
+    function renderHistory() {
+      const items = loadFeedback();
+      const list = document.getElementById('historyList');
+      const empty = document.getElementById('emptyState');
+      if (items.length === 0) {
+        empty.style.display = '';
+        return;
+      }
+      empty.style.display = 'none';
+      // Remove old items (keep empty state div)
+      Array.from(list.children).forEach(c => { if (c !== empty) c.remove(); });
+      items.slice().reverse().forEach((item, revIdx) => {
+        const realIdx = items.length - 1 - revIdx;
+        const el = document.createElement('div');
+        el.className = 'history-item';
+        const typeClass = item.type === 'Feature' ? 'type-feature' : 'type-bug';
+        const upvoted = item.upvotes > 0;
+        el.innerHTML = `
+          <div class="history-meta">
+            <span class="history-type ${typeClass}">${item.type === 'Feature' ? '💡 Feature' : '🐛 Bug'}</span>
+            ${item.category ? `<span class="badge badge-blue" style="font-size:0.75rem">${item.category}</span>` : ''}
+            ${item.priority ? `<span style="font-size:0.82rem;color:var(--muted)">${item.priority} priority</span>` : ''}
+            <span class="history-date">${item.date}</span>
+          </div>
+          <div class="history-title">${item.title}</div>
+          ${item.desc ? `<div class="history-desc">${item.desc}</div>` : ''}
+          <div class="history-actions">
+            <button class="upvote-btn ${upvoted ? 'upvoted' : ''}" data-idx="${realIdx}">
+              👍 ${item.upvotes || 0} upvote${item.upvotes !== 1 ? 's' : ''}
+            </button>
+          </div>
+        `;
+        list.appendChild(el);
+      });
+
+      list.querySelectorAll('.upvote-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx);
+          const items2 = loadFeedback();
+          items2[idx].upvotes = (items2[idx].upvotes || 0) + 1;
+          saveFeedback(items2);
+          renderHistory();
+        });
+      });
+    }
+
+    // Feature form
+    document.getElementById('featureForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('featureTitle').value.trim();
+      const desc = document.getElementById('featureDesc').value.trim();
+      if (!title || !desc) { alert('Please fill in the required fields.'); return; }
+      const priority = document.querySelector('input[name="featurePriority"]:checked')?.value || 'Medium';
+      const category = document.getElementById('featureCategory').value;
+      const items = loadFeedback();
+      items.push({
+        type: 'Feature', title, desc, priority, category, upvotes: 0,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      });
+      saveFeedback(items);
+      document.getElementById('featureForm').reset();
+      document.getElementById('featDescCount').textContent = '0';
+      document.getElementById('featureSuccess').style.display = 'block';
+      setTimeout(() => document.getElementById('featureSuccess').style.display = 'none', 5000);
+      renderHistory();
+    });
+
+    // Bug form
+    document.getElementById('bugForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('bugTitle').value.trim();
+      const steps = document.getElementById('bugSteps').value.trim();
+      if (!title || !steps) { alert('Please fill in the required fields.'); return; }
+      const severity = document.querySelector('input[name="bugSeverity"]:checked')?.value || 'Medium';
+      const expected = document.getElementById('bugExpected').value.trim();
+      const actual = document.getElementById('bugActual').value.trim();
+      const items = loadFeedback();
+      items.push({
+        type: 'Bug', title, desc: `Steps: ${steps}${expected ? ' | Expected: '+expected : ''}${actual ? ' | Actual: '+actual : ''}`,
+        priority: severity, category: 'Bug', upvotes: 0,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      });
+      saveFeedback(items);
+      document.getElementById('bugForm').reset();
+      document.getElementById('bugStepsCount').textContent = '0';
+      document.getElementById('bugSuccess').style.display = 'block';
+      setTimeout(() => document.getElementById('bugSuccess').style.display = 'none', 5000);
+      renderHistory();
+    });
+
+    // Export
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const items = loadFeedback();
+      if (items.length === 0) { alert('No feedback to export.'); return; }
+      const text = items.map((item, i) =>
+        `[${i+1}] ${item.type} — ${item.title}\nDate: ${item.date} | Priority: ${item.priority || 'N/A'}\n${item.desc || ''}\nUpvotes: ${item.upvotes || 0}`
+      ).join('\n\n---\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url;
+      a.download = 'aicost-feedback.txt'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    renderHistory();
+  </script>
+</body>
+</html>

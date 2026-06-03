@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Model Picker — Find Your Best AI Model | agenthubs.org</title>
+  <meta name="description" content="6-question wizard that recommends the best AI model for your use case, quality requirements, speed needs, and budget. Free, no sign-up required.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/model-picker/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .wizard-card { border: 1px solid var(--line); background: var(--surface); padding: 32px; border-radius: 12px; }
+    .wizard-progress { height: 6px; background: var(--line); border-radius: 3px; margin-bottom: 28px; }
+    .wizard-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-3)); border-radius: 3px; transition: width 0.4s ease; }
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; }
+    .option-grid { display: grid; gap: 10px; margin-top: 16px; }
+    .option-btn {
+      padding: 14px 18px; border: 2px solid var(--line); background: var(--surface);
+      cursor: pointer; text-align: left; border-radius: 8px; font-size: 1rem;
+      transition: all 0.18s; display: flex; align-items: center; gap: 12px;
+    }
+    .option-btn:hover { border-color: var(--accent); background: color-mix(in srgb, var(--accent), transparent 92%); }
+    .option-btn.selected { border-color: var(--accent); background: color-mix(in srgb, var(--accent), transparent 88%); }
+    .option-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .wizard-nav { display: flex; gap: 12px; margin-top: 24px; justify-content: space-between; }
+    .result-card { border: 1px solid var(--line); background: var(--surface); padding: 20px; border-radius: 10px; margin-bottom: 14px; }
+    .result-rank { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; font-size: .9rem; }
+    .rank-1 { background: #fbbf24; color: #92400e; }
+    .rank-2 { background: #94a3b8; color: #1e293b; }
+    .rank-3 { background: #cd7c2f; color: #fff; }
+    .score-bar { height: 8px; background: var(--line); border-radius: 4px; margin-top: 8px; }
+    .score-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-3)); }
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    @media(max-width:700px){ .wizard-card { padding: 20px; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/" aria-current="page">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">AI Model Picker</p>
+          <h1>Find Your Best AI Model</h1>
+          <p class="lede">Answer 6 quick questions and get personalized model recommendations with cost estimates and tradeoff analysis.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:20px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="wizard-card" id="wizard">
+          <div class="wizard-progress"><div class="wizard-progress-fill" id="progressFill" style="width:0%"></div></div>
+          <div id="stepIndicator" style="color:var(--muted);font-size:.88rem;margin-bottom:16px">Step 1 of 6</div>
+
+          <!-- Step 1: Use case -->
+          <div class="wizard-step active" data-step="1">
+            <h2>What's your primary use case?</h2>
+            <p style="color:var(--muted)">This determines which models are optimized for your task type.</p>
+            <div class="option-grid">
+              <button class="option-btn" data-key="usecase" data-val="chat"><span class="option-icon">💬</span><div><strong>Chat & Conversation</strong><div style="font-size:.85rem;color:var(--muted)">Customer support, Q&A, dialogue systems</div></div></button>
+              <button class="option-btn" data-key="usecase" data-val="code"><span class="option-icon">💻</span><div><strong>Code Generation & Review</strong><div style="font-size:.85rem;color:var(--muted)">Writing, reviewing, and explaining code</div></div></button>
+              <button class="option-btn" data-key="usecase" data-val="analysis"><span class="option-icon">📊</span><div><strong>Data Analysis & Reasoning</strong><div style="font-size:.85rem;color:var(--muted)">Summarization, research, complex reasoning</div></div></button>
+              <button class="option-btn" data-key="usecase" data-val="creative"><span class="option-icon">✍️</span><div><strong>Creative Writing & Content</strong><div style="font-size:.85rem;color:var(--muted)">Blog posts, marketing copy, stories</div></div></button>
+              <button class="option-btn" data-key="usecase" data-val="classification"><span class="option-icon">🏷️</span><div><strong>Classification & Extraction</strong><div style="font-size:.85rem;color:var(--muted)">Labeling, structured data extraction</div></div></button>
+              <button class="option-btn" data-key="usecase" data-val="rag"><span class="option-icon">🔍</span><div><strong>RAG / Search & Retrieval</strong><div style="font-size:.85rem;color:var(--muted)">Document Q&A with knowledge base</div></div></button>
+            </div>
+          </div>
+
+          <!-- Step 2: Quality -->
+          <div class="wizard-step" data-step="2">
+            <h2>What quality level do you need?</h2>
+            <p style="color:var(--muted)">Higher quality costs more. Be honest about your minimum acceptable bar.</p>
+            <div class="option-grid">
+              <button class="option-btn" data-key="quality" data-val="low"><span class="option-icon">✅</span><div><strong>Good Enough</strong><div style="font-size:.85rem;color:var(--muted)">Functional output, minor errors acceptable</div></div></button>
+              <button class="option-btn" data-key="quality" data-val="high"><span class="option-icon">⭐</span><div><strong>High Quality</strong><div style="font-size:.85rem;color:var(--muted)">Polished, accurate, consistent output</div></div></button>
+              <button class="option-btn" data-key="quality" data-val="best"><span class="option-icon">🏆</span><div><strong>Best Possible</strong><div style="font-size:.85rem;color:var(--muted)">Mission-critical, near-perfect quality required</div></div></button>
+            </div>
+          </div>
+
+          <!-- Step 3: Speed -->
+          <div class="wizard-step" data-step="3">
+            <h2>What's your speed requirement?</h2>
+            <div class="option-grid">
+              <button class="option-btn" data-key="speed" data-val="realtime"><span class="option-icon">⚡</span><div><strong>Real-time (under 1 second)</strong><div style="font-size:.85rem;color:var(--muted)">Interactive chat, streaming required</div></div></button>
+              <button class="option-btn" data-key="speed" data-val="fast"><span class="option-icon">🚀</span><div><strong>Fast (under 5 seconds)</strong><div style="font-size:.85rem;color:var(--muted)">API call, user waits for response</div></div></button>
+              <button class="option-btn" data-key="speed" data-val="batch"><span class="option-icon">⏰</span><div><strong>Batch OK (minutes to hours)</strong><div style="font-size:.85rem;color:var(--muted)">Background processing, no user waiting</div></div></button>
+            </div>
+          </div>
+
+          <!-- Step 4: Context -->
+          <div class="wizard-step" data-step="4">
+            <h2>How much context do you need?</h2>
+            <p style="color:var(--muted)">Context window = how much text the model can process at once.</p>
+            <div class="option-grid">
+              <button class="option-btn" data-key="context" data-val="small"><span class="option-icon">📄</span><div><strong>Small (&lt;32K tokens)</strong><div style="font-size:.85rem;color:var(--muted)">Short documents, simple chat turns</div></div></button>
+              <button class="option-btn" data-key="context" data-val="medium"><span class="option-icon">📋</span><div><strong>Medium (&lt;128K tokens)</strong><div style="font-size:.85rem;color:var(--muted)">Long documents, full codebases</div></div></button>
+              <button class="option-btn" data-key="context" data-val="large"><span class="option-icon">📚</span><div><strong>Large (&gt;128K tokens)</strong><div style="font-size:.85rem;color:var(--muted)">Books, entire repositories, research corpora</div></div></button>
+            </div>
+          </div>
+
+          <!-- Step 5: Budget -->
+          <div class="wizard-step" data-step="5">
+            <h2>What's your monthly AI budget?</h2>
+            <div class="option-grid">
+              <button class="option-btn" data-key="budget" data-val="tiny"><span class="option-icon">💸</span><div><strong>Under $50/month</strong><div style="font-size:.85rem;color:var(--muted)">Side project, prototype stage</div></div></button>
+              <button class="option-btn" data-key="budget" data-val="small"><span class="option-icon">💰</span><div><strong>$50 – $500/month</strong><div style="font-size:.85rem;color:var(--muted)">Small product, startup</div></div></button>
+              <button class="option-btn" data-key="budget" data-val="medium"><span class="option-icon">💵</span><div><strong>$500 – $5,000/month</strong><div style="font-size:.85rem;color:var(--muted)">Growing product, small team</div></div></button>
+              <button class="option-btn" data-key="budget" data-val="large"><span class="option-icon">🏦</span><div><strong>$5,000+/month</strong><div style="font-size:.85rem;color:var(--muted)">Enterprise, high-volume production</div></div></button>
+            </div>
+          </div>
+
+          <!-- Step 6: Privacy -->
+          <div class="wizard-step" data-step="6">
+            <h2>What are your data privacy requirements?</h2>
+            <div class="option-grid">
+              <button class="option-btn" data-key="privacy" data-val="cloud"><span class="option-icon">☁️</span><div><strong>Cloud API is fine</strong><div style="font-size:.85rem;color:var(--muted)">Data can be processed by provider</div></div></button>
+              <button class="option-btn" data-key="privacy" data-val="private"><span class="option-icon">🔒</span><div><strong>Need self-hosted / private</strong><div style="font-size:.85rem;color:var(--muted)">Data must stay on your infrastructure</div></div></button>
+              <button class="option-btn" data-key="privacy" data-val="enterprise"><span class="option-icon">🏢</span><div><strong>Enterprise compliance needed</strong><div style="font-size:.85rem;color:var(--muted)">BAA, data residency, SOC2 required</div></div></button>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="wizard-step" data-step="results">
+            <h2>Your AI Model Recommendations</h2>
+            <p style="color:var(--muted);margin-bottom:20px">Based on your answers, here are the top models for your use case:</p>
+            <div id="resultsContainer"></div>
+            <div style="margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--accent),transparent 92%)">
+              <strong>Next step:</strong> Use the <a href="../compare/" style="color:var(--accent)">Model Comparison Tool</a> to calculate exact monthly costs for your recommended models, or try the <a href="../tool/" style="color:var(--accent)">Cost Calculator</a> for a quick estimate.
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button class="button secondary" id="prevBtn" onclick="prevStep()" style="display:none">← Back</button>
+            <button class="button" id="nextBtn" onclick="nextStep()" disabled>Next →</button>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="content-band" style="margin-top:0">
+          <div class="section-heading"><h2>How It Works</h2></div>
+          <div class="card-grid">
+            <div style="padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+              <strong style="display:block;margin-bottom:8px">Step 1–6: Answer Questions</strong>
+              <p style="color:var(--muted);font-size:.9rem;margin:0">Select your use case, quality bar, speed requirement, context needs, budget, and privacy requirements.</p>
+            </div>
+            <div style="padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+              <strong style="display:block;margin-bottom:8px">Algorithm Scoring</strong>
+              <p style="color:var(--muted);font-size:.9rem;margin:0">Each model is scored across your 6 dimensions using current benchmark data and pricing.</p>
+            </div>
+            <div style="padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+              <strong style="display:block;margin-bottom:8px">Get Top 3 Picks</strong>
+              <p style="color:var(--muted);font-size:.9rem;margin:0">View recommendations with match scores, pricing, and why each model fits your criteria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav style="display:flex;gap:14px"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../about/">About</a></nav></footer>
+  <script>
+    const answers = {};
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    const MODELS = [
+      { name: "GPT-4o Mini", provider: "OpenAI", in: 0.15, out: 0.6, ctx: "128K", speed: 3, quality: 2, usecases: ["chat","classification","rag","creative"], privacy: ["cloud","enterprise"], budgets: ["tiny","small","medium","large"] },
+      { name: "GPT-4o", provider: "OpenAI", in: 2.5, out: 10, ctx: "128K", speed: 3, quality: 3, usecases: ["chat","code","analysis","creative","rag"], privacy: ["cloud","enterprise"], budgets: ["small","medium","large"] },
+      { name: "Claude 3 Haiku", provider: "Anthropic", in: 0.25, out: 1.25, ctx: "200K", speed: 3, quality: 2, usecases: ["chat","classification","rag"], privacy: ["cloud","enterprise"], budgets: ["tiny","small","medium"] },
+      { name: "Claude 3.5 Sonnet", provider: "Anthropic", in: 3.0, out: 15, ctx: "200K", speed: 3, quality: 4, usecases: ["code","analysis","chat","rag"], privacy: ["cloud","enterprise"], budgets: ["small","medium","large"] },
+      { name: "Gemini 1.5 Flash", provider: "Google", in: 0.075, out: 0.3, ctx: "1M", speed: 3, quality: 2, usecases: ["chat","classification","rag","creative"], privacy: ["cloud"], budgets: ["tiny","small","medium","large"] },
+      { name: "Gemini 1.5 Pro", provider: "Google", in: 1.25, out: 5, ctx: "1M", speed: 2, quality: 3, usecases: ["analysis","rag","chat","code"], privacy: ["cloud"], budgets: ["small","medium","large"] },
+      { name: "Llama 3.1 70B", provider: "Meta (open)", in: 0.59, out: 0.79, ctx: "128K", speed: 2, quality: 3, usecases: ["chat","code","analysis","creative"], privacy: ["cloud","private"], budgets: ["small","medium","large"] },
+      { name: "Llama 3.1 8B", provider: "Meta (open)", in: 0.18, out: 0.18, ctx: "128K", speed: 3, quality: 1, usecases: ["classification","chat"], privacy: ["cloud","private"], budgets: ["tiny","small"] },
+      { name: "Claude 3 Opus", provider: "Anthropic", in: 15, out: 75, ctx: "200K", speed: 1, quality: 4, usecases: ["analysis","code","creative"], privacy: ["cloud","enterprise"], budgets: ["large"] },
+      { name: "Mistral 7B", provider: "Mistral", in: 0.25, out: 0.25, ctx: "32K", speed: 3, quality: 1, usecases: ["chat","classification"], privacy: ["cloud","private"], budgets: ["tiny","small"] },
+    ];
+
+    function scoreModel(model) {
+      let score = 0;
+      const a = answers;
+      if (a.usecase && model.usecases.includes(a.usecase)) score += 30;
+      if (a.quality) {
+        const qMap = { low: [1,2], high: [2,3,4], best: [3,4] };
+        if (qMap[a.quality].includes(model.quality)) score += 20;
+      }
+      if (a.speed) {
+        const sMap = { realtime: [3], fast: [2,3], batch: [1,2,3] };
+        if (sMap[a.speed].includes(model.speed)) score += 15;
+      }
+      if (a.context) {
+        const ctxMap = { small: true, medium: model.ctx !== "32K", large: model.ctx === "1M" || model.ctx === "200K" };
+        if (ctxMap[a.context]) score += 15;
+      }
+      if (a.budget && model.budgets.includes(a.budget)) score += 10;
+      if (a.privacy && model.privacy.includes(a.privacy)) score += 10;
+      return score;
+    }
+
+    function showResults() {
+      const scored = MODELS.map(m => ({ ...m, score: scoreModel(m) })).sort((a,b) => b.score - a.score).slice(0, 3);
+      const container = document.getElementById('resultsContainer');
+      const ranks = ['rank-1','rank-2','rank-3'];
+      const rankLabels = ['🥇 Best Match','🥈 Runner-up','🥉 Also Great'];
+      container.innerHTML = scored.map((m, i) => `
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+            <div class="result-rank ${ranks[i]}">${i+1}</div>
+            <div>
+              <strong style="font-size:1.1rem">${m.name}</strong>
+              <div style="color:var(--muted);font-size:.85rem">${m.provider} · ${rankLabels[i]}</div>
+            </div>
+            <div style="margin-left:auto;text-align:right">
+              <strong>$${m.in}/M</strong>
+              <div style="font-size:.78rem;color:var(--muted)">input tokens</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font-size:.8rem;color:var(--muted)">Match score</span>
+            <strong>${m.score}%</strong>
+          </div>
+          <div class="score-bar"><div class="score-fill" style="width:${m.score}%"></div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;font-size:.82rem">
+            <div style="padding:8px;background:var(--bg);border-radius:6px"><span style="color:var(--muted);display:block">Context</span><strong>${m.ctx}</strong></div>
+            <div style="padding:8px;background:var(--bg);border-radius:6px"><span style="color:var(--muted);display:block">Output</span><strong>$${m.out}/M</strong></div>
+            <div style="padding:8px;background:var(--bg);border-radius:6px"><span style="color:var(--muted);display:block">Speed</span><strong>${['Low','Medium','High'][m.speed-1]}</strong></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateUI() {
+      const pct = ((currentStep - 1) / totalSteps) * 100;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('stepIndicator').textContent = currentStep <= totalSteps ? `Step ${currentStep} of ${totalSteps}` : 'Results';
+      document.getElementById('prevBtn').style.display = currentStep > 1 ? 'block' : 'none';
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      const stepKey = currentStep > totalSteps ? 'results' : currentStep;
+      document.querySelector(`[data-step="${stepKey}"]`).classList.add('active');
+      const nextBtn = document.getElementById('nextBtn');
+      const stepKeys = [null,'usecase','quality','speed','context','budget','privacy'];
+      const key = currentStep <= totalSteps ? stepKeys[currentStep] : null;
+      nextBtn.disabled = key ? !answers[key] : false;
+      nextBtn.textContent = currentStep === totalSteps ? 'See Results →' : 'Next →';
+      if (currentStep > totalSteps) nextBtn.style.display = 'none';
+    }
+
+    function nextStep() {
+      if (currentStep <= totalSteps) {
+        currentStep++;
+        if (currentStep > totalSteps) showResults();
+      }
+      document.getElementById('progressFill').style.width = '100%';
+      updateUI();
+    }
+
+    function prevStep() {
+      if (currentStep > 1) { currentStep--; updateUI(); }
+    }
+
+    document.addEventListener('click', e => {
+      if (e.target.closest('.option-btn')) {
+        const btn = e.target.closest('.option-btn');
+        const key = btn.dataset.key;
+        const val = btn.dataset.val;
+        document.querySelectorAll(`[data-key="${key}"]`).forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[key] = val;
+        document.getElementById('nextBtn').disabled = false;
+      }
+    });
+
+    updateUI();
+  </script>
+</body>
+</html>

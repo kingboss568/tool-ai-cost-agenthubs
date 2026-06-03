@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Token & Cost Converter | AI Cost Calculator</title>
+  <meta name="description" content="Convert between tokens, words, characters, pages, and API costs. Bidirectional unit conversion for AI API pricing.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/converter/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .conv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .conv-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; }
+    .conv-table { width: 100%; border-collapse: collapse; }
+    .conv-table th, .conv-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: .88rem; text-align: left; }
+    .conv-table th { background: color-mix(in srgb, var(--accent), transparent 88%); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+    .conv-table tr:hover td { background: color-mix(in srgb, var(--accent), transparent 95%); }
+    .input-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; margin-bottom: 14px; }
+    .big-input { font-size: 1.3rem; padding: 13px 14px !important; font-weight: 700; }
+    .model-preset-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .cost-section { margin-top: 20px; }
+    @media(max-width:800px) { .conv-grid,.model-preset-row { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/" aria-current="page">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <path d="M12 20 L24 12 L36 20" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M12 28 L24 36 L36 28" stroke="var(--accent-2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <line x1="24" y1="12" x2="24" y2="36" stroke="var(--line)" stroke-width="1.5"/>
+          </svg>
+          <p class="eyebrow">Unit Conversion</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Token &amp; Cost Converter</h1>
+          <p class="lede">Convert between tokens, words, characters, pages, and API costs. Select a model to get instant cost conversions at every scale.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Model + input -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:22px">
+          <div class="model-preset-row">
+            <label class="field">
+              <span>Model (for cost conversion)</span>
+              <select id="convModel">
+                <option value="gpt4o-mini">GPT-4o Mini ($0.15 in / $0.60 out)</option>
+                <option value="gpt4o" selected>GPT-4o ($2.50 in / $10 out)</option>
+                <option value="claude-haiku">Claude 3 Haiku ($0.25 in / $1.25 out)</option>
+                <option value="claude-sonnet">Claude 3.5 Sonnet ($3 in / $15 out)</option>
+                <option value="gemini-flash">Gemini 1.5 Flash ($0.075 in / $0.30 out)</option>
+                <option value="gemini-pro">Gemini 1.5 Pro ($1.25 in / $5 out)</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Token type</span>
+              <select id="tokenType">
+                <option value="input">Input tokens</option>
+                <option value="output">Output tokens</option>
+              </select>
+            </label>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px">
+            <label class="field"><span>Tokens</span><input class="big-input" type="number" id="i-tokens" value="1000" min="0"></label>
+            <label class="field"><span>Words</span><input class="big-input" type="number" id="i-words" value="" min="0" placeholder="—"></label>
+            <label class="field"><span>Characters</span><input class="big-input" type="number" id="i-chars" value="" min="0" placeholder="—"></label>
+            <label class="field"><span>Pages (250w)</span><input class="big-input" type="number" id="i-pages" value="" min="0" step="0.1" placeholder="—"></label>
+            <label class="field"><span>API requests</span><input class="big-input" type="number" id="i-reqs" value="" min="0" placeholder="—"></label>
+          </div>
+          <p style="color:var(--muted);font-size:.78rem;margin:0">All fields are interconnected — editing any one updates the others. Ratios: 1 token ≈ 0.75 words ≈ 4 characters.</p>
+        </div>
+
+        <!-- Conversion tables -->
+        <div class="conv-grid">
+          <div class="conv-panel">
+            <h2 style="margin-bottom:14px;font-size:1.1rem">Unit conversions</h2>
+            <div class="table-wrap">
+              <table class="conv-table">
+                <thead><tr><th>Unit</th><th>Value</th><th>Equivalent</th></tr></thead>
+                <tbody id="unitTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="conv-panel">
+            <h2 style="margin-bottom:14px;font-size:1.1rem">Cost conversions</h2>
+            <div class="table-wrap">
+              <table class="conv-table">
+                <thead><tr><th>Scale</th><th>Cost</th></tr></thead>
+                <tbody id="costTable"></tbody>
+              </table>
+            </div>
+            <button class="button secondary" id="copyTableBtn" style="margin-top:14px">Copy as text</button>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">Conversion reference</h2>
+          <div class="example-grid">
+            <article>
+              <h3>Tokens to words</h3>
+              <p>1 token ≈ 0.75 English words. A typical 500-word essay is about 667 tokens. Technical content with numbers and code runs higher (~0.5 words per token).</p>
+            </article>
+            <article>
+              <h3>Tokens to characters</h3>
+              <p>1 token ≈ 4 characters in English. Non-English languages and code may tokenize differently — Asian languages often use 1-3 characters per token.</p>
+            </article>
+            <article>
+              <h3>Pages to tokens</h3>
+              <p>A standard page (250 words, ~12pt font) ≈ 333 tokens. A 10-page report ≈ 3,330 tokens. A 300-page novel ≈ 100,000 tokens.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const CONV_MODELS = {
+  'gpt4o-mini':    { in: 0.15,  out: 0.6  },
+  'gpt4o':         { in: 2.5,   out: 10   },
+  'claude-haiku':  { in: 0.25,  out: 1.25 },
+  'claude-sonnet': { in: 3,     out: 15   },
+  'gemini-flash':  { in: 0.075, out: 0.3  },
+  'gemini-pro':    { in: 1.25,  out: 5    },
+};
+
+// Ratios
+const TOKENS_PER_WORD = 1 / 0.75;
+const TOKENS_PER_CHAR = 1 / 4;
+const WORDS_PER_PAGE = 250;
+
+const fmtN = v => new Intl.NumberFormat('en-US').format(Math.round(v * 100) / 100);
+const fmtCost = v => {
+  if (v === 0) return '$0.00';
+  if (v < 0.000001) return '$' + (v * 1e9).toFixed(4) + '/B';
+  if (v < 0.001) return '$' + v.toFixed(8);
+  if (v < 0.01) return '$' + v.toFixed(6);
+  if (v < 1) return '$' + v.toFixed(4);
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+};
+
+let updating = false;
+
+function getRate() {
+  const m = CONV_MODELS[document.getElementById('convModel').value];
+  const type = document.getElementById('tokenType').value;
+  return type === 'input' ? m.in : m.out;
+}
+
+function tokensToAll(tokens) {
+  return {
+    tokens,
+    words: tokens * 0.75,
+    chars: tokens * 4,
+    pages: (tokens * 0.75) / WORDS_PER_PAGE,
+  };
+}
+
+function setFields(vals, skipId) {
+  updating = true;
+  if (skipId !== 'i-tokens') document.getElementById('i-tokens').value = Math.round(vals.tokens) || '';
+  if (skipId !== 'i-words') document.getElementById('i-words').value = Math.round(vals.words) || '';
+  if (skipId !== 'i-chars') document.getElementById('i-chars').value = Math.round(vals.chars) || '';
+  if (skipId !== 'i-pages') document.getElementById('i-pages').value = Math.round(vals.pages * 100) / 100 || '';
+  if (skipId !== 'i-reqs') document.getElementById('i-reqs').value = Math.round(vals.tokens) || '';
+  updating = false;
+}
+
+function updateTables(tokens) {
+  const vals = tokensToAll(tokens);
+  const rate = getRate(); // per 1M tokens
+
+  // Unit table
+  const unitRows = [
+    ['Tokens', fmtN(vals.tokens), `≈ ${fmtN(vals.words)} words`],
+    ['Words', fmtN(vals.words), `≈ ${fmtN(vals.tokens)} tokens`],
+    ['Characters', fmtN(vals.chars), `≈ ${fmtN(vals.tokens)} tokens`],
+    ['Pages (250w)', (vals.pages).toFixed(2), `≈ ${fmtN(vals.chars)} characters`],
+    ['API requests', fmtN(tokens), `1 request = these tokens`],
+  ];
+  document.getElementById('unitTable').innerHTML = unitRows.map(r =>
+    `<tr><td>${r[0]}</td><td><strong>${r[1]}</strong></td><td style="color:var(--muted)">${r[2]}</td></tr>`
+  ).join('');
+
+  // Cost table
+  const costPerToken = rate / 1e6;
+  const baseCost = tokens * costPerToken;
+  const costRows = [
+    [`Per token (${fmtN(tokens)} tokens)`, fmtCost(baseCost)],
+    ['Per 1,000 tokens', fmtCost(1000 * costPerToken)],
+    ['Per 10,000 tokens', fmtCost(10000 * costPerToken)],
+    ['Per 100,000 tokens', fmtCost(100000 * costPerToken)],
+    ['Per 1M tokens', fmtCost(rate)],
+    ['Per 1K requests (this size)', fmtCost(baseCost * 1000)],
+    ['Per 100K requests', fmtCost(baseCost * 100000)],
+    ['Per day (1K req/day)', fmtCost(baseCost * 1000)],
+    ['Per month (30K req/mo)', fmtCost(baseCost * 30000)],
+    ['Per year (365K req/yr)', fmtCost(baseCost * 365000)],
+  ];
+  document.getElementById('costTable').innerHTML = costRows.map(r =>
+    `<tr><td>${r[0]}</td><td><strong>${r[1]}</strong></td></tr>`
+  ).join('');
+}
+
+function handleInput(sourceId) {
+  if (updating) return;
+  const v = parseFloat(document.getElementById(sourceId).value) || 0;
+  let tokens = v;
+  if (sourceId === 'i-words') tokens = v * TOKENS_PER_WORD;
+  else if (sourceId === 'i-chars') tokens = v * TOKENS_PER_CHAR;
+  else if (sourceId === 'i-pages') tokens = v * WORDS_PER_PAGE * TOKENS_PER_WORD;
+  // i-tokens and i-reqs are treated as tokens directly
+
+  const vals = tokensToAll(tokens);
+  setFields(vals, sourceId);
+  updateTables(tokens);
+}
+
+['i-tokens','i-words','i-chars','i-pages','i-reqs'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => handleInput(id));
+});
+['convModel','tokenType'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    const tokens = parseFloat(document.getElementById('i-tokens').value) || 0;
+    updateTables(tokens);
+  });
+});
+
+document.getElementById('copyTableBtn').addEventListener('click', () => {
+  const tokens = parseFloat(document.getElementById('i-tokens').value) || 0;
+  const rate = getRate();
+  const costPerToken = rate / 1e6;
+  const baseCost = tokens * costPerToken;
+  const model = document.getElementById('convModel').value;
+  const type = document.getElementById('tokenType').value;
+
+  const lines = [
+    `Token & Cost Conversion — ${model} (${type} tokens)`,
+    '='.repeat(50),
+    `Tokens: ${fmtN(tokens)}`,
+    `Words: ${fmtN(tokens * 0.75)}`,
+    `Characters: ${fmtN(tokens * 4)}`,
+    `Pages: ${((tokens * 0.75) / 250).toFixed(2)}`,
+    '',
+    'Cost conversions:',
+    `  Per token: ${fmtCost(baseCost)}`,
+    `  Per 1K tokens: ${fmtCost(1000 * costPerToken)}`,
+    `  Per 1M tokens: ${fmtCost(rate)}`,
+    `  Per 1K requests: ${fmtCost(baseCost * 1000)}`,
+    `  Per month (30K req/mo): ${fmtCost(baseCost * 30000)}`,
+  ];
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const btn = document.getElementById('copyTableBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy as text', 2000);
+  });
+});
+
+// Init
+handleInput('i-tokens');
+</script>
+</body>
+</html>

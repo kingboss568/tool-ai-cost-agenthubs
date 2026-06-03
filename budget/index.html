@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Budget Planner | AI Cost Calculator</title>
+  <meta name="description" content="Plan and track your monthly AI spending budget. Add multiple services, set limits, and see real-time cost vs budget tracking.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/budget/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .budget-header { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 20px; }
+    .service-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 10px; align-items: end; border: 1px solid var(--line); background: var(--surface); padding: 14px; }
+    .service-list { display: grid; gap: 10px; }
+    .budget-bar-wrap { margin: 14px 0; }
+    .budget-bar { height: 20px; border: 1px solid var(--line); background: var(--surface); overflow: hidden; }
+    .budget-bar-fill { height: 100%; transition: width .4s ease, background .3s; }
+    .budget-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .budget-stat { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .budget-stat span { display: block; color: var(--muted); font-size: .78rem; }
+    .budget-stat strong { display: block; font-size: 1.2rem; margin-top: 4px; }
+    .remove-btn { border: 1px solid var(--line); background: var(--surface); color: #c0392b; cursor: pointer; padding: 9px 12px; font-size: .82rem; align-self: end; }
+    .remove-btn:hover { background: #fee; }
+    .tier-badge { display: inline-block; padding: 2px 8px; font-size: .72rem; font-weight: 700; }
+    .tier-economy { background: #dcfce7; color: #166534; }
+    .tier-balanced { background: #dbeafe; color: #1e40af; }
+    .tier-premium { background: #fef3c7; color: #92400e; }
+    @media(max-width:900px) { .service-row { grid-template-columns: 1fr 1fr; } .budget-summary { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:600px) { .service-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/" aria-current="page">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="10" y="28" width="6" height="12" rx="1" fill="var(--accent)"/>
+            <rect x="21" y="20" width="6" height="20" rx="1" fill="var(--accent-2)"/>
+            <rect x="32" y="12" width="6" height="28" rx="1" fill="var(--accent)"/>
+            <line x1="8" y1="42" x2="40" y2="42" stroke="var(--ink)" stroke-width="2"/>
+          </svg>
+          <p class="eyebrow">Spending Tracker</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">AI Budget Planner</h1>
+          <p class="lede">Track your monthly AI spending across multiple services. Add services, set budgets, and see real-time cost vs budget with color-coded indicators.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Budget header -->
+        <div class="budget-header">
+          <div>
+            <label class="field" style="max-width:300px">
+              <span>Total monthly AI budget ($)</span>
+              <input type="number" id="totalBudget" value="1000" min="0" step="50">
+            </label>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="button secondary" id="saveBtn" type="button">Save</button>
+            <button class="button secondary" id="exportBtn" type="button">Export</button>
+            <button class="button secondary" id="clearBtn" type="button">Clear all</button>
+          </div>
+        </div>
+
+        <!-- Budget summary -->
+        <div class="budget-summary">
+          <div class="budget-stat"><span>Total monthly cost</span><strong id="s-total">$0.00</strong></div>
+          <div class="budget-stat"><span>Budget remaining</span><strong id="s-remaining">$0.00</strong></div>
+          <div class="budget-stat"><span>Services tracked</span><strong id="s-services">0</strong></div>
+          <div class="budget-stat"><span>Budget utilization</span><strong id="s-pct">0%</strong></div>
+        </div>
+
+        <!-- Budget bar -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:18px">
+          <div style="display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:8px">
+            <span>Budget usage</span>
+            <span id="barLabel">$0 of $1,000</span>
+          </div>
+          <div class="budget-bar">
+            <div class="budget-bar-fill" id="budgetFill" style="width:0%"></div>
+          </div>
+          <p id="budgetStatus" style="margin:8px 0 0;font-size:.85rem;color:var(--muted)">Under budget — add services below to track spending.</p>
+        </div>
+
+        <!-- Services list -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <h2 style="margin:0;font-size:1.1rem">Services</h2>
+            <button class="button" id="addBtn" type="button">+ Add service</button>
+          </div>
+          <div class="service-list" id="serviceList"></div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">Model tier pricing reference</h2>
+          <div class="example-grid">
+            <article>
+              <h3><span class="tier-badge tier-economy">Economy</span> Economy tier</h3>
+              <p>GPT-4o Mini, Claude 3 Haiku, Gemini Flash — input ~$0.10-0.25 per 1M tokens. Best for high-volume, cost-sensitive workloads.</p>
+            </article>
+            <article>
+              <h3><span class="tier-badge tier-balanced">Balanced</span> Balanced tier</h3>
+              <p>GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro — input ~$1.25-3 per 1M tokens. Best for quality-cost balance.</p>
+            </article>
+            <article>
+              <h3><span class="tier-badge tier-premium">Premium</span> Premium tier</h3>
+              <p>GPT-4 Turbo, Claude 3 Opus — input ~$10-15 per 1M tokens. Best for complex reasoning tasks.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const TIER_RATES = {
+  economy:  { in: 0.15,  out: 0.6  },
+  balanced: { in: 2.5,   out: 10   },
+  premium:  { in: 12,    out: 40   }
+};
+
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+
+let services = [];
+let nextId = 1;
+
+function calcServiceCost(s) {
+  const rates = TIER_RATES[s.tier] || TIER_RATES.balanced;
+  return (s.daily * 30) * ((s.inputTok / 1e6) * rates.in + (s.outputTok / 1e6) * rates.out);
+}
+
+function renderServices() {
+  const list = document.getElementById('serviceList');
+  if (services.length === 0) {
+    list.innerHTML = '<div style="border:1px dashed var(--line);padding:24px;text-align:center;color:var(--muted)">No services yet. Click "+ Add service" to start tracking.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  services.forEach(s => {
+    const cost = calcServiceCost(s);
+    const row = document.createElement('div');
+    row.className = 'service-row';
+    row.innerHTML = `
+      <label class="field"><span>Service name</span><input type="text" value="${s.name}" data-field="name" data-id="${s.id}"></label>
+      <label class="field"><span>Tier</span>
+        <select data-field="tier" data-id="${s.id}">
+          <option value="economy" ${s.tier==='economy'?'selected':''}>Economy</option>
+          <option value="balanced" ${s.tier==='balanced'?'selected':''}>Balanced</option>
+          <option value="premium" ${s.tier==='premium'?'selected':''}>Premium</option>
+        </select>
+      </label>
+      <label class="field"><span>Daily requests</span><input type="number" value="${s.daily}" min="0" data-field="daily" data-id="${s.id}"></label>
+      <label class="field"><span>Input tokens</span><input type="number" value="${s.inputTok}" min="0" data-field="inputTok" data-id="${s.id}"></label>
+      <label class="field"><span>Output tokens</span><input type="number" value="${s.outputTok}" min="0" data-field="outputTok" data-id="${s.id}"></label>
+      <div style="align-self:end">
+        <div style="border:1px solid var(--line);padding:9px 12px;background:color-mix(in srgb,var(--accent),transparent 88%);font-size:.85rem;font-weight:700;text-align:center;margin-bottom:6px">${fmt(cost)}/mo</div>
+        <button class="remove-btn" data-remove="${s.id}">Remove</button>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+
+  // Bind field changes
+  list.querySelectorAll('[data-field]').forEach(el => {
+    el.addEventListener('input', e => {
+      const id = +e.target.dataset.id;
+      const field = e.target.dataset.field;
+      const svc = services.find(s => s.id === id);
+      if (!svc) return;
+      svc[field] = field === 'name' ? e.target.value : (parseFloat(e.target.value) || 0);
+      updateSummary();
+      // Re-render cost display for this row
+      const costEl = e.target.closest('.service-row').querySelector('[style*="border:1px solid"]');
+      if (costEl) costEl.textContent = fmt(calcServiceCost(svc)) + '/mo';
+    });
+  });
+
+  list.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const id = +e.target.dataset.remove;
+      services = services.filter(s => s.id !== id);
+      renderServices();
+      updateSummary();
+    });
+  });
+}
+
+function updateSummary() {
+  const budget = parseFloat(document.getElementById('totalBudget').value) || 0;
+  const total = services.reduce((sum, s) => sum + calcServiceCost(s), 0);
+  const remaining = budget - total;
+  const pct = budget > 0 ? Math.min((total / budget) * 100, 200) : 0;
+
+  document.getElementById('s-total').textContent = fmt(total);
+  document.getElementById('s-total').style.color = total > budget ? '#c0392b' : 'inherit';
+  document.getElementById('s-remaining').textContent = fmt(remaining);
+  document.getElementById('s-remaining').style.color = remaining < 0 ? '#c0392b' : '#18764f';
+  document.getElementById('s-services').textContent = services.length;
+  document.getElementById('s-pct').textContent = (pct).toFixed(1) + '%';
+  document.getElementById('barLabel').textContent = `${fmt(total)} of ${fmt(budget)}`;
+
+  const fill = document.getElementById('budgetFill');
+  const displayPct = Math.min(pct, 100);
+  fill.style.width = displayPct + '%';
+  fill.style.background = pct > 100 ? '#ef4444' : pct > 80 ? '#f59e0b' : '#22c55e';
+
+  const status = document.getElementById('budgetStatus');
+  if (pct > 100) {
+    status.textContent = `Over budget by ${fmt(Math.abs(remaining))} — consider switching to economy tier models or reducing request volume.`;
+    status.style.color = '#c0392b';
+  } else if (pct > 80) {
+    status.textContent = `Approaching budget limit — only ${fmt(remaining)} remaining this month.`;
+    status.style.color = '#9a4f16';
+  } else {
+    status.textContent = `Under budget — ${fmt(remaining)} remaining this month.`;
+    status.style.color = '#18764f';
+  }
+}
+
+function addService(name = 'New service', tier = 'balanced', daily = 100, inputTok = 500, outputTok = 300) {
+  services.push({ id: nextId++, name, tier, daily, inputTok, outputTok });
+  renderServices();
+  updateSummary();
+}
+
+document.getElementById('addBtn').addEventListener('click', () => addService());
+document.getElementById('totalBudget').addEventListener('input', updateSummary);
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  localStorage.setItem('ai_budget_services', JSON.stringify(services));
+  localStorage.setItem('ai_budget_limit', document.getElementById('totalBudget').value);
+  const btn = document.getElementById('saveBtn');
+  btn.textContent = 'Saved!';
+  setTimeout(() => btn.textContent = 'Save', 2000);
+});
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const budget = document.getElementById('totalBudget').value;
+  const total = services.reduce((sum, s) => sum + calcServiceCost(s), 0);
+  let text = `AI Budget Plan\n==============\nMonthly Budget: ${fmt(budget)}\nTotal Cost: ${fmt(total)}\nRemaining: ${fmt(budget - total)}\n\nServices:\n`;
+  services.forEach(s => {
+    text += `- ${s.name} (${s.tier}): ${fmt(calcServiceCost(s))}/mo\n`;
+  });
+  const blob = new Blob([text], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ai-budget.txt';
+  a.click();
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (confirm('Clear all services?')) {
+    services = [];
+    renderServices();
+    updateSummary();
+  }
+});
+
+// Load from localStorage
+const saved = localStorage.getItem('ai_budget_services');
+const savedLimit = localStorage.getItem('ai_budget_limit');
+if (savedLimit) document.getElementById('totalBudget').value = savedLimit;
+if (saved) {
+  try {
+    const loaded = JSON.parse(saved);
+    loaded.forEach(s => { s.id = nextId++; services.push(s); });
+    renderServices();
+    updateSummary();
+  } catch(e) { /* ignore */ }
+}
+if (services.length === 0) {
+  addService('Customer Support Bot', 'economy', 500, 300, 200);
+  addService('Content Generator', 'balanced', 50, 1000, 800);
+}
+</script>
+</body>
+</html>
