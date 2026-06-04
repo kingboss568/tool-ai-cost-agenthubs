@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced AI Cost Calculator | AI Cost Calculator</title>
+  <meta name="description" content="Advanced multi-scenario AI cost calculator with caching, fine-tuning, embeddings, volume discounts, and enterprise features.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/calculator/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--line); margin-bottom: 18px; }
+    .tab-btn { padding: 10px 20px; border: none; background: none; cursor: pointer; font: inherit; font-size: .92rem; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .calc-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; }
+    .result-metric { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .result-metric span { display: block; color: var(--muted); font-size: .78rem; }
+    .result-metric strong { display: block; font-size: 1.25rem; margin-top: 4px; }
+    .result-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .result-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+    .scenario-card { border: 1px solid var(--line); padding: 16px; background: var(--surface); position: relative; }
+    .scenario-card .del-btn { position: absolute; top: 8px; right: 8px; border: none; background: none; color: var(--muted); cursor: pointer; font-size: 1rem; }
+    .scenario-card .del-btn:hover { color: #c0392b; }
+    .scenarios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media(max-width:900px) { .calc-layout,.result-grid-2,.result-grid-3,.scenarios-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/" aria-current="page">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="8" y="8" width="32" height="32" rx="2" stroke="var(--accent)" stroke-width="2" fill="none"/>
+            <line x1="8" y1="24" x2="40" y2="24" stroke="var(--accent)" stroke-width="1.5"/>
+            <line x1="24" y1="8" x2="24" y2="40" stroke="var(--accent)" stroke-width="1.5"/>
+            <circle cx="32" cy="16" r="4" fill="var(--accent-2)"/>
+          </svg>
+          <p class="eyebrow">Multi-Mode Calculator</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Advanced Cost Calculator</h1>
+          <p class="lede">Four calculation modes: basic costs, advanced features (caching, fine-tuning), enterprise scale, and scenario comparison. All with real-time results.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Tab bar -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:20px">
+          <div class="tab-bar">
+            <button class="tab-btn active" data-tab="basic">Basic</button>
+            <button class="tab-btn" data-tab="advanced">Advanced</button>
+            <button class="tab-btn" data-tab="enterprise">Enterprise</button>
+            <button class="tab-btn" data-tab="scenarios">Compare Scenarios</button>
+          </div>
+
+          <!-- BASIC TAB -->
+          <div class="tab-panel active" id="tab-basic">
+            <div class="calc-layout">
+              <div>
+                <div class="fields-grid">
+                  <label class="field field-wide">
+                    <span>Model</span>
+                    <select id="b-model">
+                      <option value="gpt4o-mini">GPT-4o Mini ($0.15/$0.60)</option>
+                      <option value="gpt4o" selected>GPT-4o ($2.50/$10)</option>
+                      <option value="claude-haiku">Claude 3 Haiku ($0.25/$1.25)</option>
+                      <option value="claude-sonnet">Claude 3.5 Sonnet ($3/$15)</option>
+                      <option value="gemini-flash">Gemini Flash ($0.075/$0.30)</option>
+                      <option value="gemini-pro">Gemini 1.5 Pro ($1.25/$5)</option>
+                      <option value="gpt4-turbo">GPT-4 Turbo ($10/$30)</option>
+                    </select>
+                  </label>
+                  <label class="field"><span>Daily requests</span><input type="number" id="b-daily" value="1000" min="1"></label>
+                  <label class="field"><span>Input tokens / req</span><input type="number" id="b-inputTok" value="500" min="1"></label>
+                  <label class="field"><span>Output tokens / req</span><input type="number" id="b-outputTok" value="300" min="1"></label>
+                </div>
+              </div>
+              <div>
+                <div class="result-grid-2">
+                  <div class="result-metric"><span>Daily cost</span><strong id="b-r-daily">—</strong></div>
+                  <div class="result-metric"><span>Monthly cost</span><strong id="b-r-monthly">—</strong></div>
+                  <div class="result-metric"><span>Annual cost</span><strong id="b-r-annual">—</strong></div>
+                  <div class="result-metric"><span>Cost per request</span><strong id="b-r-perReq">—</strong></div>
+                </div>
+                <div style="border-left:3px solid var(--accent);padding:10px 14px;background:color-mix(in srgb,var(--accent),transparent 94%);font-size:.85rem" id="b-advice"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ADVANCED TAB -->
+          <div class="tab-panel" id="tab-advanced">
+            <div class="calc-layout">
+              <div>
+                <div class="fields-grid">
+                  <label class="field field-wide">
+                    <span>Model</span>
+                    <select id="a-model">
+                      <option value="gpt4o-mini">GPT-4o Mini</option>
+                      <option value="gpt4o" selected>GPT-4o</option>
+                      <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+                      <option value="gemini-flash">Gemini Flash</option>
+                    </select>
+                  </label>
+                  <label class="field"><span>Daily requests</span><input type="number" id="a-daily" value="5000" min="1"></label>
+                  <label class="field"><span>Input tokens / req</span><input type="number" id="a-inputTok" value="1000" min="1"></label>
+                  <label class="field"><span>Output tokens / req</span><input type="number" id="a-outputTok" value="400" min="1"></label>
+                  <label class="field">
+                    <span>Cache hit rate <span class="field-hint">(% of input tokens cached)</span></span>
+                    <input type="range" id="a-cacheRate" value="40" min="0" max="100" step="5" style="padding:6px 0">
+                    <span id="a-cacheRateLabel" style="color:var(--accent);font-weight:700;font-size:.85rem">40%</span>
+                  </label>
+                  <label class="field">
+                    <span>Cache discount <span class="field-hint">(%off for cached tokens)</span></span>
+                    <input type="range" id="a-cacheDiscount" value="90" min="0" max="95" step="5" style="padding:6px 0">
+                    <span id="a-cacheDiscountLabel" style="color:var(--accent);font-weight:700;font-size:.85rem">90%</span>
+                  </label>
+                  <label class="field"><span>Monthly embedding requests</span><input type="number" id="a-embeds" value="100000" min="0"></label>
+                  <label class="field"><span>Avg embedding doc tokens</span><input type="number" id="a-embedTok" value="500" min="1"></label>
+                  <label class="field"><span>Monthly fine-tune training tokens (M)</span><input type="number" id="a-ftTokens" value="0" min="0" step="0.1"></label>
+                </div>
+              </div>
+              <div>
+                <div class="result-grid-2">
+                  <div class="result-metric"><span>Base monthly cost</span><strong id="a-r-base">—</strong></div>
+                  <div class="result-metric"><span>With caching savings</span><strong id="a-r-cached" style="color:#18764f">—</strong></div>
+                  <div class="result-metric"><span>Embedding cost/mo</span><strong id="a-r-embed">—</strong></div>
+                  <div class="result-metric"><span>Fine-tune cost</span><strong id="a-r-ft">—</strong></div>
+                  <div class="result-metric"><span>Total monthly</span><strong id="a-r-total">—</strong></div>
+                  <div class="result-metric"><span>Cache savings</span><strong id="a-r-saving" style="color:#18764f">—</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ENTERPRISE TAB -->
+          <div class="tab-panel" id="tab-enterprise">
+            <div class="calc-layout">
+              <div>
+                <div class="fields-grid">
+                  <label class="field"><span>Team size</span><input type="number" id="e-team" value="20" min="1"></label>
+                  <label class="field"><span>Requests per user / day</span><input type="number" id="e-reqPerUser" value="50" min="1"></label>
+                  <label class="field"><span>Input tokens / req</span><input type="number" id="e-inputTok" value="800" min="1"></label>
+                  <label class="field"><span>Output tokens / req</span><input type="number" id="e-outputTok" value="400" min="1"></label>
+                  <label class="field field-wide">
+                    <span>Primary model</span>
+                    <select id="e-model1">
+                      <option value="gpt4o" selected>GPT-4o (heavy tasks)</option>
+                      <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+                      <option value="gemini-pro">Gemini 1.5 Pro</option>
+                    </select>
+                  </label>
+                  <label class="field field-wide">
+                    <span>Economy model (% of traffic routed here)</span>
+                    <select id="e-model2">
+                      <option value="gpt4o-mini" selected>GPT-4o Mini (light tasks)</option>
+                      <option value="claude-haiku">Claude 3 Haiku</option>
+                      <option value="gemini-flash">Gemini 1.5 Flash</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Traffic on economy model (%)</span>
+                    <input type="range" id="e-ecoTraffic" value="60" min="0" max="100" step="5" style="padding:6px 0">
+                    <span id="e-ecoTrafficLabel" style="color:var(--accent);font-weight:700;font-size:.85rem">60%</span>
+                  </label>
+                  <label class="field">
+                    <span>Volume discount (%)</span>
+                    <input type="range" id="e-discount" value="15" min="0" max="40" step="5" style="padding:6px 0">
+                    <span id="e-discountLabel" style="color:var(--accent);font-weight:700;font-size:.85rem">15%</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <div class="result-grid-2">
+                  <div class="result-metric"><span>Per-user monthly</span><strong id="e-r-perUser">—</strong></div>
+                  <div class="result-metric"><span>Team monthly (gross)</span><strong id="e-r-gross">—</strong></div>
+                  <div class="result-metric"><span>After volume discount</span><strong id="e-r-discounted" style="color:#18764f">—</strong></div>
+                  <div class="result-metric"><span>Annual enterprise cost</span><strong id="e-r-annual">—</strong></div>
+                  <div class="result-metric"><span>Cost per 1000 req</span><strong id="e-r-per1k">—</strong></div>
+                  <div class="result-metric"><span>Routing savings</span><strong id="e-r-routeSave" style="color:#18764f">—</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCENARIOS TAB -->
+          <div class="tab-panel" id="tab-scenarios">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <p style="margin:0;color:var(--muted);font-size:.88rem">Save up to 3 scenarios to compare side by side.</p>
+              <button class="button" id="saveScenario" type="button">Save current scenario</button>
+            </div>
+            <div style="border:1px solid var(--line);padding:16px;background:var(--surface);margin-bottom:14px">
+              <h3 style="margin-bottom:12px;font-size:1rem">Quick scenario builder</h3>
+              <div class="fields-grid">
+                <label class="field"><span>Scenario name</span><input type="text" id="sc-name" value="Scenario A" placeholder="e.g. MVP launch"></label>
+                <label class="field"><span>Model</span>
+                  <select id="sc-model">
+                    <option value="gpt4o-mini">GPT-4o Mini</option>
+                    <option value="gpt4o" selected>GPT-4o</option>
+                    <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+                    <option value="gemini-flash">Gemini Flash</option>
+                  </select>
+                </label>
+                <label class="field"><span>Daily requests</span><input type="number" id="sc-daily" value="1000"></label>
+                <label class="field"><span>Input tokens</span><input type="number" id="sc-inputTok" value="500"></label>
+                <label class="field"><span>Output tokens</span><input type="number" id="sc-outputTok" value="300"></label>
+              </div>
+            </div>
+            <div class="scenarios-grid" id="scenariosGrid">
+              <div style="border:2px dashed var(--line);padding:30px;text-align:center;color:var(--muted)">Scenario 1 (empty)</div>
+              <div style="border:2px dashed var(--line);padding:30px;text-align:center;color:var(--muted)">Scenario 2 (empty)</div>
+              <div style="border:2px dashed var(--line);padding:30px;text-align:center;color:var(--muted)">Scenario 3 (empty)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const CALC_MODELS = {
+  'gpt4o-mini':    { in: 0.15,  out: 0.6  },
+  'gpt4o':         { in: 2.5,   out: 10   },
+  'gpt4-turbo':    { in: 10,    out: 30   },
+  'claude-haiku':  { in: 0.25,  out: 1.25 },
+  'claude-sonnet': { in: 3,     out: 15   },
+  'gemini-flash':  { in: 0.075, out: 0.3  },
+  'gemini-pro':    { in: 1.25,  out: 5    },
+};
+
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+const fmtS = v => { if(v < 0.01) return '$'+v.toFixed(6); return fmt(v); };
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Basic calc
+function calcBasic() {
+  const m = CALC_MODELS[document.getElementById('b-model').value] || CALC_MODELS['gpt4o'];
+  const daily = +document.getElementById('b-daily').value || 0;
+  const inTok = +document.getElementById('b-inputTok').value || 0;
+  const outTok = +document.getElementById('b-outputTok').value || 0;
+  const perReq = (inTok/1e6)*m.in + (outTok/1e6)*m.out;
+  const dailyCost = perReq * daily;
+  const monthly = dailyCost * 30;
+  const annual = monthly * 12;
+  document.getElementById('b-r-daily').textContent = fmt(dailyCost);
+  document.getElementById('b-r-monthly').textContent = fmt(monthly);
+  document.getElementById('b-r-annual').textContent = fmt(annual);
+  document.getElementById('b-r-perReq').textContent = fmtS(perReq);
+  const tier = monthly < 50 ? 'low-cost hobby project' : monthly < 500 ? 'small production service' : monthly < 5000 ? 'medium production workload' : 'high-volume enterprise workload';
+  document.getElementById('b-advice').textContent = `At this usage level you have a ${tier}. Monthly cost is ${fmt(monthly)}.`;
+}
+['b-model','b-daily','b-inputTok','b-outputTok'].forEach(id => document.getElementById(id).addEventListener('input', calcBasic));
+calcBasic();
+
+// Advanced calc
+function calcAdvanced() {
+  const m = CALC_MODELS[document.getElementById('a-model').value] || CALC_MODELS['gpt4o'];
+  const daily = +document.getElementById('a-daily').value || 0;
+  const inTok = +document.getElementById('a-inputTok').value || 0;
+  const outTok = +document.getElementById('a-outputTok').value || 0;
+  const cacheRate = +document.getElementById('a-cacheRate').value / 100;
+  const cacheDisc = +document.getElementById('a-cacheDiscount').value / 100;
+  const embeds = +document.getElementById('a-embeds').value || 0;
+  const embedTok = +document.getElementById('a-embedTok').value || 0;
+  const ftTokensMil = +document.getElementById('a-ftTokens').value || 0;
+
+  const baseCostPerReq = (inTok/1e6)*m.in + (outTok/1e6)*m.out;
+  const baseMonthly = baseCostPerReq * daily * 30;
+
+  const cachedInCost = (inTok * cacheRate / 1e6) * m.in * (1 - cacheDisc);
+  const uncachedInCost = (inTok * (1-cacheRate) / 1e6) * m.in;
+  const cachedMonthly = (cachedInCost + uncachedInCost + (outTok/1e6)*m.out) * daily * 30;
+  const cacheSavings = baseMonthly - cachedMonthly;
+
+  const EMBED_RATE = 0.02; // $0.02 per 1M tokens
+  const embedCost = (embeds * embedTok / 1e6) * EMBED_RATE;
+
+  const FT_RATE = 8; // $8 per 1M tokens for fine-tuning
+  const ftCost = ftTokensMil * FT_RATE;
+
+  const total = cachedMonthly + embedCost + ftCost;
+
+  document.getElementById('a-r-base').textContent = fmt(baseMonthly);
+  document.getElementById('a-r-cached').textContent = fmt(cachedMonthly);
+  document.getElementById('a-r-embed').textContent = fmt(embedCost);
+  document.getElementById('a-r-ft').textContent = fmt(ftCost);
+  document.getElementById('a-r-total').textContent = fmt(total);
+  document.getElementById('a-r-saving').textContent = fmt(cacheSavings);
+}
+document.getElementById('a-cacheRate').addEventListener('input', function(){ document.getElementById('a-cacheRateLabel').textContent=this.value+'%'; calcAdvanced(); });
+document.getElementById('a-cacheDiscount').addEventListener('input', function(){ document.getElementById('a-cacheDiscountLabel').textContent=this.value+'%'; calcAdvanced(); });
+['a-model','a-daily','a-inputTok','a-outputTok','a-embeds','a-embedTok','a-ftTokens'].forEach(id => document.getElementById(id).addEventListener('input', calcAdvanced));
+calcAdvanced();
+
+// Enterprise calc
+function calcEnterprise() {
+  const m1 = CALC_MODELS[document.getElementById('e-model1').value];
+  const m2 = CALC_MODELS[document.getElementById('e-model2').value];
+  const team = +document.getElementById('e-team').value || 1;
+  const reqPerUser = +document.getElementById('e-reqPerUser').value || 0;
+  const inTok = +document.getElementById('e-inputTok').value || 0;
+  const outTok = +document.getElementById('e-outputTok').value || 0;
+  const ecoTraffic = +document.getElementById('e-ecoTraffic').value / 100;
+  const discount = +document.getElementById('e-discount').value / 100;
+
+  const totalDailyReqs = team * reqPerUser;
+  const ecoReqs = totalDailyReqs * ecoTraffic;
+  const premReqs = totalDailyReqs * (1 - ecoTraffic);
+  const perReqEco = (inTok/1e6)*m2.in + (outTok/1e6)*m2.out;
+  const perReqPrem = (inTok/1e6)*m1.in + (outTok/1e6)*m1.out;
+  const dailyCost = ecoReqs * perReqEco + premReqs * perReqPrem;
+  const monthlyGross = dailyCost * 30;
+  const monthlyDiscounted = monthlyGross * (1 - discount);
+  const annual = monthlyDiscounted * 12;
+  const perUser = monthlyDiscounted / team;
+  const per1k = dailyCost / (totalDailyReqs / 1000);
+
+  // Savings from routing
+  const allPremCost = totalDailyReqs * 30 * perReqPrem;
+  const routeSavings = allPremCost - monthlyGross;
+
+  document.getElementById('e-r-perUser').textContent = fmt(perUser);
+  document.getElementById('e-r-gross').textContent = fmt(monthlyGross);
+  document.getElementById('e-r-discounted').textContent = fmt(monthlyDiscounted);
+  document.getElementById('e-r-annual').textContent = fmt(annual);
+  document.getElementById('e-r-per1k').textContent = fmtS(per1k);
+  document.getElementById('e-r-routeSave').textContent = fmt(routeSavings);
+}
+document.getElementById('e-ecoTraffic').addEventListener('input', function(){ document.getElementById('e-ecoTrafficLabel').textContent=this.value+'%'; calcEnterprise(); });
+document.getElementById('e-discount').addEventListener('input', function(){ document.getElementById('e-discountLabel').textContent=this.value+'%'; calcEnterprise(); });
+['e-model1','e-model2','e-team','e-reqPerUser','e-inputTok','e-outputTok'].forEach(id => document.getElementById(id).addEventListener('input', calcEnterprise));
+calcEnterprise();
+
+// Scenarios
+let scenarios = [];
+function calcScenario(name, modelKey, daily, inTok, outTok) {
+  const m = CALC_MODELS[modelKey];
+  const monthly = ((inTok/1e6)*m.in + (outTok/1e6)*m.out) * daily * 30;
+  return { name, modelKey, daily, inTok, outTok, monthly };
+}
+function renderScenarios() {
+  const grid = document.getElementById('scenariosGrid');
+  const cards = [...scenarios.map((s, i) => {
+    const best = scenarios.length > 1 && s.monthly === Math.min(...scenarios.map(x => x.monthly));
+    return `<div class="scenario-card" ${best ? 'style="border-color:var(--accent)"' : ''}>
+      <button class="del-btn" data-idx="${i}">×</button>
+      ${best ? '<span style="display:inline-block;background:var(--accent);color:#fff;font-size:.72rem;font-weight:700;padding:2px 10px;margin-bottom:8px">Best value</span>' : ''}
+      <strong style="display:block;margin-bottom:8px">${s.name}</strong>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:4px">${s.modelKey} · ${s.daily.toLocaleString()} req/day</div>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:10px">${s.inTok} in / ${s.outTok} out tokens</div>
+      <div style="font-size:1.4rem;font-weight:800;color:${best?'var(--accent)':'inherit'}">${fmt(s.monthly)}<span style="font-size:.8rem;font-weight:400;color:var(--muted)">/mo</span></div>
+    </div>`;
+  }), ...Array(Math.max(0, 3 - scenarios.length)).fill('<div style="border:2px dashed var(--line);padding:30px;text-align:center;color:var(--muted)">Empty slot</div>')];
+  grid.innerHTML = cards.slice(0,3).join('');
+  grid.querySelectorAll('.del-btn').forEach(btn => {
+    btn.addEventListener('click', () => { scenarios.splice(+btn.dataset.idx, 1); renderScenarios(); });
+  });
+}
+document.getElementById('saveScenario').addEventListener('click', () => {
+  if (scenarios.length >= 3) { alert('Maximum 3 scenarios. Remove one first.'); return; }
+  const s = calcScenario(
+    document.getElementById('sc-name').value || 'Scenario',
+    document.getElementById('sc-model').value,
+    +document.getElementById('sc-daily').value || 0,
+    +document.getElementById('sc-inputTok').value || 0,
+    +document.getElementById('sc-outputTok').value || 0
+  );
+  scenarios.push(s);
+  renderScenarios();
+});
+renderScenarios();
+</script>
+</body>
+</html>

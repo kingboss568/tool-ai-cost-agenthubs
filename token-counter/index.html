@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Token Counter | AI Cost Calculator</title>
+  <meta name="description" content="Count tokens in your text and estimate AI API costs. See character count, word count, estimated tokens, and cost at different model tiers.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/token-counter/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .tc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .tc-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 20px; }
+    .count-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .count-stat { border: 1px solid var(--line); padding: 12px; background: var(--surface); text-align: center; }
+    .count-stat span { display: block; color: var(--muted); font-size: .72rem; }
+    .count-stat strong { display: block; font-size: 1.4rem; margin-top: 4px; }
+    .cost-table { width: 100%; border-collapse: collapse; }
+    .cost-table th, .cost-table td { padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: .85rem; }
+    .cost-table th { background: color-mix(in srgb, var(--accent), transparent 90%); font-weight: 700; }
+    .history-item { border: 1px solid var(--line); padding: 10px 14px; background: var(--surface); cursor: pointer; }
+    .history-item:hover { border-color: var(--accent); }
+    .history-item span { display: block; color: var(--muted); font-size: .78rem; }
+    .tip-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .tip-list li { padding: 10px 12px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent), transparent 94%); font-size: .88rem; }
+    @media(max-width:800px) { .tc-grid { grid-template-columns: 1fr; } .count-stats { grid-template-columns: repeat(2,1fr); } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/" aria-current="page">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="8" y="12" width="32" height="5" rx="2" fill="var(--accent)"/>
+            <rect x="8" y="22" width="24" height="5" rx="2" fill="var(--accent)" opacity=".6"/>
+            <rect x="8" y="32" width="18" height="5" rx="2" fill="var(--accent)" opacity=".35"/>
+          </svg>
+          <p class="eyebrow">Text Analysis</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Token Counter</h1>
+          <p class="lede">Paste any text to instantly estimate token count and API costs across all major AI models. Based on GPT-style tokenization (~4 chars per token).</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Stats row -->
+        <div class="count-stats">
+          <div class="count-stat"><span>Characters</span><strong id="s-chars">0</strong></div>
+          <div class="count-stat"><span>Words</span><strong id="s-words">0</strong></div>
+          <div class="count-stat"><span>Est. tokens</span><strong id="s-tokens">0</strong></div>
+          <div class="count-stat"><span>Lines</span><strong id="s-lines">0</strong></div>
+        </div>
+
+        <div class="tc-grid">
+          <!-- Input -->
+          <div class="tc-panel">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <h2 style="margin:0;font-size:1.1rem">Your text</h2>
+              <div style="display:flex;gap:8px">
+                <button class="button secondary" id="clearBtn" type="button" style="font-size:.82rem;padding:7px 10px">Clear</button>
+                <button class="button secondary" id="pasteBtn" type="button" style="font-size:.82rem;padding:7px 10px">Paste</button>
+              </div>
+            </div>
+            <textarea id="inputText" rows="12" placeholder="Paste or type your text here to count tokens and estimate costs..."></textarea>
+            <p style="margin:8px 0 0;color:var(--muted);font-size:.78rem">Token estimate uses ~4 characters per token (GPT-style BPE approximation)</p>
+          </div>
+
+          <!-- Results -->
+          <div class="tc-panel">
+            <h2 style="margin-bottom:14px;font-size:1.1rem">Cost estimates</h2>
+            <div style="margin-bottom:12px">
+              <label class="field">
+                <span>Model preset</span>
+                <select id="modelPreset">
+                  <option value="">All models</option>
+                  <option value="gpt4o-mini">GPT-4o Mini</option>
+                  <option value="gpt4o">GPT-4o</option>
+                  <option value="claude-haiku">Claude 3 Haiku</option>
+                  <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+                  <option value="gemini-flash">Gemini 1.5 Flash</option>
+                  <option value="gemini-pro">Gemini 1.5 Pro</option>
+                </select>
+              </label>
+            </div>
+            <div class="table-wrap">
+              <table class="cost-table">
+                <thead><tr><th>Model</th><th>Input cost</th><th>Per 1M requests</th></tr></thead>
+                <tbody id="costTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- History -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <h2 style="margin:0;font-size:1.1rem">Recent texts</h2>
+            <button class="button secondary" id="clearHistBtn" style="font-size:.82rem;padding:7px 10px">Clear history</button>
+          </div>
+          <div id="historyList" style="display:grid;gap:8px">
+            <p style="color:var(--muted);font-size:.88rem">No history yet. Counted texts will appear here.</p>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:20px">
+          <h2 style="margin-bottom:14px;font-size:1.1rem">Tips to reduce token count</h2>
+          <ul class="tip-list">
+            <li>Remove unnecessary filler words and pleasantries — "Please kindly" can become "Please"</li>
+            <li>Use bullet points instead of paragraphs for structured data — reduces 20-30% tokens</li>
+            <li>Avoid repeating context the model already has — reference it briefly instead</li>
+            <li>Use abbreviations for common terms after first definition (e.g., "large language model (LLM)")</li>
+            <li>Remove examples if the task is clear enough without them</li>
+            <li>Consider prompt caching for system prompts used repeatedly (saves 90%+ on cached tokens)</li>
+          </ul>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const MODELS_TC = [
+  { name: "GPT-4o Mini",       key: "gpt4o-mini",    inRate: 0.15  },
+  { name: "GPT-4o",            key: "gpt4o",         inRate: 2.5   },
+  { name: "Claude 3 Haiku",    key: "claude-haiku",  inRate: 0.25  },
+  { name: "Claude 3.5 Sonnet", key: "claude-sonnet", inRate: 3.0   },
+  { name: "Claude 3 Opus",     key: "claude-opus",   inRate: 15.0  },
+  { name: "Gemini 1.5 Flash",  key: "gemini-flash",  inRate: 0.075 },
+  { name: "Gemini 1.5 Pro",    key: "gemini-pro",    inRate: 1.25  },
+  { name: "GPT-4 Turbo",       key: "gpt4-turbo",    inRate: 10.0  },
+  { name: "Llama 3.1 70B",     key: "llama-70b",     inRate: 0.59  },
+  { name: "Mistral Large",     key: "mistral-l",     inRate: 2.0   },
+];
+
+const fmtCost = v => {
+  if (v < 0.001) return '$' + (v * 1e6).toFixed(4) + '/M';
+  if (v < 0.01) return '$' + v.toFixed(6);
+  return '$' + v.toFixed(4);
+};
+const fmtBig = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+const n = v => new Intl.NumberFormat('en-US').format(v);
+
+function estimateTokens(text) {
+  if (!text) return 0;
+  // BPE approximation: ~4 chars per token
+  return Math.max(1, Math.round(text.length / 4));
+}
+
+let history = [];
+try { history = JSON.parse(sessionStorage.getItem('tc_history') || '[]'); } catch(e) {}
+
+function updateCostTable(tokens) {
+  const preset = document.getElementById('modelPreset').value;
+  const models = preset ? MODELS_TC.filter(m => m.key === preset) : MODELS_TC;
+  const tbody = document.getElementById('costTableBody');
+  if (!tokens) { tbody.innerHTML = '<tr><td colspan="3" style="color:var(--muted)">Enter text above to see costs</td></tr>'; return; }
+  tbody.innerHTML = models.map(m => {
+    const cost = (tokens / 1e6) * m.inRate;
+    const perMReq = cost * 1e6; // cost for 1M requests of this text
+    return `<tr><td>${m.name}</td><td>${fmtCost(cost)}</td><td>${fmtBig(perMReq)}</td></tr>`;
+  }).join('');
+}
+
+function renderHistory() {
+  const el = document.getElementById('historyList');
+  if (history.length === 0) {
+    el.innerHTML = '<p style="color:var(--muted);font-size:.88rem">No history yet. Counted texts will appear here.</p>';
+    return;
+  }
+  el.innerHTML = history.map((h, i) => `
+    <div class="history-item" data-idx="${i}">
+      <strong style="font-size:.88rem">${h.tokens.toLocaleString()} tokens</strong>
+      <span>${h.chars} chars · ${h.words} words · ${h.preview}</span>
+    </div>
+  `).join('');
+  el.querySelectorAll('.history-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.getElementById('inputText').value = history[+item.dataset.idx].text;
+      update();
+    });
+  });
+}
+
+function update() {
+  const text = document.getElementById('inputText').value;
+  const chars = text.length;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const tokens = estimateTokens(text);
+  const lines = text ? text.split('\n').length : 0;
+
+  document.getElementById('s-chars').textContent = n(chars);
+  document.getElementById('s-words').textContent = n(words);
+  document.getElementById('s-tokens').textContent = n(tokens);
+  document.getElementById('s-lines').textContent = n(lines);
+
+  updateCostTable(tokens);
+
+  // Save to history on significant pause
+  if (text.length > 20) {
+    const preview = text.slice(0, 60).replace(/\n/g, ' ') + (text.length > 60 ? '…' : '');
+    const entry = { text, tokens, chars, words, preview };
+    history = history.filter(h => h.text !== text);
+    history.unshift(entry);
+    history = history.slice(0, 5);
+    sessionStorage.setItem('tc_history', JSON.stringify(history));
+    renderHistory();
+  }
+}
+
+document.getElementById('inputText').addEventListener('input', update);
+document.getElementById('modelPreset').addEventListener('change', () => {
+  const tokens = estimateTokens(document.getElementById('inputText').value);
+  updateCostTable(tokens);
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+  document.getElementById('inputText').value = '';
+  update();
+});
+document.getElementById('pasteBtn').addEventListener('click', async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    document.getElementById('inputText').value = text;
+    update();
+  } catch(e) { alert('Clipboard access denied. Please paste manually.'); }
+});
+document.getElementById('clearHistBtn').addEventListener('click', () => {
+  history = [];
+  sessionStorage.removeItem('tc_history');
+  renderHistory();
+});
+
+renderHistory();
+updateCostTable(0);
+</script>
+</body>
+</html>

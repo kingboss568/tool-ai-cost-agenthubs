@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | AI Cost Calculator</title>
+  <meta name="description" content="Get in touch with the AI Cost Calculator team — technical support, business inquiries, pricing corrections, and feedback.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/contact/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label{padding:6px 11px 2px;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    .contact-form{display:grid;gap:16px;max-width:600px}
+    .contact-form label{display:grid;gap:6px;font-weight:700;font-size:.9rem}
+    .contact-form input,.contact-form select,.contact-form textarea{padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:var(--surface);width:100%}
+    .contact-form textarea{min-height:140px;resize:vertical}
+    .char-count{font-size:.78rem;color:var(--muted);text-align:right}
+    .success-msg{padding:20px;background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;color:#065f46;display:none}
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/" aria-current="page">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Get in Touch</p>
+          <h1>Contact Us</h1>
+          <p class="lede">Questions, pricing corrections, business inquiries, or technical issues — we read every message.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:20px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="content-band" style="margin-top:0;display:grid;grid-template-columns:1fr 280px;gap:24px">
+          <div>
+            <h2 style="margin-bottom:20px">Send a Message</h2>
+            <div class="success-msg" id="successMsg">
+              <strong>Message saved!</strong><br>
+              Thank you for reaching out. Your message has been stored locally. We'll respond via email within 2 business days.
+            </div>
+            <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+              <label>Name <input type="text" id="cName" placeholder="Your name" required></label>
+              <label>Email <input type="email" id="cEmail" placeholder="your@email.com" required></label>
+              <label>Subject
+                <select id="cSubject">
+                  <option>Technical Support</option>
+                  <option>Pricing Data Correction</option>
+                  <option>Business Inquiry</option>
+                  <option>Press / Media</option>
+                  <option>Partnership</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label>
+                Message <span style="font-weight:400;color:var(--muted)">(max 1000 characters)</span>
+                <textarea id="cMessage" maxlength="1000" placeholder="Describe your question or issue in detail…" required></textarea>
+                <div class="char-count"><span id="charCount">0</span> / 1000</div>
+              </label>
+              <button class="button" type="submit">Send Message</button>
+            </form>
+          </div>
+          <div>
+            <h2 style="margin-bottom:16px">Other Ways</h2>
+            <div style="display:grid;gap:14px">
+              <div style="padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+                <strong style="display:block;margin-bottom:4px">📧 Email</strong>
+                <span style="color:var(--muted);font-size:.9rem">hello@agenthubs.org</span>
+              </div>
+              <div style="padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+                <strong style="display:block;margin-bottom:4px">💬 Feedback</strong>
+                <span style="color:var(--muted);font-size:.9rem"><a href="../feedback/" style="color:var(--accent)">Submit feature requests</a> via our feedback form.</span>
+              </div>
+              <div style="padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+                <strong style="display:block;margin-bottom:4px">❓ FAQ</strong>
+                <span style="color:var(--muted);font-size:.9rem">Check the <a href="../faq/" style="color:var(--accent)">FAQ</a> or <a href="../help/" style="color:var(--accent)">Help Center</a> first — most questions are answered there.</span>
+              </div>
+              <div style="padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+                <strong style="display:block;margin-bottom:6px">⏱ Response Time</strong>
+                <span style="color:var(--muted);font-size:.9rem">1–2 business days for most inquiries.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav style="display:flex;gap:14px"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../about/">About</a></nav></footer>
+  <style>@media(max-width:900px){.content-band>div{grid-template-columns:1fr!important}}</style>
+  <script>
+    document.getElementById('cMessage').addEventListener('input', function(){
+      document.getElementById('charCount').textContent = this.value.length;
+    });
+    function submitForm(e) {
+      e.preventDefault();
+      const msg = {
+        name: document.getElementById('cName').value,
+        email: document.getElementById('cEmail').value,
+        subject: document.getElementById('cSubject').value,
+        message: document.getElementById('cMessage').value,
+        date: new Date().toISOString()
+      };
+      const stored = JSON.parse(localStorage.getItem('contact-messages') || '[]');
+      stored.push(msg);
+      localStorage.setItem('contact-messages', JSON.stringify(stored));
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

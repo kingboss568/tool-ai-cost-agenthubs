@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI API Documentation & Code Examples | agenthubs.org</title>
+  <meta name="description" content="Practical code examples for OpenAI, Anthropic, and Google AI APIs — authentication, token counting, cost optimization patterns in Python and JavaScript.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/api-docs/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label{padding:6px 11px 2px;color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+    .lang-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:0}
+    .lang-tab{padding:8px 18px;border:none;background:none;cursor:pointer;font-weight:700;font-size:.9rem;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px}
+    .lang-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .code-panel{display:none}
+    .code-panel.active{display:block}
+    pre.code-block{font-size:.82rem;padding:20px;overflow-x:auto;border-radius:0 0 8px 8px;margin-top:0}
+    .api-section{margin-bottom:36px}
+    .api-section h2{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:16px}
+    .tip-box{padding:14px 16px;background:color-mix(in srgb,var(--accent),transparent 90%);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;margin:16px 0}
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/" aria-current="page">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">API Reference</p>
+          <h1>AI API Code Examples</h1>
+          <p class="lede">Practical patterns for making cost-efficient AI API calls in Python and JavaScript — authentication, token counting, streaming, caching, and batch processing.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:20px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="content-band" style="margin-top:0">
+
+          <div class="api-section">
+            <h2>1. Basic API Call</h2>
+            <div class="lang-tabs">
+              <button class="lang-tab active" onclick="switchTab(this,'basic','py')">Python</button>
+              <button class="lang-tab" onclick="switchTab(this,'basic','js')">JavaScript</button>
+            </div>
+            <div id="basic-py" class="code-panel active" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">from openai import OpenAI
+
+client = OpenAI(api_key="sk-...")   # Set OPENAI_API_KEY env var instead
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is a token in AI?"}
+    ],
+    max_tokens=200   # Always set this to control output cost
+)
+
+print(response.choices[0].message.content)
+print(f"Tokens used: {response.usage.prompt_tokens} in, {response.usage.completion_tokens} out")</pre>
+            </div>
+            <div id="basic-js" class="code-panel" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">import OpenAI from "openai";
+
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const response = await client.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "What is a token in AI?" }
+  ],
+  max_tokens: 200   // Always set this to control output cost
+});
+
+console.log(response.choices[0].message.content);
+console.log(`Tokens: ${response.usage.prompt_tokens} in, ${response.usage.completion_tokens} out`);</pre>
+            </div>
+          </div>
+
+          <div class="api-section">
+            <h2>2. Cost Calculation Pattern</h2>
+            <p style="color:var(--muted)">Always log token usage and calculate cost in real time so you can monitor spend:</p>
+            <div class="lang-tabs">
+              <button class="lang-tab active" onclick="switchTab(this,'cost','py')">Python</button>
+              <button class="lang-tab" onclick="switchTab(this,'cost','js')">JavaScript</button>
+            </div>
+            <div id="cost-py" class="code-panel active" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">PRICING = {
+    "gpt-4o":      {"in": 2.50, "out": 10.00},
+    "gpt-4o-mini": {"in": 0.15, "out": 0.60},
+    "claude-3-5-sonnet-20241022": {"in": 3.00, "out": 15.00},
+    "claude-3-haiku-20240307":    {"in": 0.25, "out": 1.25},
+}
+
+def calculate_cost(model, input_tokens, output_tokens):
+    rates = PRICING.get(model, {"in": 0, "out": 0})
+    cost_in  = (input_tokens  / 1_000_000) * rates["in"]
+    cost_out = (output_tokens / 1_000_000) * rates["out"]
+    return cost_in + cost_out
+
+# After API call:
+usage = response.usage
+cost = calculate_cost("gpt-4o-mini", usage.prompt_tokens, usage.completion_tokens)
+print(f"This call cost: ${cost:.6f}")</pre>
+            </div>
+            <div id="cost-js" class="code-panel" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">const PRICING = {
+  "gpt-4o":      { in: 2.50, out: 10.00 },
+  "gpt-4o-mini": { in: 0.15, out: 0.60 },
+  "claude-3-5-sonnet-20241022": { in: 3.00, out: 15.00 },
+};
+
+function calculateCost(model, inputTokens, outputTokens) {
+  const rates = PRICING[model] ?? { in: 0, out: 0 };
+  return (inputTokens / 1e6) * rates.in + (outputTokens / 1e6) * rates.out;
+}
+
+const { usage } = response;
+const cost = calculateCost("gpt-4o-mini", usage.prompt_tokens, usage.completion_tokens);
+console.log(`This call cost: $${cost.toFixed(6)}`);</pre>
+            </div>
+          </div>
+
+          <div class="ad-unit" style="margin:20px 0">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+
+          <div class="api-section">
+            <h2>3. Streaming (Reduce Perceived Latency)</h2>
+            <div class="tip-box">Streaming doesn't reduce cost — it improves user experience by showing tokens as they arrive instead of waiting for the full response.</div>
+            <div class="lang-tabs">
+              <button class="lang-tab active" onclick="switchTab(this,'stream','py')">Python</button>
+              <button class="lang-tab" onclick="switchTab(this,'stream','js')">JavaScript</button>
+            </div>
+            <div id="stream-py" class="code-panel active" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">with client.chat.completions.stream(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Explain prefix caching briefly."}],
+    max_tokens=300
+) as stream:
+    for chunk in stream:
+        if chunk.choices[0].delta.content:
+            print(chunk.choices[0].delta.content, end="", flush=True)
+
+# Get final usage after streaming
+final = stream.get_final_completion()
+print(f"\nTotal tokens: {final.usage.total_tokens}")</pre>
+            </div>
+            <div id="stream-js" class="code-panel" style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px">
+<pre class="code-block">const stream = await client.chat.completions.create({
+  model: "gpt-4o-mini",
+  messages: [{ role: "user", content: "Explain prefix caching briefly." }],
+  max_tokens: 300,
+  stream: true
+});
+
+for await (const chunk of stream) {
+  const delta = chunk.choices[0]?.delta?.content ?? "";
+  process.stdout.write(delta);
+}</pre>
+            </div>
+          </div>
+
+          <div class="api-section">
+            <h2>4. Anthropic Prompt Caching</h2>
+            <p style="color:var(--muted)">Cache long system prompts to save up to 90% on repeated calls with the same prefix:</p>
+<pre class="code-block" style="border:1px solid var(--line);border-radius:8px">import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=1024,
+    system=[{
+        "type": "text",
+        "text": "You are a legal document analyst. " + very_long_context,  # 2000+ tokens
+        "cache_control": {"type": "ephemeral"}  # Cache this prefix!
+    }],
+    messages=[{"role": "user", "content": "Summarize the liability section."}]
+)
+
+# Check cache hit in response headers
+print(f"Cache read tokens: {response.usage.cache_read_input_tokens}")
+print(f"Cache creation tokens: {response.usage.cache_creation_input_tokens}")
+# Cache reads cost 10% of normal input price = 90% savings on cached content</pre>
+          </div>
+
+          <div class="api-section">
+            <h2>5. Error Handling & Retry Logic</h2>
+<pre class="code-block" style="border:1px solid var(--line);border-radius:8px">import time
+from openai import RateLimitError, APIError
+
+def call_with_retry(client, **kwargs, max_retries=4):
+    """Exponential backoff for rate limits and transient errors."""
+    for attempt in range(max_retries):
+        try:
+            return client.chat.completions.create(**kwargs)
+        except RateLimitError:
+            wait = 2 ** attempt   # 1s, 2s, 4s, 8s
+            print(f"Rate limited. Waiting {wait}s...")
+            time.sleep(wait)
+        except APIError as e:
+            if e.status_code >= 500:   # Server error — retry
+                time.sleep(2 ** attempt)
+            else:
+                raise                  # Client error — don't retry
+    raise Exception("Max retries exceeded")</pre>
+          </div>
+
+          <div style="padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-top:8px">
+            <strong>Estimate costs before you build →</strong>
+            <p style="margin:8px 0 14px;color:var(--muted)">Use our calculators to model your API usage costs before writing a single line of code.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <a href="../tool/" class="button" style="text-decoration:none">Cost Calculator</a>
+              <a href="../compare/" class="button secondary" style="text-decoration:none">Model Comparison</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav style="display:flex;gap:14px"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../about/">About</a></nav></footer>
+  <script>
+    function switchTab(btn, group, lang) {
+      btn.closest('.api-section').querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      btn.closest('.api-section').querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`${group}-${lang}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

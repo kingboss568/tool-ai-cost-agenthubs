@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Models Database | AI Cost Calculator</title>
+  <meta name="description" content="Searchable, filterable database of AI models with pricing, context windows, speed ratings, and best use cases for 2024.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/models/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .model-filters { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; align-items:center; }
+    .model-filters input, .model-filters select { max-width:220px; }
+    .speed-badge { display:inline-block; padding:2px 8px; font-size:.75rem; font-weight:700; border:1px solid currentColor; }
+    .speed-vf { color:#18764f; }
+    .speed-f  { color:#1c7f84; }
+    .speed-m  { color:#9a4f16; }
+    .speed-s  { color:#b91c1c; }
+    .provider-badge { display:inline-block; padding:2px 8px; font-size:.75rem; background:color-mix(in srgb,var(--accent),transparent 88%); border:1px solid var(--line); }
+    tr.expanded-row td { background:color-mix(in srgb,var(--accent),transparent 94%); }
+    .detail-panel { padding:12px; font-size:.88rem; color:var(--muted); line-height:1.7; }
+    .detail-panel strong { color:var(--ink); }
+    tr[data-hidden="true"] { display:none; }
+    th[data-sort] { cursor:pointer; user-select:none; }
+    th[data-sort]:hover { background:color-mix(in srgb,var(--accent),transparent 80%); }
+    th[data-sort]::after { content:" ↕"; opacity:.45; font-size:.75rem; }
+    th[data-sort].asc::after { content:" ↑"; opacity:1; }
+    th[data-sort].desc::after { content:" ↓"; opacity:1; }
+    .result-count { font-size:.82rem; color:var(--muted); }
+    .hero-svg { display:block; margin:0 auto 8px; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/" aria-current="page">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Reference</p>
+          <h1>AI Models Database</h1>
+          <p class="lede">Comprehensive, searchable database of AI language models with live pricing data, context windows, and performance ratings. Click any row to expand details.</p>
+        </div>
+
+        <div class="workspace-card">
+          <div class="model-filters">
+            <input type="search" id="modelSearch" placeholder="Search models or providers…" aria-label="Search models">
+            <select id="filterProvider" aria-label="Filter by provider">
+              <option value="">All Providers</option>
+              <option>OpenAI</option>
+              <option>Anthropic</option>
+              <option>Google</option>
+              <option>Meta</option>
+              <option>Mistral</option>
+              <option>Cohere</option>
+            </select>
+            <select id="filterSpeed" aria-label="Filter by speed">
+              <option value="">All Speeds</option>
+              <option>Very Fast</option>
+              <option>Fast</option>
+              <option>Moderate</option>
+              <option>Slow</option>
+            </select>
+            <select id="sortBy" aria-label="Sort by">
+              <option value="">Default order</option>
+              <option value="input">Sort by Input Price</option>
+              <option value="output">Sort by Output Price</option>
+              <option value="context">Sort by Context Window</option>
+            </select>
+            <span class="result-count" id="resultCount"></span>
+          </div>
+
+          <div class="table-wrap">
+            <table id="modelsTable">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Provider</th>
+                  <th data-sort="input">Input $/M tok</th>
+                  <th data-sort="output">Output $/M tok</th>
+                  <th data-sort="context">Context</th>
+                  <th>Speed</th>
+                  <th>Best For</th>
+                </tr>
+              </thead>
+              <tbody id="modelsTbody">
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted);margin-top:10px">Pricing as of late 2024. Verify with provider before budgeting. <a href="../pricing-guide/">Pricing Guide</a> · <a href="../compare/">Compare Models</a></p>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Understanding This Data</h2>
+          <div class="two-col">
+            <div>
+              <h3 style="font-size:1rem">Token Pricing</h3>
+              <p style="color:var(--muted);font-size:.9rem;line-height:1.65">All prices shown per million tokens. To calculate cost per request: <code>(input_tokens × input_rate + output_tokens × output_rate) / 1,000,000</code>. A typical chat message is 200–800 tokens in, 100–500 tokens out.</p>
+              <h3 style="font-size:1rem;margin-top:16px">Context Window</h3>
+              <p style="color:var(--muted);font-size:.9rem;line-height:1.65">The maximum number of tokens a model can process in one call (input + output combined). Larger windows allow longer documents and conversations but may cost more on long-context providers.</p>
+            </div>
+            <div>
+              <h3 style="font-size:1rem">Speed Ratings</h3>
+              <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:18px">
+                <li><strong>Very Fast</strong> — &gt;150 tok/s, &lt;10ms/tok latency</li>
+                <li><strong>Fast</strong> — 70–150 tok/s, 10–25ms/tok</li>
+                <li><strong>Moderate</strong> — 40–70 tok/s, 25–40ms/tok</li>
+                <li><strong>Slow</strong> — &lt;40 tok/s (often reasoning models)</li>
+              </ul>
+              <h3 style="font-size:1rem;margin-top:16px">Use This Data With</h3>
+              <p style="color:var(--muted);font-size:.9rem;line-height:1.65">
+                <a href="../tool/">Cost Calculator</a> · <a href="../compare/">Model Comparison</a> · <a href="../benchmarks/">Benchmarks</a> · <a href="../model-picker/">Model Picker</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Quick Cost Calculator</h2>
+          <p style="color:var(--muted);font-size:.9rem">Enter token counts to calculate cost for any model in the table above.</p>
+          <div class="fields-grid">
+            <div class="field">
+              <span>Input tokens per request</span>
+              <input type="number" id="qcInput" value="1000" min="0">
+            </div>
+            <div class="field">
+              <span>Output tokens per request</span>
+              <input type="number" id="qcOutput" value="500" min="0">
+            </div>
+            <div class="field">
+              <span>Requests per day</span>
+              <input type="number" id="qcRequests" value="1000" min="0">
+            </div>
+            <div class="field">
+              <span>Select model</span>
+              <select id="qcModel"></select>
+            </div>
+          </div>
+          <div class="result-summary" id="qcResult" style="margin-top:16px">
+            Enter values above to see cost estimate.
+          </div>
+          <button class="button" onclick="calcQuick()" style="margin-top:8px">Calculate Cost</button>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+<script>
+const MODELS = [
+  { name:"GPT-4o",           provider:"OpenAI",     input:2.50,  output:10.00, context:"128K", contextN:128, speed:"Fast",      bestFor:"General, Vision",       detail:"OpenAI flagship multimodal model. Excellent at reasoning, vision, and code. Supports function calling and structured outputs. Best balance of capability and cost in the OpenAI lineup." },
+  { name:"GPT-4o Mini",      provider:"OpenAI",     input:0.15,  output:0.60,  context:"128K", contextN:128, speed:"Very Fast", bestFor:"Cost-effective chat",    detail:"Lightweight version of GPT-4o. Ideal for high-volume applications where cost matters most. Supports vision and function calling. 94% cheaper than GPT-4o for comparable tasks." },
+  { name:"GPT-4 Turbo",      provider:"OpenAI",     input:10.00, output:30.00, context:"128K", contextN:128, speed:"Fast",      bestFor:"Complex reasoning",      detail:"Previous generation flagship model. Strong at complex reasoning and instruction following. Now largely superseded by GPT-4o which is faster and cheaper." },
+  { name:"o1 Preview",       provider:"OpenAI",     input:15.00, output:60.00, context:"128K", contextN:128, speed:"Slow",      bestFor:"Deep reasoning",         detail:"Chain-of-thought reasoning model optimized for complex math, science, and coding problems. Significantly slower than other models but produces higher-quality reasoning. Not suited for real-time applications." },
+  { name:"o1 Mini",          provider:"OpenAI",     input:3.00,  output:12.00, context:"128K", contextN:128, speed:"Fast",      bestFor:"Reasoning tasks",        detail:"Smaller, faster version of o1. Good balance of reasoning capability and speed. Best for coding, math, and logic tasks where GPT-4o falls short but full o1 is overkill." },
+  { name:"Claude 3.5 Sonnet",provider:"Anthropic",  input:3.00,  output:15.00, context:"200K", contextN:200, speed:"Fast",      bestFor:"Code, Analysis",         detail:"Anthropic's most capable model. Exceptional at code generation, analysis, and long-document understanding. 200K context window allows entire codebases. Top scores on coding benchmarks." },
+  { name:"Claude 3 Haiku",   provider:"Anthropic",  input:0.25,  output:1.25,  context:"200K", contextN:200, speed:"Very Fast", bestFor:"Lightweight tasks",       detail:"Fastest and most affordable Claude model. Suitable for classification, summarization, and extraction tasks. Excellent throughput for real-time applications. Best economy choice in the Anthropic family." },
+  { name:"Claude 3 Opus",    provider:"Anthropic",  input:15.00, output:75.00, context:"200K", contextN:200, speed:"Moderate",  bestFor:"Complex tasks",          detail:"Anthropic's most powerful model for highly complex tasks. Superior reasoning, nuanced understanding of ambiguous instructions. Highest cost in the lineup — reserve for tasks where quality is paramount." },
+  { name:"Gemini 1.5 Pro",   provider:"Google",     input:1.25,  output:5.00,  context:"1M",   contextN:1000, speed:"Fast",     bestFor:"Long context",           detail:"Google's flagship model with industry-leading 1M token context window. Can process entire books, large codebases, or hours of video transcripts. Excellent multimodal capabilities." },
+  { name:"Gemini 1.5 Flash", provider:"Google",     input:0.075, output:0.30,  context:"1M",   contextN:1000, speed:"Very Fast",bestFor:"Speed-critical tasks",   detail:"Optimized for speed and efficiency with the same 1M context window as Pro. Best price-per-token ratio among major models. Ideal for summarization, classification, and batch processing." },
+  { name:"Gemini 2.0 Flash", provider:"Google",     input:0.10,  output:0.40,  context:"1M",   contextN:1000, speed:"Very Fast",bestFor:"Latest Google model",    detail:"Next-generation Flash model with improved reasoning and multimodal capabilities. Native tool use, code execution, and grounding. Successor to Gemini 1.5 Flash with better quality at similar price." },
+  { name:"Llama 3.1 70B",    provider:"Meta",       input:0.59,  output:0.79,  context:"128K", contextN:128, speed:"Fast",      bestFor:"Open source",            detail:"Meta's largest open-weights model. Available via multiple inference providers. Strong reasoning and coding capabilities at a fraction of proprietary costs. Self-hostable for maximum privacy and control." },
+  { name:"Llama 3.1 8B",     provider:"Meta",       input:0.18,  output:0.18,  context:"128K", contextN:128, speed:"Very Fast", bestFor:"Budget open source",     detail:"Smallest Llama 3.1 model, still competitive with much larger closed models on many tasks. Excellent for self-hosting on consumer hardware. Flat input/output pricing is unique in the market." },
+  { name:"Mistral Large 2",  provider:"Mistral",    input:2.00,  output:6.00,  context:"128K", contextN:128, speed:"Fast",      bestFor:"European AI",            detail:"Mistral's flagship model from France. Strong multilingual capabilities, especially European languages. Good at coding and instruction following. GDPR-friendly option for European deployments." },
+  { name:"Mistral 7B",       provider:"Mistral",    input:0.25,  output:0.25,  context:"32K",  contextN:32,  speed:"Very Fast", bestFor:"Efficient lightweight",  detail:"Small but punchy open-weights model. One of the best models at its size class. Available for self-hosting or via Mistral's API. Flat pricing and excellent speed make it ideal for simple tasks." },
+  { name:"Command R+",       provider:"Cohere",     input:3.00,  output:15.00, context:"128K", contextN:128, speed:"Fast",      bestFor:"RAG, Enterprise",        detail:"Cohere's flagship model optimized for Retrieval-Augmented Generation. Built-in grounding and citation capabilities. Includes a specialized RAG API that simplifies document Q&A implementations." },
+  { name:"Command R",        provider:"Cohere",     input:0.50,  output:1.50,  context:"128K", contextN:128, speed:"Fast",      bestFor:"Lightweight RAG",        detail:"Smaller, cost-effective RAG model from Cohere. Great for document search and extraction at scale. Supports multi-step tool use and has native RAG pipeline integrations." },
+];
+
+const speedClass = { "Very Fast":"speed-vf","Fast":"speed-f","Moderate":"speed-m","Slow":"speed-s" };
+const tbody = document.getElementById('modelsTbody');
+const countEl = document.getElementById('resultCount');
+let sortCol = null, sortDir = 1;
+
+function renderTable() {
+  const q = document.getElementById('modelSearch').value.toLowerCase();
+  const prov = document.getElementById('filterProvider').value;
+  const spd = document.getElementById('filterSpeed').value;
+  const srt = document.getElementById('sortBy').value;
+
+  let data = MODELS.filter(m =>
+    (!q || m.name.toLowerCase().includes(q) || m.provider.toLowerCase().includes(q) || m.bestFor.toLowerCase().includes(q)) &&
+    (!prov || m.provider === prov) &&
+    (!spd || m.speed === spd)
+  );
+
+  if (srt === 'input') data.sort((a,b) => a.input - b.input);
+  else if (srt === 'output') data.sort((a,b) => a.output - b.output);
+  else if (srt === 'context') data.sort((a,b) => b.contextN - a.contextN);
+
+  tbody.innerHTML = '';
+  data.forEach((m, i) => {
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = `
+      <td><strong>${m.name}</strong></td>
+      <td><span class="provider-badge">${m.provider}</span></td>
+      <td>$${m.input.toFixed(3)}</td>
+      <td>$${m.output.toFixed(3)}</td>
+      <td>${m.context}</td>
+      <td><span class="speed-badge ${speedClass[m.speed]}">${m.speed}</span></td>
+      <td style="font-size:.85rem;color:var(--muted)">${m.bestFor}</td>
+    `;
+    tr.addEventListener('click', () => toggleDetail(m, tr));
+    tbody.appendChild(tr);
+  });
+
+  countEl.textContent = `${data.length} model${data.length !== 1 ? 's' : ''} shown`;
+  populateModelSelect(data);
+}
+
+function toggleDetail(m, tr) {
+  const nextRow = tr.nextElementSibling;
+  if (nextRow && nextRow.classList.contains('expanded-row')) {
+    nextRow.remove();
+    return;
+  }
+  const detailTr = document.createElement('tr');
+  detailTr.classList.add('expanded-row');
+  detailTr.innerHTML = `<td colspan="7"><div class="detail-panel">
+    <strong>${m.name}</strong> by ${m.provider} —
+    Input: <strong>$${m.input}/M</strong> · Output: <strong>$${m.output}/M</strong> · Context: <strong>${m.context}</strong> · Speed: <strong>${m.speed}</strong><br><br>
+    ${m.detail}<br><br>
+    <a href="../tool/?model=${encodeURIComponent(m.name)}">Calculate cost →</a> &nbsp;
+    <a href="../compare/">Compare models →</a>
+  </div></td>`;
+  tr.after(detailTr);
+}
+
+function populateModelSelect(data) {
+  const sel = document.getElementById('qcModel');
+  sel.innerHTML = data.map(m => `<option value="${m.input}|${m.output}">${m.name} ($${m.input}/$${m.output} per M)</option>`).join('');
+}
+
+function calcQuick() {
+  const inp = +document.getElementById('qcInput').value;
+  const out = +document.getElementById('qcOutput').value;
+  const reqs = +document.getElementById('qcRequests').value;
+  const [inRate, outRate] = document.getElementById('qcModel').value.split('|').map(Number);
+  if (!inRate) return;
+  const perReq = (inp * inRate + out * outRate) / 1e6;
+  const daily = perReq * reqs;
+  const monthly = daily * 30;
+  document.getElementById('qcResult').innerHTML =
+    `Per request: <strong>$${perReq.toFixed(5)}</strong> &nbsp;·&nbsp; Daily (${reqs.toLocaleString()} reqs): <strong>$${daily.toFixed(4)}</strong> &nbsp;·&nbsp; Monthly: <strong>$${monthly.toFixed(2)}</strong>`;
+}
+
+document.getElementById('modelSearch').addEventListener('input', renderTable);
+document.getElementById('filterProvider').addEventListener('change', renderTable);
+document.getElementById('filterSpeed').addEventListener('change', renderTable);
+document.getElementById('sortBy').addEventListener('change', renderTable);
+
+renderTable();
+</script>
+</body>
+</html>

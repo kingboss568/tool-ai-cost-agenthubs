@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Usage Pattern Analyzer | AI Cost Calculator</title>
+  <meta name="description" content="Analyze your AI API usage patterns to find optimization opportunities. Visualize hourly distribution, peak times, and get load balancing recommendations.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/usage-analyzer/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .ua-bar-chart { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; align-items: end; height: 160px; padding: 0 4px; }
+    .ua-bar-wrap { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+    .ua-bar { width: 100%; min-height: 2px; transition: height .3s, background .3s; cursor: pointer; position: relative; }
+    .ua-bar:hover { opacity: .8; }
+    .ua-bar-label { font-size: .6rem; color: var(--muted); margin-top: 3px; text-align: center; }
+    .ua-chart-wrap { border: 1px solid var(--line); background: var(--surface); padding: 16px 12px 8px; }
+    .hour-inputs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .hour-input-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .hour-input-cell span { font-size: .65rem; color: var(--muted); }
+    .hour-input-cell input { width: 100%; padding: 5px; text-align: center; font-size: .82rem; }
+    .ua-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .ua-stat { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .ua-stat span { display: block; color: var(--muted); font-size: .75rem; }
+    .ua-stat strong { display: block; font-size: 1.1rem; margin-top: 4px; }
+    .risk-badge { display: inline-block; padding: 3px 10px; font-size: .78rem; font-weight: 700; }
+    .risk-low { background: #dcfce7; color: #166534; }
+    .risk-med { background: #fef3c7; color: #92400e; }
+    .risk-high { background: #fee2e2; color: #991b1b; }
+    .rec-item { padding: 10px 14px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent), transparent 94%); font-size: .88rem; margin-bottom: 8px; }
+    @media(max-width:800px) { .ua-stats { grid-template-columns: repeat(2,1fr); } .hour-inputs { grid-template-columns: repeat(4,1fr); } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/" aria-current="page">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <polyline points="8,38 12,30 16,34 20,22 24,18 28,28 32,16 36,20 40,14" stroke="var(--accent)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="24" cy="18" r="3" fill="var(--accent-2)"/>
+            <circle cx="32" cy="16" r="3" fill="var(--accent-2)"/>
+          </svg>
+          <p class="eyebrow">Pattern Analysis</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Usage Pattern Analyzer</h1>
+          <p class="lede">Visualize your 24-hour usage distribution. Find peak hours, assess rate limit risk, and get targeted recommendations to optimize costs and reliability.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Input mode selector -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+            <h2 style="margin:0;font-size:1.05rem">Input mode:</h2>
+            <button class="button" id="manualModeBtn" type="button">Manual entry</button>
+            <button class="button secondary" id="jsonModeBtn" type="button">Paste JSON</button>
+            <button class="button secondary" id="presetBtn" type="button">Load preset</button>
+          </div>
+
+          <div id="manualMode">
+            <p style="color:var(--muted);font-size:.85rem;margin-bottom:12px">Enter requests per hour for each hour (0-23):</p>
+            <div class="hour-inputs" id="hourInputs"></div>
+          </div>
+
+          <div id="jsonMode" style="display:none">
+            <p style="color:var(--muted);font-size:.85rem;margin-bottom:8px">Paste JSON array of 24 hourly request counts, e.g. <code style="background:var(--surface);padding:2px 6px">[0, 5, 2, 1, 0, 3, 50, 120, 200, ...]</code></p>
+            <textarea id="jsonInput" rows="3" placeholder='[0, 2, 1, 0, 0, 5, 45, 130, 210, 250, 280, 260, 230, 210, 240, 200, 160, 120, 80, 60, 40, 20, 10, 5]' style="font-family:ui-monospace,monospace;font-size:.85rem"></textarea>
+            <button class="button" id="parseJsonBtn" style="margin-top:8px" type="button">Parse JSON</button>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <h2 style="margin:0;font-size:1.05rem">24-hour distribution</h2>
+            <div style="font-size:.78rem;color:var(--muted)" id="chartLegend"></div>
+          </div>
+          <div class="ua-chart-wrap">
+            <div class="ua-bar-chart" id="barChart"></div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="ua-stats">
+          <div class="ua-stat"><span>Total daily requests</span><strong id="s-total">0</strong></div>
+          <div class="ua-stat"><span>Peak hour</span><strong id="s-peak">—</strong></div>
+          <div class="ua-stat"><span>Peak requests</span><strong id="s-peakVal">0</strong></div>
+          <div class="ua-stat"><span>Average / hour</span><strong id="s-avg">0</strong></div>
+          <div class="ua-stat"><span>Off-peak hours (0 req)</span><strong id="s-offPeak">0</strong></div>
+          <div class="ua-stat"><span>Peak-to-avg ratio</span><strong id="s-ratio">—</strong></div>
+          <div class="ua-stat"><span>Rate limit risk</span><strong id="s-risk">—</strong></div>
+          <div class="ua-stat"><span>Burstiness score</span><strong id="s-burst">—</strong></div>
+        </div>
+
+        <!-- Recommendations -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:22px">
+          <h2 style="margin-bottom:14px;font-size:1.05rem">Recommendations</h2>
+          <div id="recsContainer">
+            <p style="color:var(--muted);font-size:.88rem">Enter your usage data above to see recommendations.</p>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">Understanding your usage pattern</h2>
+          <div class="example-grid">
+            <article>
+              <h3>Burstiness score</h3>
+              <p>A score above 3 indicates high variance — your peak usage is more than 3x the average. This increases rate-limit risk and unpredictable costs.</p>
+            </article>
+            <article>
+              <h3>Rate limit risk</h3>
+              <p>Most providers apply per-minute or per-hour token rate limits. High-peak patterns are more likely to hit limits even if daily totals are within quota.</p>
+            </article>
+            <article>
+              <h3>Load balancing</h3>
+              <p>Moving workloads from peak to off-peak hours (often 2-6 AM) can reduce rate-limit failures, improve response times, and sometimes unlock lower pricing tiers.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+// Default: office hours pattern
+let hourlyData = [0, 2, 1, 0, 0, 5, 45, 130, 210, 250, 280, 260, 230, 210, 240, 200, 160, 120, 80, 60, 40, 20, 10, 5];
+
+const HOUR_LABELS = ['12a','1a','2a','3a','4a','5a','6a','7a','8a','9a','10a','11a','12p','1p','2p','3p','4p','5p','6p','7p','8p','9p','10p','11p'];
+
+function buildHourInputs() {
+  const el = document.getElementById('hourInputs');
+  el.innerHTML = hourlyData.map((v, i) => `
+    <div class="hour-input-cell">
+      <span>${HOUR_LABELS[i]}</span>
+      <input type="number" value="${v}" min="0" data-hour="${i}" id="hi-${i}">
+    </div>
+  `).join('');
+  el.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      hourlyData[+inp.dataset.hour] = +inp.value || 0;
+      analyze();
+    });
+  });
+}
+
+function renderChart() {
+  const max = Math.max(...hourlyData, 1);
+  const chart = document.getElementById('barChart');
+  chart.innerHTML = hourlyData.map((v, i) => {
+    const heightPct = (v / max) * 100;
+    const isPeak = v === max;
+    const isHigh = v > max * 0.8;
+    const bg = isPeak ? '#ef4444' : isHigh ? '#f59e0b' : 'var(--accent)';
+    return `<div class="ua-bar-wrap" title="${HOUR_LABELS[i]}: ${v} req">
+      <div class="ua-bar" style="height:${heightPct}%;background:${bg}"></div>
+      <div class="ua-bar-label">${HOUR_LABELS[i]}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('chartLegend').innerHTML = '<span style="color:#ef4444">■</span> Peak &nbsp; <span style="color:#f59e0b">■</span> High &nbsp; <span style="color:var(--accent)">■</span> Normal';
+}
+
+function analyze() {
+  const total = hourlyData.reduce((s, v) => s + v, 0);
+  const max = Math.max(...hourlyData);
+  const avg = total / 24;
+  const peakHour = hourlyData.indexOf(max);
+  const offPeak = hourlyData.filter(v => v === 0).length;
+  const ratio = avg > 0 ? (max / avg).toFixed(1) : '—';
+  const burstiness = avg > 0 ? (max / avg) : 0;
+
+  let risk, riskClass;
+  if (burstiness > 5) { risk = 'High'; riskClass = 'risk-high'; }
+  else if (burstiness > 3) { risk = 'Medium'; riskClass = 'risk-med'; }
+  else { risk = 'Low'; riskClass = 'risk-low'; }
+
+  document.getElementById('s-total').textContent = total.toLocaleString();
+  document.getElementById('s-peak').textContent = `${HOUR_LABELS[peakHour]} (hour ${peakHour})`;
+  document.getElementById('s-peakVal').textContent = max.toLocaleString();
+  document.getElementById('s-avg').textContent = avg.toFixed(1);
+  document.getElementById('s-offPeak').textContent = offPeak;
+  document.getElementById('s-ratio').textContent = ratio + 'x';
+  document.getElementById('s-risk').innerHTML = `<span class="risk-badge ${riskClass}">${risk}</span>`;
+  document.getElementById('s-burst').textContent = burstiness.toFixed(2);
+
+  renderChart();
+
+  // Recommendations
+  const recs = [];
+  if (burstiness > 4) recs.push('Your usage is highly bursty (peak is ' + burstiness.toFixed(1) + 'x the average). Consider implementing request queuing to smooth out spikes.');
+  if (offPeak >= 8) recs.push(`You have ${offPeak} idle hours. Batch or schedule non-urgent tasks during off-peak hours (e.g., 2-6 AM) to distribute load.`);
+  if (peakHour >= 9 && peakHour <= 17) recs.push('Your peak is during business hours. If some workloads are flexible, deferring them to evenings can reduce concurrent load and improve reliability.');
+  if (max > avg * 3) recs.push('Consider setting up auto-scaling infrastructure: queue-based workers that spin up during peak hours and down during quiet periods.');
+  if (total > 10000) recs.push('At this volume, contact your AI provider to negotiate rate limit increases or enterprise pricing with predictable costs.');
+  if (burstiness < 1.5) recs.push('Your traffic pattern is well-distributed — excellent for reliability and cost predictability. Maintain this pattern as you scale.');
+
+  const container = document.getElementById('recsContainer');
+  if (recs.length === 0) {
+    container.innerHTML = '<p style="color:var(--muted);font-size:.88rem">No specific recommendations — your usage pattern looks well-balanced.</p>';
+  } else {
+    container.innerHTML = recs.map(r => `<div class="rec-item">${r}</div>`).join('');
+  }
+
+  // Sync hour inputs
+  hourlyData.forEach((v, i) => {
+    const inp = document.getElementById('hi-' + i);
+    if (inp && document.activeElement !== inp) inp.value = v;
+  });
+}
+
+// Presets
+const PRESETS = {
+  'Office hours': [0, 2, 1, 0, 0, 5, 45, 130, 210, 250, 280, 260, 230, 210, 240, 200, 160, 120, 80, 60, 40, 20, 10, 5],
+  'Global 24/7': [80, 70, 65, 60, 55, 70, 90, 120, 150, 180, 200, 195, 190, 185, 180, 175, 170, 165, 160, 150, 140, 120, 100, 90],
+  'Evening peak': [10, 5, 3, 2, 2, 5, 20, 40, 60, 80, 90, 100, 110, 100, 90, 100, 130, 180, 250, 280, 260, 200, 100, 40],
+  'Batch overnight': [0, 0, 500, 800, 700, 400, 100, 50, 30, 20, 15, 10, 10, 10, 10, 10, 10, 10, 20, 30, 10, 5, 0, 0],
+};
+
+document.getElementById('presetBtn').addEventListener('click', () => {
+  const keys = Object.keys(PRESETS);
+  const chosen = prompt('Choose preset:\n' + keys.map((k, i) => `${i+1}. ${k}`).join('\n') + '\n\nEnter number:');
+  const idx = parseInt(chosen) - 1;
+  if (idx >= 0 && idx < keys.length) {
+    hourlyData = [...PRESETS[keys[idx]]];
+    buildHourInputs();
+    analyze();
+  }
+});
+
+document.getElementById('manualModeBtn').addEventListener('click', () => {
+  document.getElementById('manualMode').style.display = '';
+  document.getElementById('jsonMode').style.display = 'none';
+});
+document.getElementById('jsonModeBtn').addEventListener('click', () => {
+  document.getElementById('manualMode').style.display = 'none';
+  document.getElementById('jsonMode').style.display = '';
+});
+document.getElementById('parseJsonBtn').addEventListener('click', () => {
+  try {
+    const arr = JSON.parse(document.getElementById('jsonInput').value);
+    if (!Array.isArray(arr) || arr.length !== 24) throw new Error('Need exactly 24 values');
+    hourlyData = arr.map(v => Math.max(0, +v || 0));
+    buildHourInputs();
+    analyze();
+  } catch(e) {
+    alert('Invalid JSON: ' + e.message);
+  }
+});
+
+buildHourInputs();
+analyze();
+</script>
+</body>
+</html>

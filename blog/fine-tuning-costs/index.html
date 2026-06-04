@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fine-tuning vs Prompting: AI Cost Tradeoffs Explained | AI Cost Calculator</title>
+  <meta name="description" content="When does fine-tuning an AI model save money vs prompt engineering? A complete cost analysis with breakeven calculations and real-world examples.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/blog/fine-tuning-costs/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../../tool/">Tool</a>
+      <a href="../../compare/">Compare</a>
+      <a href="../../models/">Models</a>
+      <a href="../../blog/">Blog</a>
+      <a href="../../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <article style="max-width:800px;margin:0 auto;padding:32px 16px 64px">
+      <div style="margin-bottom:24px;color:var(--muted);font-size:.88rem">
+        <a href="../../blog/" style="color:var(--accent)">Blog</a> › <span>Fine-tuning vs Prompting</span>
+      </div>
+      <header>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+          <span style="background:#fef3c7;color:#92400e;padding:4px 12px;border-radius:20px;font-size:.8rem;font-weight:700">Analysis</span>
+          <span style="color:var(--muted);font-size:.88rem;align-self:center">April 25, 2025 · 11 min read</span>
+        </div>
+        <h1 style="max-width:none;font-size:clamp(1.8rem,4vw,3rem);line-height:1.2;margin-bottom:16px">Fine-tuning vs Prompting: The Complete Cost Tradeoff Analysis</h1>
+        <p style="color:var(--muted);font-size:1.1rem;line-height:1.7;margin-bottom:32px">Fine-tuning can dramatically improve performance and reduce system prompt length — but it has upfront costs. This guide helps you calculate exactly when fine-tuning becomes worth it for your use case.</p>
+      </header>
+
+      <div class="ad-unit" style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <h2>The Core Tradeoff</h2>
+      <p>The fundamental question is: does the cost saving from shorter prompts (after fine-tuning teaches the model behavior) outweigh the cost of fine-tuning itself?</p>
+      <p>Fine-tuning "bakes in" behavior that you'd otherwise specify in a long system prompt. A system prompt that says "Always respond in JSON format with these 5 fields. Use formal language. Never mention competitors. Always suggest our Pro plan when relevant..." might be 500–1,000 tokens. After fine-tuning, that prompt might shrink to 50 tokens — a 90% reduction in per-request prompt cost.</p>
+
+      <h2>Fine-Tuning Pricing (June 2025)</h2>
+      <div class="table-wrap" style="margin:16px 0">
+        <table>
+          <thead><tr><th>Provider / Model</th><th>Training Cost</th><th>Fine-tuned Inference (Input)</th><th>Fine-tuned Inference (Output)</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI GPT-4o Mini</td><td>$0.30/M tokens</td><td>$0.30/M tokens</td><td>$1.20/M tokens</td></tr>
+            <tr><td>OpenAI GPT-3.5 Turbo</td><td>$8.00/M tokens</td><td>$3.00/M tokens</td><td>$6.00/M tokens</td></tr>
+            <tr><td>OpenAI GPT-4o</td><td>Contact sales</td><td>Contact sales</td><td>Contact sales</td></tr>
+            <tr><td>Claude (via Anthropic fine-tuning)</td><td>Enterprise only</td><td>Enterprise only</td><td>Enterprise only</td></tr>
+            <tr><td>Mistral 7B (self-hosted)</td><td>GPU rental cost</td><td>Server cost</td><td>Server cost</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The Breakeven Calculation</h2>
+      <p>Let's calculate when GPT-4o Mini fine-tuning breaks even. Assume:</p>
+      <ul style="color:var(--muted);line-height:1.8;padding-left:20px">
+        <li>Current system prompt: 800 tokens</li>
+        <li>Post-fine-tuning system prompt: 80 tokens (90% reduction)</li>
+        <li>Savings per request: 720 tokens × $0.30/M = $0.000216</li>
+        <li>Fine-tuning training dataset: 500 examples × 500 tokens = 250K tokens</li>
+        <li>Training cost: 250K × $0.30/M = $0.075 (very cheap!)</li>
+      </ul>
+      <p>Breakeven: $0.075 ÷ $0.000216 = <strong>347 requests</strong>. After just 347 API calls, fine-tuning has paid for itself.</p>
+      <p>At 10,000 daily requests, the monthly savings would be: 10,000 × 30 × $0.000216 = <strong>$64.80/month</strong>. The $0.075 training cost pays off in less than one hour of operation.</p>
+
+      <div class="ad-unit" style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <h2>When Prompting Wins</h2>
+      <p>Fine-tuning isn't always the answer. Stick with prompt engineering when:</p>
+      <ul style="color:var(--muted);line-height:1.8;padding-left:20px">
+        <li><strong>Requirements change frequently:</strong> Fine-tuning is a snapshot; prompts update instantly.</li>
+        <li><strong>Volume is low:</strong> Under ~1,000 requests/day, the investment rarely pays off.</li>
+        <li><strong>You need the base model's knowledge:</strong> Fine-tuning can cause forgetting ("catastrophic forgetting").</li>
+        <li><strong>Task requires current information:</strong> Fine-tuning data has a cutoff; prompts can include real-time context.</li>
+        <li><strong>You need explainability:</strong> It's easier to audit a visible system prompt than trained weights.</li>
+      </ul>
+
+      <h2>When Fine-Tuning Wins</h2>
+      <ul style="color:var(--muted);line-height:1.8;padding-left:20px">
+        <li><strong>Stable, repetitive task:</strong> Classification, extraction, formatting that doesn't change.</li>
+        <li><strong>Long system prompts:</strong> If your system prompt is over 500 tokens, fine-tuning almost always pays off at scale.</li>
+        <li><strong>Consistent output format:</strong> Teaching JSON schema, response structure, tone.</li>
+        <li><strong>Domain-specific knowledge:</strong> Medical, legal, technical terminology that isn't in base training data.</li>
+        <li><strong>High volume (&gt;10K requests/day):</strong> The economics strongly favor fine-tuning.</li>
+      </ul>
+
+      <h2>The Hybrid Approach</h2>
+      <p>The most cost-efficient architecture often combines both: fine-tune a small model (like GPT-4o Mini or Mistral 7B) for your specific task format, then use a shorter system prompt to handle edge cases and current context. This gives you the best of both worlds — the speed and cost efficiency of a tuned model, with the flexibility of prompt-level control.</p>
+
+      <h2>Self-Hosted Fine-Tuning</h2>
+      <p>For teams with privacy concerns or very high volume, self-hosted fine-tuning on open-weight models (Llama 3.1, Mistral 7B) can be significantly cheaper:</p>
+      <ul style="color:var(--muted);line-height:1.8;padding-left:20px">
+        <li>A4 100 GPU on Lambda Labs: ~$1.10/hour</li>
+        <li>Fine-tuning Mistral 7B on 1,000 examples: ~2–4 hours = $2.20–$4.40</li>
+        <li>Inference on your own server: ~$0.10–$0.50/hour for steady traffic</li>
+      </ul>
+      <p>At high enough volume, self-hosted models have zero marginal inference cost (just server uptime), making them the clear economic winner.</p>
+
+      <div style="padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:32px 0">
+        <strong>Use our Advanced Calculator →</strong>
+        <p style="margin:8px 0 16px;color:var(--muted)">Our Advanced Calculator includes a fine-tuning cost analysis tab to help you calculate your breakeven point.</p>
+        <a href="../../calculator/" class="button" style="text-decoration:none;display:inline-block">Open Advanced Calculator</a>
+      </div>
+
+      <div class="ad-unit" style="margin:24px 0">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </article>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../../privacy/">Privacy</a> · <a href="../../terms/">Terms</a> · <a href="../../about/">About</a></nav></footer>
+</body>
+</html>

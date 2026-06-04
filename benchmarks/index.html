@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Model Benchmarks 2024 | AI Cost Calculator</title>
+  <meta name="description" content="Sortable AI model performance benchmarks table. Compare MMLU, HumanEval, GSM8K, MT-Bench scores, Arena Elo, speed, and latency across GPT-4o, Claude, Gemini, Llama, and Mistral.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/benchmarks/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    th[data-sort] { cursor:pointer; user-select:none; white-space:nowrap; }
+    th[data-sort]:hover { background:color-mix(in srgb,var(--accent),transparent 80%); }
+    th[data-sort]::after { content:" ↕"; opacity:.4; font-size:.7rem; }
+    th[data-sort].asc::after { content:" ↑"; opacity:1; }
+    th[data-sort].desc::after { content:" ↓"; opacity:1; }
+    .score-bar-wrap { display:flex; align-items:center; gap:8px; }
+    .score-bar { height:6px; background:var(--accent); opacity:.7; min-width:4px; }
+    .score-val { font-size:.85rem; font-weight:600; }
+    .provider-badge { display:inline-block; padding:2px 8px; font-size:.72rem; background:color-mix(in srgb,var(--accent),transparent 88%); border:1px solid var(--line); }
+    .benchmark-legend { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-top:20px; }
+    .bench-card { border:1px solid var(--line); padding:16px; }
+    .bench-card h3 { margin:0 0 6px; font-size:.95rem; }
+    .bench-card p { margin:0; font-size:.85rem; color:var(--muted); line-height:1.55; }
+    .bench-score { font-size:1.4rem; font-weight:900; color:var(--accent); }
+    .top-badge { background:#fef9c3; color:#854d0e; font-size:.7rem; font-weight:700; padding:2px 7px; margin-left:8px; }
+    .chart-wrap { overflow-x:auto; margin:16px 0; }
+    .filter-wrap { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; align-items:center; }
+    .filter-wrap select { max-width:200px; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/" aria-current="page">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Reference</p>
+          <h1>AI Model Benchmarks</h1>
+          <p class="lede">Sortable performance comparison table for major AI models. Click any column header to sort. Benchmarks as of late 2024 — scores may change as models are updated.</p>
+        </div>
+
+        <div class="workspace-card">
+          <div class="filter-wrap">
+            <select id="filterProvider" aria-label="Filter by provider">
+              <option value="">All Providers</option>
+              <option>OpenAI</option>
+              <option>Anthropic</option>
+              <option>Google</option>
+              <option>Meta</option>
+              <option>Mistral</option>
+            </select>
+            <span style="font-size:.82rem;color:var(--muted)" id="benchCount"></span>
+          </div>
+          <div class="chart-wrap">
+            <table id="benchTable">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Provider</th>
+                  <th data-sort="mmlu" title="Massive Multitask Language Understanding — tests general knowledge across 57 subjects">MMLU ↕</th>
+                  <th data-sort="humaneval" title="HumanEval — tests ability to write correct Python code from docstrings">HumanEval ↕</th>
+                  <th data-sort="gsm8k" title="Grade School Math 8K — tests multi-step arithmetic reasoning">GSM8K ↕</th>
+                  <th data-sort="mtbench" title="MT-Bench — multi-turn conversation quality rated 1-10">MT-Bench ↕</th>
+                  <th data-sort="elo" title="Chatbot Arena Elo — crowdsourced human preference ranking">Arena Elo ↕</th>
+                  <th data-sort="speed" title="Approximate tokens per second generation speed">Speed (tok/s) ↕</th>
+                  <th data-sort="latency" title="Approximate milliseconds per output token">Latency (ms/tok) ↕</th>
+                </tr>
+              </thead>
+              <tbody id="benchTbody"></tbody>
+            </table>
+          </div>
+          <p style="font-size:.78rem;color:var(--muted);margin-top:8px">† Benchmark scores are approximate and vary by evaluation methodology. Arena Elo from LMSYS Chatbot Arena. Speed/latency are estimates from multiple sources and vary by provider infrastructure and load. Always run your own evals for production decisions.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Understanding the Benchmarks</h2>
+          <div class="benchmark-legend">
+            <div class="bench-card">
+              <h3>MMLU</h3>
+              <p>Massive Multitask Language Understanding. Tests general knowledge across 57 academic subjects including math, history, law, medicine, and science. Score represents accuracy (%). Best-in-class: ~89%.</p>
+            </div>
+            <div class="bench-card">
+              <h3>HumanEval</h3>
+              <p>OpenAI's code generation benchmark. Given a function docstring, the model must write correct Python code. Measured as pass@1 (%). Tests functional coding ability, not style. Best-in-class: ~94%.</p>
+            </div>
+            <div class="bench-card">
+              <h3>GSM8K</h3>
+              <p>Grade School Math 8,000 problems. Tests multi-step arithmetic word problems requiring logical reasoning. Measured as accuracy (%). Requires chain-of-thought reasoning to score high. Best-in-class: ~97%.</p>
+            </div>
+            <div class="bench-card">
+              <h3>MT-Bench</h3>
+              <p>Multi-Turn Benchmark. GPT-4 rates model responses to challenging two-turn conversations on a scale of 1–10. Tests instruction following, reasoning, and conversational quality. Best-in-class: ~9.3.</p>
+            </div>
+            <div class="bench-card">
+              <h3>Arena Elo</h3>
+              <p>LMSYS Chatbot Arena Elo rating. Derived from crowdsourced blind comparisons where users vote for the better response. More reliable than automated benchmarks for real-world quality. 1200+ is considered excellent.</p>
+            </div>
+            <div class="bench-card">
+              <h3>Speed &amp; Latency</h3>
+              <p>Tokens per second (TPS) and milliseconds per output token. Higher TPS = faster generation. Lower latency = more responsive for streaming. These metrics vary significantly by provider load and region.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Performance vs Cost Analysis</h2>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.65">Benchmark scores don't tell the whole story — cost efficiency matters. Here's how to think about the performance/cost tradeoff:</p>
+          <div class="two-col">
+            <div>
+              <h3 style="font-size:1rem">Top Performers (Highest Scores)</h3>
+              <ul style="color:var(--muted);font-size:.88rem;line-height:1.9;padding-left:18px">
+                <li><strong>Claude 3.5 Sonnet</strong> — Highest HumanEval (93.7), top MT-Bench (9.2), and Arena Elo (1295). Best overall quality.</li>
+                <li><strong>GPT-4o</strong> — Strong across all categories. Best balance of capability and speed at its tier.</li>
+                <li><strong>Gemini 1.5 Pro</strong> — Strong MMLU and GSM8K, especially for long-context tasks where competitors don't even operate.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="font-size:1rem">Best Value (Score per Dollar)</h3>
+              <ul style="color:var(--muted);font-size:.88rem;line-height:1.9;padding-left:18px">
+                <li><strong>Gemini 1.5 Flash</strong> — Solid scores at $0.075/M input. Exceptional price-to-performance ratio.</li>
+                <li><strong>GPT-4o Mini</strong> — 82% MMLU at 17× cheaper than GPT-4o. Remarkable efficiency for routine tasks.</li>
+                <li><strong>Llama 3.1 70B</strong> — Near-frontier performance at open-source prices via Together AI or self-hosting.</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top:16px;font-size:.88rem;color:var(--muted)">
+            <strong>Key insight:</strong> The quality gap between premium and economy models has shrunk dramatically in 2024. For many production use cases, an economy model achieves 90–95% of premium model quality at 5–10% of the cost. Run your own evaluation on representative samples before committing to a model tier.
+          </div>
+          <div style="margin-top:16px">
+            <a href="../compare/" class="button">Compare Models Side-by-Side →</a>
+            <a href="../model-picker/" class="button" style="margin-left:10px;background:transparent;border:1px solid var(--accent);color:var(--accent)">Find the Right Model →</a>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Benchmark Limitations</h2>
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.65">Public benchmarks have important limitations to keep in mind when making model selection decisions:</p>
+          <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:20px">
+            <li><strong>Training data contamination:</strong> Some benchmarks may have leaked into training data, inflating scores. Models trained after benchmark release may have memorized answers.</li>
+            <li><strong>Task-specific performance:</strong> A model with high MMLU may still perform poorly on your specific task. Always evaluate on your own use case before committing.</li>
+            <li><strong>Evaluation methodology varies:</strong> Different research groups run the same benchmarks differently, producing varying results. Always check the methodology.</li>
+            <li><strong>Benchmarks become outdated quickly:</strong> The AI field moves fast. Scores listed here reflect late 2024 results; newer model versions may score significantly higher.</li>
+            <li><strong>Capability ≠ reliability:</strong> A model that scores 95% on HumanEval might fail 20% of the time on your specific coding style. Variance matters, not just average scores.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+<script>
+const DATA = [
+  { model:"GPT-4o",           provider:"OpenAI",    mmlu:88.7, humaneval:90.2, gsm8k:92.0, mtbench:9.0,  elo:1287, speed:80,  latency:25 },
+  { model:"GPT-4o Mini",      provider:"OpenAI",    mmlu:82.0, humaneval:87.2, gsm8k:87.0, mtbench:8.5,  elo:1100, speed:180, latency:8  },
+  { model:"o1 Preview",       provider:"OpenAI",    mmlu:90.8, humaneval:92.4, gsm8k:95.3, mtbench:8.8,  elo:1310, speed:30,  latency:55 },
+  { model:"Claude 3.5 Sonnet",provider:"Anthropic", mmlu:88.3, humaneval:93.7, gsm8k:96.4, mtbench:9.2,  elo:1295, speed:85,  latency:22 },
+  { model:"Claude 3 Haiku",   provider:"Anthropic", mmlu:75.2, humaneval:75.9, gsm8k:88.9, mtbench:8.1,  elo:1050, speed:200, latency:5  },
+  { model:"Claude 3 Opus",    provider:"Anthropic", mmlu:86.8, humaneval:84.9, gsm8k:95.0, mtbench:9.0,  elo:1250, speed:35,  latency:42 },
+  { model:"Gemini 1.5 Pro",   provider:"Google",    mmlu:85.9, humaneval:84.1, gsm8k:90.8, mtbench:8.9,  elo:1220, speed:90,  latency:20 },
+  { model:"Gemini 1.5 Flash", provider:"Google",    mmlu:78.9, humaneval:74.3, gsm8k:86.2, mtbench:8.3,  elo:1080, speed:250, latency:6  },
+  { model:"Gemini 2.0 Flash", provider:"Google",    mmlu:82.6, humaneval:79.7, gsm8k:90.1, mtbench:8.7,  elo:1145, speed:240, latency:6  },
+  { model:"Llama 3.1 70B",    provider:"Meta",      mmlu:83.6, humaneval:80.5, gsm8k:95.1, mtbench:8.7,  elo:1190, speed:95,  latency:15 },
+  { model:"Llama 3.1 8B",     provider:"Meta",      mmlu:73.0, humaneval:72.6, gsm8k:84.5, mtbench:7.8,  elo:1020, speed:220, latency:7  },
+  { model:"Mistral Large 2",  provider:"Mistral",   mmlu:84.0, humaneval:82.0, gsm8k:91.2, mtbench:8.6,  elo:1150, speed:80,  latency:20 },
+  { model:"Mixtral 8x7B",     provider:"Mistral",   mmlu:70.6, humaneval:60.3, gsm8k:74.4, mtbench:8.3,  elo:1030, speed:140, latency:12 },
+];
+
+const tbody = document.getElementById('benchTbody');
+const countEl = document.getElementById('benchCount');
+let sortKey = null, sortDir = 1;
+
+function renderTable() {
+  const prov = document.getElementById('filterProvider').value;
+  let data = DATA.filter(d => !prov || d.provider === prov);
+
+  if (sortKey) {
+    data.sort((a, b) => (a[sortKey] - b[sortKey]) * sortDir);
+  }
+
+  tbody.innerHTML = '';
+  const maxVals = {
+    mmlu: Math.max(...DATA.map(d=>d.mmlu)),
+    humaneval: Math.max(...DATA.map(d=>d.humaneval)),
+    gsm8k: Math.max(...DATA.map(d=>d.gsm8k)),
+    mtbench: Math.max(...DATA.map(d=>d.mtbench)),
+    elo: Math.max(...DATA.map(d=>d.elo)),
+    speed: Math.max(...DATA.map(d=>d.speed)),
+    latency: Math.max(...DATA.map(d=>d.latency)),
+  };
+
+  data.forEach(d => {
+    const isTop = key => d[key] === Math.max(...DATA.map(x=>x[key]));
+    tbody.insertAdjacentHTML('beforeend', `<tr>
+      <td><strong>${d.model}</strong>${isTop('mmlu')||isTop('humaneval')||isTop('elo') ? '<span class="top-badge">TOP</span>' : ''}</td>
+      <td><span class="provider-badge">${d.provider}</span></td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:${d.mmlu/maxVals.mmlu*80}px"></div><span class="score-val">${d.mmlu}</span></div></td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:${d.humaneval/maxVals.humaneval*80}px"></div><span class="score-val">${d.humaneval}</span></div></td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:${d.gsm8k/maxVals.gsm8k*80}px"></div><span class="score-val">${d.gsm8k}</span></div></td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:${d.mtbench/maxVals.mtbench*80}px"></div><span class="score-val">${d.mtbench}</span></div></td>
+      <td><div class="score-bar-wrap"><div class="score-bar" style="width:${d.elo/maxVals.elo*80}px;background:var(--accent-2)"></div><span class="score-val">${d.elo}</span></div></td>
+      <td>${d.speed}</td>
+      <td>${d.latency}</td>
+    </tr>`);
+  });
+
+  countEl.textContent = `${data.length} model${data.length!==1?'s':''} shown`;
+}
+
+document.querySelectorAll('th[data-sort]').forEach(th => {
+  th.addEventListener('click', function() {
+    const key = this.dataset.sort;
+    if (sortKey === key) {
+      sortDir *= -1;
+      this.className = sortDir === 1 ? 'asc' : 'desc';
+    } else {
+      document.querySelectorAll('th[data-sort]').forEach(t => t.className = '');
+      sortKey = key;
+      sortDir = -1;
+      this.className = 'desc';
+    }
+    renderTable();
+  });
+});
+
+document.getElementById('filterProvider').addEventListener('change', renderTable);
+renderTable();
+</script>
+</body>
+</html>

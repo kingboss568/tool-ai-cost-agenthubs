@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Cost Breakdown Analyzer | AI Cost Calculator</title>
+  <meta name="description" content="Visualize your AI API cost breakdown by component: text input, text output, images, audio. CSS pie chart and detailed cost table.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/cost-breakdown/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .breakdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .bd-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; }
+    .pie-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .pie-chart { width: 200px; height: 200px; border-radius: 50%; }
+    .legend { display: grid; gap: 8px; width: 100%; }
+    .legend-item { display: flex; align-items: center; gap: 10px; font-size: .88rem; }
+    .legend-dot { width: 14px; height: 14px; flex-shrink: 0; border-radius: 2px; }
+    .bd-table-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 0; border-bottom: 1px solid var(--line); }
+    .bd-table-row > div { padding: 10px 12px; font-size: .88rem; }
+    .bd-table-header { background: color-mix(in srgb, var(--accent), transparent 88%); font-weight: 700; font-size: .8rem; }
+    .cost-driver { border-left: 4px solid var(--accent-2); background: color-mix(in srgb, var(--accent-2), transparent 90%); padding: 12px 16px; }
+    .breakdown-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .bd-stat { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .bd-stat span { display: block; color: var(--muted); font-size: .75rem; }
+    .bd-stat strong { display: block; font-size: 1.1rem; margin-top: 4px; }
+    @media(max-width:800px) { .breakdown-grid { grid-template-columns:1fr; } .breakdown-stats { grid-template-columns:repeat(2,1fr); } .bd-table-row { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/" aria-current="page">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <circle cx="24" cy="24" r="14" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M24 10 A14 14 0 0 1 38 24" stroke="#0ea5e9" stroke-width="5" fill="none"/>
+            <path d="M38 24 A14 14 0 0 1 24 38" stroke="#f59e0b" stroke-width="5" fill="none"/>
+            <path d="M24 38 A14 14 0 1 1 24 10" stroke="#22c55e" stroke-width="5" fill="none"/>
+          </svg>
+          <p class="eyebrow">Component Analysis</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Cost Breakdown Analyzer</h1>
+          <p class="lede">See exactly where your AI costs come from. Visual pie chart breakdown by input text, output text, images, and audio with precise monthly amounts.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Summary stats -->
+        <div class="breakdown-stats">
+          <div class="bd-stat"><span>Total monthly cost</span><strong id="s-total">$0.00</strong></div>
+          <div class="bd-stat"><span>Largest cost driver</span><strong id="s-driver">—</strong></div>
+          <div class="bd-stat"><span>Daily cost</span><strong id="s-daily">$0.00</strong></div>
+          <div class="bd-stat"><span>Annual projection</span><strong id="s-annual">$0.00</strong></div>
+        </div>
+
+        <div class="breakdown-grid">
+          <!-- Inputs -->
+          <div class="bd-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Usage Inputs</h2>
+            <div class="fields-grid">
+              <label class="field field-wide">
+                <span>Model tier</span>
+                <select id="modelTier">
+                  <option value="economy">Economy (GPT-4o Mini / Claude Haiku / Gemini Flash)</option>
+                  <option value="balanced" selected>Balanced (GPT-4o / Claude 3.5 Sonnet)</option>
+                  <option value="premium">Premium (GPT-4 Turbo / Claude 3 Opus)</option>
+                </select>
+              </label>
+              <label class="field"><span>Daily requests</span><input type="number" id="dailyReqs" value="500" min="0"></label>
+              <label class="field"><span>Input tokens / request</span><input type="number" id="inputTok" value="600" min="0"></label>
+              <label class="field"><span>Output tokens / request</span><input type="number" id="outputTok" value="400" min="0"></label>
+              <label class="field"><span>Images / day</span><input type="number" id="imgPerDay" value="10" min="0"></label>
+              <label class="field"><span>Audio minutes / day</span><input type="number" id="audioPerDay" value="5" min="0"></label>
+            </div>
+
+            <div style="margin-top:16px;border:1px solid var(--line);padding:12px;background:var(--surface)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <strong style="font-size:.9rem">Compare with previous period</strong>
+                <button class="button secondary" id="saveCurrentBtn" style="font-size:.78rem;padding:6px 10px">Save as baseline</button>
+              </div>
+              <div id="prevPeriodRow" style="color:var(--muted);font-size:.85rem">No baseline saved. Click "Save as baseline" to compare future changes.</div>
+            </div>
+          </div>
+
+          <!-- Pie chart + legend -->
+          <div class="bd-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Cost Distribution</h2>
+            <div class="pie-wrap">
+              <div class="pie-chart" id="pieChart" style="background:conic-gradient(#0ea5e9 0% 0%, #f59e0b 0% 0%, #22c55e 0% 0%, #a855f7 0% 0%)"></div>
+              <div class="legend" id="pieLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Breakdown table -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:22px">
+          <h2 style="margin-bottom:14px;font-size:1.1rem">Detailed breakdown</h2>
+          <div style="border:1px solid var(--line);overflow:hidden">
+            <div class="bd-table-row bd-table-header">
+              <div>Component</div><div>Daily cost</div><div>Monthly cost</div><div>% of total</div>
+            </div>
+            <div id="breakdownTable"></div>
+          </div>
+
+          <div class="cost-driver" style="margin-top:14px" id="driverAdvice">
+            <strong>Analysis will appear here.</strong>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">How to reduce each cost component</h2>
+          <div class="example-grid">
+            <article>
+              <h3>Input token cost</h3>
+              <p>Use prompt caching for repeated system prompts (90% discount on cached tokens). Compress prompts with the Prompt Optimizer. Consider shorter context windows where possible.</p>
+            </article>
+            <article>
+              <h3>Output token cost</h3>
+              <p>Output tokens are typically 4-6x more expensive than input. Request shorter responses with explicit length constraints. Use structured JSON output to avoid verbose prose.</p>
+            </article>
+            <article>
+              <h3>Image &amp; audio costs</h3>
+              <p>Resize images before sending to vision APIs — smaller images use fewer tokens. For audio, use lower sample rates and compress before transcription. Batch audio jobs where possible.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const TIER_RATES = {
+  economy:  { in: 0.15,  out: 0.6,   img: 0.01,   audio: 0.006 },
+  balanced: { in: 2.5,   out: 10,    img: 0.04,   audio: 0.006 },
+  premium:  { in: 10,    out: 30,    img: 0.04,   audio: 0.006 },
+};
+
+const COLORS = ['#0ea5e9', '#f59e0b', '#22c55e', '#a855f7'];
+const COMPONENT_NAMES = ['Text input', 'Text output', 'Images', 'Audio'];
+
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+const fmtS = v => { if (v < 0.01) return '$' + v.toFixed(4); return fmt(v); };
+
+function calc() {
+  const tier = document.getElementById('modelTier').value;
+  const rates = TIER_RATES[tier];
+  const daily = +document.getElementById('dailyReqs').value || 0;
+  const inTok = +document.getElementById('inputTok').value || 0;
+  const outTok = +document.getElementById('outputTok').value || 0;
+  const imgs = +document.getElementById('imgPerDay').value || 0;
+  const audio = +document.getElementById('audioPerDay').value || 0;
+
+  const inputDailyCost  = daily * (inTok / 1e6) * rates.in;
+  const outputDailyCost = daily * (outTok / 1e6) * rates.out;
+  const imgDailyCost    = imgs * rates.img;
+  const audioDailyCost  = audio * rates.audio;
+
+  const components = [
+    { name: 'Text input',  daily: inputDailyCost,  monthly: inputDailyCost  * 30 },
+    { name: 'Text output', daily: outputDailyCost, monthly: outputDailyCost * 30 },
+    { name: 'Images',      daily: imgDailyCost,    monthly: imgDailyCost    * 30 },
+    { name: 'Audio',       daily: audioDailyCost,  monthly: audioDailyCost  * 30 },
+  ];
+
+  const totalMonthly = components.reduce((s, c) => s + c.monthly, 0);
+  const totalDaily = components.reduce((s, c) => s + c.daily, 0);
+
+  // Update stats
+  document.getElementById('s-total').textContent = fmt(totalMonthly);
+  document.getElementById('s-daily').textContent = fmt(totalDaily);
+  document.getElementById('s-annual').textContent = fmt(totalMonthly * 12);
+
+  const maxComp = components.reduce((a, b) => a.monthly > b.monthly ? a : b);
+  document.getElementById('s-driver').textContent = maxComp.name;
+
+  // Pie chart
+  let cumulative = 0;
+  const gradientParts = components.map((c, i) => {
+    const pct = totalMonthly > 0 ? (c.monthly / totalMonthly) * 100 : 0;
+    const start = cumulative;
+    cumulative += pct;
+    return `${COLORS[i]} ${start.toFixed(2)}% ${cumulative.toFixed(2)}%`;
+  });
+  document.getElementById('pieChart').style.background = `conic-gradient(${gradientParts.join(', ')})`;
+
+  // Legend
+  document.getElementById('pieLegend').innerHTML = components.map((c, i) => {
+    const pct = totalMonthly > 0 ? ((c.monthly / totalMonthly) * 100).toFixed(1) : '0.0';
+    return `<div class="legend-item">
+      <div class="legend-dot" style="background:${COLORS[i]}"></div>
+      <span>${c.name}: <strong>${fmt(c.monthly)}</strong> (${pct}%)</span>
+    </div>`;
+  }).join('');
+
+  // Table
+  document.getElementById('breakdownTable').innerHTML = components.map((c, i) => {
+    const pct = totalMonthly > 0 ? ((c.monthly / totalMonthly) * 100).toFixed(1) : '0.0';
+    const isMax = c.monthly === maxComp.monthly && c.monthly > 0;
+    return `<div class="bd-table-row" ${isMax ? 'style="background:color-mix(in srgb,'+COLORS[i]+',transparent 92%)"' : ''}>
+      <div><span style="display:inline-block;width:10px;height:10px;background:${COLORS[i]};margin-right:8px;vertical-align:middle"></span>${c.name}${isMax?' <strong style="font-size:.72rem;color:var(--accent)">[main driver]</strong>':''}</div>
+      <div>${fmtS(c.daily)}</div>
+      <div><strong>${fmt(c.monthly)}</strong></div>
+      <div>${pct}%</div>
+    </div>`;
+  }).join('') + `<div class="bd-table-row" style="background:color-mix(in srgb,var(--accent),transparent 92%);font-weight:700">
+    <div>Total</div><div>${fmtS(totalDaily)}</div><div>${fmt(totalMonthly)}</div><div>100%</div>
+  </div>`;
+
+  // Advice
+  const driverPct = totalMonthly > 0 ? ((maxComp.monthly / totalMonthly) * 100).toFixed(0) : 0;
+  const advices = {
+    'Text input':  `Text input drives ${driverPct}% of costs. Use prompt caching for system prompts to get up to 90% off on repeated content. Consider compressing prompts with the <a href="../prompt-optimizer/">Prompt Optimizer</a>.`,
+    'Text output': `Text output drives ${driverPct}% of costs — outputs typically cost 4-6x more than inputs. Add explicit length constraints to your prompts and use structured formats to reduce verbosity.`,
+    'Images':      `Image processing drives ${driverPct}% of costs. Resize images to the minimum resolution needed before sending to the API. Many vision models process smaller images faster and cheaper.`,
+    'Audio':       `Audio transcription drives ${driverPct}% of costs. Compress audio to lower bitrates before sending. Consider batching audio files and using Whisper-compatible endpoints for lower pricing.`,
+  };
+  document.getElementById('driverAdvice').innerHTML = advices[maxComp.name] || 'Enter usage values to see cost analysis.';
+
+  // Previous period comparison
+  const baseline = JSON.parse(localStorage.getItem('ai_cost_baseline') || 'null');
+  if (baseline) {
+    const diff = totalMonthly - baseline.total;
+    const pct = baseline.total > 0 ? ((diff / baseline.total) * 100).toFixed(1) : 0;
+    const color = diff > 0 ? '#c0392b' : '#18764f';
+    document.getElementById('prevPeriodRow').innerHTML = `
+      Baseline: <strong>${fmt(baseline.total)}/mo</strong> · Current: <strong>${fmt(totalMonthly)}/mo</strong> ·
+      Change: <strong style="color:${color}">${diff > 0 ? '+' : ''}${fmt(diff)} (${diff > 0 ? '+' : ''}${pct}%)</strong>
+    `;
+  }
+}
+
+document.getElementById('saveCurrentBtn').addEventListener('click', () => {
+  const total = parseFloat(document.getElementById('s-total').textContent.replace(/[^0-9.]/g,''));
+  localStorage.setItem('ai_cost_baseline', JSON.stringify({ total, savedAt: new Date().toLocaleDateString() }));
+  const btn = document.getElementById('saveCurrentBtn');
+  btn.textContent = 'Saved!';
+  setTimeout(() => btn.textContent = 'Save as baseline', 2000);
+  calc();
+});
+
+['modelTier','dailyReqs','inputTok','outputTok','imgPerDay','audioPerDay'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+calc();
+</script>
+</body>
+</html>

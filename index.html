@@ -4,72 +4,332 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI Cost Calculator | agenthubs.org</title>
-  <meta name="description" content="SaaS-style command center with the flagship tool, saved projects, and workflow shortcuts.">
+  <meta name="description" content="Free AI cost calculator — estimate monthly spend for GPT-4, Claude, Gemini and more. 13 tools, 50 pages, 100% browser-based.">
   <link rel="canonical" href="https://ai-cost.agenthubs.org/">
   <meta name="google-adsense-account" content="ca-pub-0268893833921284">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body style="--bg:#eef3f0;--panel:#f9fbf6;--ink:#172021;--accent:#1c7d69;--accent-2:#c66b2d;--line:#bfd0cc">
+<body>
   <header class="topbar">
-    <a class="brand" href="./"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <a class="brand" href="./">
+      <span class="brand-mark">AI</span>
+      <span>agenthubs.org</span>
+    </a>
     <nav class="nav" aria-label="Primary">
-      <a href="./tool/">Tool</a>
-      <a href="./templates/">Templates</a>
-      <a href="./workspace/">Workspace</a>
+      <a href="./tool/" aria-current="page">Tool</a>
+      <a href="./compare/">Compare</a>
+      <a href="./model-picker/">Models</a>
+      <a href="./templates/">Blog</a>
       <a href="./plans/">Plans</a>
     </nav>
   </header>
+
   <main>
-    
+
+    <!-- =============================================
+         HERO
+         ============================================= -->
     <section class="saas-hero">
-    <div class="saas-panel">
-      <p class="eyebrow">AI Lab</p>
-      <h1>AI Cost Calculator</h1>
-      <p class="lede">undefined</p>
-      <div class="action-row">
-        <a class="button" href="./tool/">Open full tool</a>
-        <a class="button secondary" href="./templates/">Browse templates</a>
-      </div>
-    </div>
-    <div class="dashboard-grid">
-      <article class="module-card"><span>Pages</span><strong>13</strong><p>Indexable SaaS sections.</p></article>
-      <article class="module-card"><span>Saved projects</span><strong data-project-count>0</strong><p>Stored in this browser.</p></article>
-      <article class="module-card"><span>AdSense</span><strong>Enabled</strong><p>Auto ads script and account meta installed.</p></article>
-      <article class="module-card"><span>Export</span><strong>JSON / Copy</strong><p>Outputs move into reports and workspace.</p></article>
-    </div>
-  </section><section class="hero-tool" id="tool">
-    <div class="tool-panel">
-      <div class="panel-heading"><h2>Inputs</h2><span class="pill">01 / 15</span></div>
-      <div class="fields-grid" id="toolFields"></div>
-    </div>
-    <div class="result-panel">
-      <div class="result-toolbar">
-        <h2>Result</h2>
-        <div class="toolbar-row">
-          <button class="button secondary" id="copyExport" type="button">Copy output</button>
-          <button class="button secondary" type="button" data-save-current>Save project</button>
-          <button class="button" type="button" data-download-current>Download JSON</button>
+
+      <!-- Left: Hero copy -->
+      <div class="saas-panel" style="display:grid; grid-template-rows: auto 1fr auto;">
+        <div>
+          <p class="eyebrow">AI Cost Calculator</p>
+          <h1>Know Your AI Bill Before It Arrives</h1>
+          <p class="lede">Estimate monthly token costs for GPT-4, Claude, Gemini and 20+ models — directly in your browser. No signup, no data sent anywhere.</p>
+          <div class="action-row">
+            <a class="button primary-accent" href="#tool">Open Calculator</a>
+            <a class="button secondary" href="./compare/">Compare Models</a>
+          </div>
+        </div>
+
+        <!-- Inline SVG hero illustration -->
+        <div style="display:flex; align-items:flex-end; justify-content:flex-end; padding-top:24px;">
+          <svg viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg"
+               style="max-width:100%; height:auto; opacity:0.85;" aria-hidden="true">
+            <!-- Background card shapes -->
+            <rect x="0" y="30" width="160" height="100" rx="10" fill="rgba(14,165,233,0.08)" stroke="rgba(14,165,233,0.2)" stroke-width="1"/>
+            <rect x="170" y="10" width="160" height="130" rx="10" fill="rgba(16,185,129,0.08)" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+            <!-- Bar chart bars -->
+            <rect x="20" y="90" width="20" height="30" rx="4" fill="rgba(14,165,233,0.5)"/>
+            <rect x="46" y="70" width="20" height="50" rx="4" fill="rgba(14,165,233,0.65)"/>
+            <rect x="72" y="55" width="20" height="65" rx="4" fill="rgba(14,165,233,0.8)"/>
+            <rect x="98" y="75" width="20" height="45" rx="4" fill="rgba(14,165,233,0.55)"/>
+            <rect x="124" y="85" width="20" height="35" rx="4" fill="rgba(14,165,233,0.45)"/>
+            <!-- Right panel: line graph path -->
+            <polyline points="185,110 205,85 225,95 245,60 265,70 285,45 305,55 325,35"
+              stroke="rgba(16,185,129,0.8)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="185,110 205,85 225,95 245,60 265,70 285,45 305,55 325,35 325,130 185,130"
+              fill="rgba(16,185,129,0.1)" stroke="none"/>
+            <!-- Dots on line -->
+            <circle cx="245" cy="60" r="4" fill="#10b981"/>
+            <circle cx="285" cy="45" r="4" fill="#10b981"/>
+            <!-- Labels -->
+            <text x="20" y="145" font-size="9" fill="rgba(107,114,128,0.8)" font-family="sans-serif">Economy</text>
+            <text x="46" y="145" font-size="9" fill="rgba(107,114,128,0.8)" font-family="sans-serif">Balanced</text>
+            <text x="124" y="145" font-size="9" fill="rgba(107,114,128,0.8)" font-family="sans-serif">Premium</text>
+            <!-- Right panel label -->
+            <text x="185" y="148" font-size="9" fill="rgba(107,114,128,0.8)" font-family="sans-serif">Cost trend over time</text>
+            <!-- Accent top dots -->
+            <circle cx="308" cy="16" r="5" fill="rgba(14,165,233,0.5)"/>
+            <circle cx="322" cy="16" r="5" fill="rgba(245,158,11,0.5)"/>
+            <circle cx="336" cy="16" r="5" fill="rgba(16,185,129,0.5)"/>
+          </svg>
+        </div>
+
+        <!-- Badges row -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; padding-top:20px;">
+          <span class="badge badge-green">100% Browser</span>
+          <span class="badge badge-blue">No Signup</span>
+          <span class="badge badge-amber">Free Forever</span>
         </div>
       </div>
-      <div id="toolResult"></div>
-      
+
+      <!-- Right: Dashboard metrics -->
+      <div class="dashboard-grid">
+        <article class="module-card">
+          <span>Pages</span>
+          <strong>50</strong>
+          <p>Indexable tool, guide, and reference pages.</p>
+        </article>
+        <article class="module-card">
+          <span>Saved Projects</span>
+          <strong data-project-count>0</strong>
+          <p>Stored locally in your browser.</p>
+        </article>
+        <article class="module-card">
+          <span>Tools</span>
+          <strong>13</strong>
+          <p>Calculators, estimators, and analyzers.</p>
+        </article>
+        <article class="module-card">
+          <span>Export</span>
+          <strong>JSON / Copy</strong>
+          <p>Outputs move into reports and workspace.</p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- Stats Row -->
+    <div style="width: min(1400px, calc(100% - 32px)); margin: 0 auto;">
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="stat-number">50</span>
+          <span class="stat-label">Pages</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">13</span>
+          <span class="stat-label">Tools</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Browser</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">Free</span>
+          <span class="stat-label">to Use</span>
+        </div>
+      </div>
     </div>
-  </section>
-  <section class="content-band">
-    <div class="section-heading"><h2>Use Cases</h2><p>Built for repeat workflows, not one-off thin content.</p></div>
-    <div class="example-grid" id="examples"></div>
-  </section>
-  <section class="content-band">
-    <div class="section-heading"><h2>Limits</h2><p>Every generated result needs professional review before publication or project issue.</p></div>
-    <ul class="checklist" id="limits"></ul>
-  </section>
-  <section class="content-band">
-    <div class="section-heading"><h2>FAQ</h2><p>Short support answers for the SaaS pilot.</p></div>
-    <div id="faq"></div>
-  </section><div class="ad-unit" aria-label="Advertisement"><span>Advertisement</span></div>
+
+    <!-- AdSense — top -->
+    <div style="width: min(1400px, calc(100% - 32px)); margin: 0 auto 8px;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-0268893833921284"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- =============================================
+         CALCULATOR TOOL
+         ============================================= -->
+    <section class="hero-tool" id="tool">
+      <div class="tool-panel">
+        <div class="panel-heading">
+          <h2>Inputs</h2>
+          <span class="pill">01 / 15</span>
+        </div>
+        <div class="fields-grid" id="toolFields"></div>
+      </div>
+      <div class="result-panel">
+        <div class="result-toolbar">
+          <h2>Result</h2>
+          <div class="toolbar-row">
+            <button class="button secondary" id="copyExport" type="button">Copy output</button>
+            <button class="button secondary" type="button" data-save-current>Save project</button>
+            <button class="button" type="button" data-download-current>Download JSON</button>
+          </div>
+        </div>
+        <div id="toolResult"></div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         FEATURED TOOLS
+         ============================================= -->
+    <section class="content-band">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow" style="margin-bottom:8px;">All Tools</p>
+          <h2 style="margin-bottom:8px;">Featured AI Tools</h2>
+        </div>
+        <p>Every tool runs entirely in your browser — no server, no login, no data sent anywhere.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px;">
+
+        <a class="tool-card" href="./tool/">
+          <div class="tool-card-icon">🧮</div>
+          <h3 style="margin-bottom:6px;">Cost Calculator</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Estimate monthly token spend by model tier.</p>
+        </a>
+
+        <a class="tool-card" href="./compare/">
+          <div class="tool-card-icon">⚖️</div>
+          <h3 style="margin-bottom:6px;">Model Compare</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Side-by-side price and capability comparison.</p>
+        </a>
+
+        <a class="tool-card" href="./model-picker/">
+          <div class="tool-card-icon">🎯</div>
+          <h3 style="margin-bottom:6px;">Model Picker</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Find the right model for your use case.</p>
+        </a>
+
+        <a class="tool-card" href="./token-counter/">
+          <div class="tool-card-icon">🔢</div>
+          <h3 style="margin-bottom:6px;">Token Counter</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Estimate token count for any text prompt.</p>
+        </a>
+
+        <a class="tool-card" href="./budget/">
+          <div class="tool-card-icon">💰</div>
+          <h3 style="margin-bottom:6px;">Budget Planner</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Plan your AI spend across models and teams.</p>
+        </a>
+
+        <a class="tool-card" href="./estimator/">
+          <div class="tool-card-icon">📊</div>
+          <h3 style="margin-bottom:6px;">Usage Estimator</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Project usage growth and cost over time.</p>
+        </a>
+
+        <a class="tool-card" href="./cost-breakdown/">
+          <div class="tool-card-icon">📋</div>
+          <h3 style="margin-bottom:6px;">Cost Breakdown</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Itemize input, output, and media costs.</p>
+        </a>
+
+        <a class="tool-card" href="./roi/">
+          <div class="tool-card-icon">📈</div>
+          <h3 style="margin-bottom:6px;">ROI Calculator</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Calculate return on AI investment.</p>
+        </a>
+
+        <a class="tool-card" href="./prompt-optimizer/">
+          <div class="tool-card-icon">✍️</div>
+          <h3 style="margin-bottom:6px;">Prompt Optimizer</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Reduce token count without losing clarity.</p>
+        </a>
+
+        <a class="tool-card" href="./batch/">
+          <div class="tool-card-icon">⚡</div>
+          <h3 style="margin-bottom:6px;">Batch Calculator</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Estimate costs for bulk API processing jobs.</p>
+        </a>
+
+        <a class="tool-card" href="./usage-analyzer/">
+          <div class="tool-card-icon">🔍</div>
+          <h3 style="margin-bottom:6px;">Usage Analyzer</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Analyze and visualize your API usage patterns.</p>
+        </a>
+
+        <a class="tool-card" href="./converter/">
+          <div class="tool-card-icon">🔄</div>
+          <h3 style="margin-bottom:6px;">Unit Converter</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Convert between tokens, words, and characters.</p>
+        </a>
+
+        <a class="tool-card" href="./calculator/">
+          <div class="tool-card-icon">🤖</div>
+          <h3 style="margin-bottom:6px;">AI Calculator</h3>
+          <p style="color:var(--muted); font-size:0.875rem; margin:0;">Full-featured AI spend calculator.</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- AdSense — mid -->
+    <div style="width: min(1400px, calc(100% - 32px)); margin: 0 auto;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-0268893833921284"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- =============================================
+         USE CASES
+         ============================================= -->
+    <section class="content-band">
+      <div class="section-heading">
+        <h2>Use Cases</h2>
+        <p>Built for repeat workflows, not one-off thin content.</p>
+      </div>
+      <div class="example-grid" id="examples"></div>
+    </section>
+
+    <!-- =============================================
+         LIMITS
+         ============================================= -->
+    <section class="content-band">
+      <div class="section-heading">
+        <h2>Limits</h2>
+        <p>Every generated result needs professional review before publication or project use.</p>
+      </div>
+      <ul class="checklist" id="limits"></ul>
+    </section>
+
+    <!-- =============================================
+         FAQ
+         ============================================= -->
+    <section class="content-band">
+      <div class="section-heading">
+        <h2>FAQ</h2>
+        <p>Short support answers for the AI Cost Calculator.</p>
+      </div>
+      <div id="faq"></div>
+    </section>
+
+    <!-- AdSense — bottom -->
+    <div style="width: min(1400px, calc(100% - 32px)); margin: 0 auto 18px;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-0268893833921284"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
   </main>
-  <footer class="footer"><span>AI Cost Calculator for agenthubs.org</span><a href="./privacy/">Privacy</a></footer>
+
+  <footer class="footer">
+    <span>&copy; <span data-current-year></span> AI Cost Calculator &mdash; agenthubs.org</span>
+    <div style="display:flex; gap:16px;">
+      <a href="./privacy/">Privacy</a>
+      <a href="./plans/">Plans</a>
+      <a href="./settings/">Settings</a>
+    </div>
+  </footer>
+
   <script>window.SITE_CONFIG = {"title":"AI Cost Calculator","kind":"aiCost","fields":[{"id":"modelTier","label":"Model tier","type":"select","options":["Economy model","Balanced model","Premium model"],"default":"Balanced model"},{"id":"dailyRequests","label":"Daily requests","type":"number","default":600,"min":0},{"id":"inputTokens","label":"Input tokens","type":"number","default":1200,"min":0},{"id":"outputTokens","label":"Output tokens","type":"number","default":650,"min":0},{"id":"imageCount","label":"Images per day","type":"number","default":12,"min":0},{"id":"audioMinutes","label":"Audio minutes per day","type":"number","default":30,"min":0},{"id":"agentSteps","label":"Agent steps per request","type":"number","default":3,"min":1}],"data":{},"examples":[{"title":"Fast first pass","body":"AI Cost Calculator gives a usable result from a small set of inputs, so the first screen stays productive instead of becoming a long article."},{"title":"Copy-ready output","body":"The result can be copied into a brief, checklist, drawing note, quote, or implementation task without recreating the structure."},{"title":"Review before publishing","body":"Use the generated result as a professional starter, then check local code, contract terms, legal rules, or project standards before final use."}],"faq":[{"q":"Is this AI Cost Calculator a final professional document?","a":"No. It is a structured starter and checking tool. Final use should be reviewed against project requirements and local rules."},{"q":"Why are the ads placed below the tool?","a":"The main task should remain clear. Ads are reserved for result, guide, or FAQ areas so they do not look like controls."},{"q":"Can I copy the output?","a":"Yes. Use the copy output button after the result updates."}],"limits":["This tool avoids fake download buttons and does not claim legal, code, or engineering approval.","Inputs are processed in the browser for this static pilot build.","Rates are model-tier placeholders for planning; compare with current provider pricing before budgeting."]};</script>
   <script src="./app.js"></script>
   <script src="./saas.js"></script>

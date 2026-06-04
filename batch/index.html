@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Batch Cost Calculator | AI Cost Calculator</title>
+  <meta name="description" content="Calculate AI batch processing costs. Compare single-request vs batch API pricing with 50% discount. Find savings for large-scale AI jobs.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/batch/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .batch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .batch-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; }
+    .cost-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cost-card { border: 2px solid var(--line); padding: 20px; background: var(--surface); position: relative; }
+    .cost-card.batch-card { border-color: var(--accent); }
+    .cost-card .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 12px; white-space: nowrap; }
+    .cost-big { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; margin: 8px 0 4px; }
+    .cost-label { color: var(--muted); font-size: .82rem; }
+    .savings-banner { background: color-mix(in srgb, #22c55e, transparent 88%); border: 1px solid #22c55e; padding: 14px 18px; text-align: center; }
+    .savings-banner strong { color: #166534; font-size: 1.1rem; }
+    .schedule-row { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--line); background: var(--surface); font-size: .85rem; }
+    .schedule-bar { flex: 1; height: 8px; background: var(--line); }
+    .schedule-fill { height: 100%; background: var(--accent); transition: width .3s; }
+    .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .stat-box { border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+    .stat-box span { display: block; color: var(--muted); font-size: .78rem; }
+    .stat-box strong { display: block; font-size: 1.1rem; margin-top: 4px; }
+    @media(max-width:800px) { .batch-grid,.cost-comparison,.stat-row { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/" aria-current="page">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="8" y="8" width="14" height="14" rx="2" fill="var(--accent)"/>
+            <rect x="26" y="8" width="14" height="14" rx="2" fill="var(--accent)" opacity=".5"/>
+            <rect x="8" y="26" width="14" height="14" rx="2" fill="var(--accent)" opacity=".5"/>
+            <rect x="26" y="26" width="14" height="14" rx="2" fill="var(--accent-2)"/>
+          </svg>
+          <p class="eyebrow">Bulk Processing</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Batch Cost Calculator</h1>
+          <p class="lede">Calculate costs for bulk AI processing jobs. Compare real-time API vs batch API pricing (50% discount) and find the best processing strategy.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="batch-grid">
+          <!-- Inputs -->
+          <div class="batch-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Job Parameters</h2>
+            <div class="fields-grid">
+              <label class="field field-wide">
+                <span>Model</span>
+                <select id="batchModel">
+                  <option value="gpt4o-mini">GPT-4o Mini ($0.15 / $0.60 per 1M)</option>
+                  <option value="gpt4o" selected>GPT-4o ($2.50 / $10 per 1M)</option>
+                  <option value="gpt4-turbo">GPT-4 Turbo ($10 / $30 per 1M)</option>
+                  <option value="claude-haiku">Claude 3 Haiku ($0.25 / $1.25 per 1M)</option>
+                  <option value="claude-sonnet">Claude 3.5 Sonnet ($3 / $15 per 1M)</option>
+                  <option value="gemini-flash">Gemini 1.5 Flash ($0.075 / $0.30 per 1M)</option>
+                  <option value="gemini-pro">Gemini 1.5 Pro ($1.25 / $5 per 1M)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Number of documents / requests</span>
+                <input type="number" id="numDocs" value="10000" min="1">
+              </label>
+              <label class="field">
+                <span>Avg input tokens per document</span>
+                <input type="number" id="inputTokPerDoc" value="500" min="1">
+              </label>
+              <label class="field">
+                <span>Avg output tokens per document</span>
+                <input type="number" id="outputTokPerDoc" value="200" min="1">
+              </label>
+              <label class="field">
+                <span>Batch size</span>
+                <select id="batchSize">
+                  <option value="1">1 (single requests)</option>
+                  <option value="10">10 per batch</option>
+                  <option value="100" selected>100 per batch</option>
+                  <option value="1000">1,000 per batch</option>
+                  <option value="10000">10,000 per batch</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Processing speed (req/min for schedule)</span>
+                <input type="number" id="rpmLimit" value="60" min="1">
+              </label>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="batch-panel">
+            <h2 style="margin-bottom:16px;font-size:1.1rem">Cost Comparison</h2>
+            <div class="cost-comparison">
+              <div class="cost-card">
+                <div class="cost-label">Real-time API</div>
+                <div class="cost-big" id="r-realtime">—</div>
+                <div style="font-size:.82rem;color:var(--muted)">Immediate results</div>
+              </div>
+              <div class="cost-card batch-card">
+                <div class="badge">50% discount</div>
+                <div class="cost-label">Batch API</div>
+                <div class="cost-big" id="r-batch" style="color:var(--accent)">—</div>
+                <div style="font-size:.82rem;color:var(--muted)">24h delivery SLA</div>
+              </div>
+            </div>
+            <div class="savings-banner" id="savingsBanner" style="margin-top:14px">
+              <strong id="savingsText">—</strong>
+            </div>
+            <div class="stat-row" style="margin-top:14px">
+              <div class="stat-box"><span>Cost per document</span><strong id="r-perDoc">—</strong></div>
+              <div class="stat-box"><span>Total tokens</span><strong id="r-totalTokens">—</strong></div>
+              <div class="stat-box"><span>Est. processing time</span><strong id="r-procTime">—</strong></div>
+            </div>
+            <div class="stat-row" style="margin-top:12px">
+              <div class="stat-box"><span>Input tokens cost</span><strong id="r-inputCost">—</strong></div>
+              <div class="stat-box"><span>Output tokens cost</span><strong id="r-outputCost">—</strong></div>
+              <div class="stat-box"><span>Number of batches</span><strong id="r-batches">—</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule planner -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:22px">
+          <h2 style="margin-bottom:14px;font-size:1.1rem">Schedule Planner</h2>
+          <p style="color:var(--muted);font-size:.88rem;margin-bottom:14px">Distribute your batch job across hours to stay within rate limits.</p>
+          <div id="schedulePlanner"></div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:24px">
+          <h2 style="margin-bottom:14px">Batch API tips</h2>
+          <div class="example-grid">
+            <article>
+              <h3>When to use batch</h3>
+              <p>Use Batch API for data processing, content generation at scale, classification jobs, and any workload where 24-hour turnaround is acceptable.</p>
+            </article>
+            <article>
+              <h3>Rate limit strategy</h3>
+              <p>Spread large jobs across multiple hours. Most providers have hourly token limits. Splitting into smaller chunks prevents failures and improves reliability.</p>
+            </article>
+            <article>
+              <h3>Cost optimization</h3>
+              <p>Combine prompt caching with batch processing for maximum savings. Cached input tokens + batch discount can reduce costs by up to 95% vs real-time uncached.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const BATCH_MODELS = {
+  'gpt4o-mini':    { in: 0.15,  out: 0.6  },
+  'gpt4o':         { in: 2.5,   out: 10   },
+  'gpt4-turbo':    { in: 10,    out: 30   },
+  'claude-haiku':  { in: 0.25,  out: 1.25 },
+  'claude-sonnet': { in: 3,     out: 15   },
+  'gemini-flash':  { in: 0.075, out: 0.3  },
+  'gemini-pro':    { in: 1.25,  out: 5    },
+};
+
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+const fmtSmall = v => {
+  if (v < 0.01) return '$' + v.toFixed(6);
+  return fmt(v);
+};
+const n = v => new Intl.NumberFormat('en-US').format(v);
+
+function calc() {
+  const modelKey = document.getElementById('batchModel').value;
+  const m = BATCH_MODELS[modelKey];
+  const numDocs = +document.getElementById('numDocs').value || 1;
+  const inputTok = +document.getElementById('inputTokPerDoc').value || 1;
+  const outputTok = +document.getElementById('outputTokPerDoc').value || 1;
+  const batchSize = +document.getElementById('batchSize').value || 100;
+  const rpm = +document.getElementById('rpmLimit').value || 60;
+
+  const totalInput = numDocs * inputTok;
+  const totalOutput = numDocs * outputTok;
+
+  const inputCostFull = (totalInput / 1e6) * m.in;
+  const outputCostFull = (totalOutput / 1e6) * m.out;
+  const realtimeTotal = inputCostFull + outputCostFull;
+  const batchTotal = realtimeTotal * 0.5;
+
+  const perDocFull = realtimeTotal / numDocs;
+
+  document.getElementById('r-realtime').textContent = fmt(realtimeTotal);
+  document.getElementById('r-batch').textContent = fmt(batchTotal);
+  document.getElementById('savingsText').innerHTML = `Batch API saves <strong style="font-size:1.3rem">${fmt(realtimeTotal - batchTotal)}</strong> — that's 50% off on eligible models`;
+  document.getElementById('r-perDoc').textContent = fmtSmall(perDocFull);
+  document.getElementById('r-totalTokens').textContent = n(totalInput + totalOutput);
+  document.getElementById('r-inputCost').textContent = fmt(inputCostFull);
+  document.getElementById('r-outputCost').textContent = fmt(outputCostFull);
+  document.getElementById('r-batches').textContent = n(Math.ceil(numDocs / batchSize));
+
+  const minutesTotal = numDocs / rpm;
+  const hoursTotal = minutesTotal / 60;
+  let timeStr;
+  if (hoursTotal < 1) timeStr = Math.ceil(minutesTotal) + ' min';
+  else if (hoursTotal < 24) timeStr = hoursTotal.toFixed(1) + ' hrs';
+  else timeStr = (hoursTotal / 24).toFixed(1) + ' days';
+  document.getElementById('r-procTime').textContent = timeStr;
+
+  // Schedule planner
+  const hoursNeeded = Math.ceil(hoursTotal);
+  const docsPerHour = Math.ceil(numDocs / Math.max(hoursNeeded, 1));
+  const maxBar = docsPerHour;
+  let schedHTML = '';
+  for (let h = 0; h < Math.min(hoursNeeded, 12); h++) {
+    const docsThisHour = h === hoursNeeded - 1 ? numDocs - (docsPerHour * (hoursNeeded - 1)) : docsPerHour;
+    const pct = maxBar > 0 ? Math.min((docsThisHour / maxBar) * 100, 100) : 0;
+    schedHTML += `<div class="schedule-row">
+      <span style="min-width:60px;color:var(--muted);font-size:.78rem">Hour ${h+1}</span>
+      <div class="schedule-bar"><div class="schedule-fill" style="width:${pct}%"></div></div>
+      <span style="min-width:80px;text-align:right;font-size:.82rem">${n(Math.max(0,docsThisHour))} docs</span>
+    </div>`;
+  }
+  if (hoursNeeded > 12) schedHTML += `<div style="color:var(--muted);font-size:.82rem;padding:8px">...and ${hoursNeeded - 12} more hours</div>`;
+  document.getElementById('schedulePlanner').innerHTML = schedHTML || '<p style="color:var(--muted)">Adjust parameters to see schedule</p>';
+}
+
+['batchModel','numDocs','inputTokPerDoc','outputTokPerDoc','batchSize','rpmLimit'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calc);
+});
+calc();
+</script>
+</body>
+</html>

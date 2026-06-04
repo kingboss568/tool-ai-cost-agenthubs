@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Cost Glossary | AI Cost Calculator</title>
+  <meta name="description" content="Searchable glossary of AI and LLM terminology. 40+ definitions covering tokens, context windows, RAG, fine-tuning, embeddings, pricing concepts, and more.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/glossary/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .glossary-search-wrap { position:sticky; top:70px; z-index:10; background:var(--bg); padding:12px 0; }
+    .glossary-search { width:100%; max-width:480px; padding:10px 16px; font-size:.95rem; border:1px solid var(--line); background:var(--panel); }
+    .glossary-count { font-size:.82rem; color:var(--muted); margin-left:14px; }
+    .alpha-nav { display:flex; flex-wrap:wrap; gap:6px; margin:16px 0; }
+    .alpha-nav a { width:30px; height:30px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); font-size:.82rem; font-weight:700; text-decoration:none; color:var(--muted); transition:.15s; }
+    .alpha-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .glossary-section { margin-bottom:32px; }
+    .glossary-letter { font-size:1.5rem; font-weight:900; color:var(--accent); border-bottom:2px solid var(--accent); padding-bottom:6px; margin-bottom:16px; }
+    .term-entry { border-bottom:1px solid var(--line); padding:16px 0; }
+    .term-entry:last-child { border-bottom:none; }
+    .term-name { font-size:1rem; font-weight:700; margin:0 0 6px; color:var(--ink); }
+    .term-def { font-size:.9rem; color:var(--muted); line-height:1.65; margin:0 0 8px; }
+    .term-example { font-size:.83rem; background:color-mix(in srgb,var(--accent),transparent 93%); border-left:3px solid var(--accent); padding:8px 12px; color:var(--ink); margin-top:6px; }
+    .term-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .term-tag { font-size:.7rem; padding:2px 7px; border:1px solid var(--line); color:var(--muted); }
+    .term-entry[data-hidden="true"] { display:none; }
+    .no-results { text-align:center; padding:40px; color:var(--muted); display:none; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/" aria-current="page">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Reference</p>
+          <h1>AI Cost Glossary</h1>
+          <p class="lede">40+ definitions for AI and LLM terminology — from tokens and context windows to RAG, fine-tuning, and advanced pricing concepts. Search in real-time below.</p>
+        </div>
+
+        <div class="workspace-card">
+          <div class="glossary-search-wrap">
+            <input type="search" id="glossarySearch" class="glossary-search" placeholder="Search terms… (e.g. 'token', 'RAG', 'cache')" aria-label="Search glossary">
+            <span class="glossary-count" id="glossaryCount"></span>
+          </div>
+
+          <div class="alpha-nav" id="alphaNay">
+            <a href="#A">A</a><a href="#B">B</a><a href="#C">C</a><a href="#E">E</a><a href="#F">F</a>
+            <a href="#G">G</a><a href="#H">H</a><a href="#I">I</a><a href="#K">K</a><a href="#L">L</a>
+            <a href="#M">M</a><a href="#O">O</a><a href="#P">P</a><a href="#R">R</a><a href="#S">S</a>
+            <a href="#T">T</a><a href="#V">V</a><a href="#Z">Z</a>
+          </div>
+
+          <div id="glossaryContainer">
+
+            <div class="glossary-section" id="sec-A">
+              <div class="glossary-letter" id="A">A</div>
+              <div class="term-entry" data-term="agent">
+                <p class="term-name">Agent</p>
+                <p class="term-def">An AI system that autonomously plans and executes multi-step tasks using tools, memory, and decision loops. Agents call LLMs repeatedly, use tool results to inform next steps, and can browse the web, write code, or query databases.</p>
+                <div class="term-example">Example: An agent given "research competitors and write a report" might search the web, extract data, compare it, and draft a document — all without human input.</div>
+                <div class="term-tags"><span class="term-tag">architecture</span><span class="term-tag">pricing impact</span></div>
+              </div>
+              <div class="term-entry" data-term="api">
+                <p class="term-name">API (Application Programming Interface)</p>
+                <p class="term-def">A standardized interface for accessing AI model capabilities over the internet. AI APIs accept HTTP requests containing your prompt and return generated text. Most providers use a REST API with JSON payloads.</p>
+                <div class="term-example">Example: POST https://api.openai.com/v1/chat/completions with your messages and model name returns a JSON response with the AI's reply.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span></div>
+              </div>
+              <div class="term-entry" data-term="assistant message">
+                <p class="term-name">Assistant Message</p>
+                <p class="term-def">In the chat/messages API format, this is the AI model's previous response that you include in conversation history. Assistant messages are counted as input tokens in subsequent requests, so long assistant replies increase costs over multi-turn conversations.</p>
+                <div class="term-example">Example: Including the model's previous 500-word reply in the next request adds ~667 input tokens to that request's cost.</div>
+                <div class="term-tags"><span class="term-tag">pricing</span><span class="term-tag">conversation</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-B">
+              <div class="glossary-letter" id="B">B</div>
+              <div class="term-entry" data-term="batch api">
+                <p class="term-name">Batch API</p>
+                <p class="term-def">An asynchronous API endpoint that processes requests in bulk at a lower cost, typically with a 24-hour completion SLA. OpenAI and Anthropic offer 50% discounts for batch processing compared to real-time inference.</p>
+                <div class="term-example">Example: Submitting 10,000 document classification requests to OpenAI's Batch API costs 50% less than real-time requests and completes within 24 hours.</div>
+                <div class="term-tags"><span class="term-tag">cost optimization</span><span class="term-tag">pricing</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-C">
+              <div class="glossary-letter" id="C">C</div>
+              <div class="term-entry" data-term="cache hit kv cache prefix caching">
+                <p class="term-name">Cache Hit / KV Cache / Prefix Caching</p>
+                <p class="term-def">When a provider has already computed the attention keys and values for an identical prefix (e.g., your system prompt), subsequent requests with that same prefix can reuse those cached computations. Cache hits significantly reduce latency and cost — Anthropic and OpenAI charge as little as 10% of normal price for cached tokens.</p>
+                <div class="term-example">Example: A 2,000-token system prompt that's identical across 1,000 requests costs full price once, then ~90% less for the cached portion in subsequent requests.</div>
+                <div class="term-tags"><span class="term-tag">cost optimization</span><span class="term-tag">performance</span></div>
+              </div>
+              <div class="term-entry" data-term="completion tokens output tokens">
+                <p class="term-name">Completion Tokens / Output Tokens</p>
+                <p class="term-def">The tokens generated by the AI model in its response. Completion tokens are billed separately from input tokens, typically at a 3–5× higher rate because each token requires a full model forward pass. Minimizing unnecessary verbosity in outputs directly reduces costs.</p>
+                <div class="term-example">Example: Asking a model to "respond in JSON with just the sentiment label" instead of "explain the sentiment" can reduce output tokens by 90%.</div>
+                <div class="term-tags"><span class="term-tag">pricing</span><span class="term-tag">fundamentals</span></div>
+              </div>
+              <div class="term-entry" data-term="context window context length">
+                <p class="term-name">Context Window / Context Length</p>
+                <p class="term-def">The maximum number of tokens a model can process in a single API call (input + output combined). Larger context windows allow longer documents and conversations but have upper token limits. Common sizes: 32K, 128K (most models), 200K (Anthropic), 1M (Google Gemini).</p>
+                <div class="term-example">Example: A model with a 128K context window can process approximately 100,000 words in a single request — roughly the length of a full novel.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span><span class="term-tag">limits</span></div>
+              </div>
+              <div class="term-entry" data-term="cost per request cost per million tokens">
+                <p class="term-name">Cost Per Request / Cost Per Million Tokens</p>
+                <p class="term-def">Two common ways to express AI pricing. Cost per million tokens ($/M) is the standard provider metric. Cost per request is calculated by multiplying your average token counts by the per-million rates and dividing by 1,000,000. Most cost planning should work in $/M tokens, then convert to $/request for your use case.</p>
+                <div class="term-example">Example: GPT-4o at $2.50/M input, 1,000 input tokens per request = $0.0025 per request in input costs alone.</div>
+                <div class="term-tags"><span class="term-tag">pricing</span><span class="term-tag">fundamentals</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-E">
+              <div class="glossary-letter" id="E">E</div>
+              <div class="term-entry" data-term="embedding vector">
+                <p class="term-name">Embedding / Vector</p>
+                <p class="term-def">A numerical representation of text as a fixed-size list of floating-point numbers (a vector). Embeddings capture semantic meaning, allowing similarity search across large text collections. Embedding model APIs are much cheaper than generation APIs — typically $0.02–$0.13/M tokens.</p>
+                <div class="term-example">Example: "The cat sat on the mat" and "A feline rested on a rug" will have very similar embedding vectors despite using different words.</div>
+                <div class="term-tags"><span class="term-tag">rag</span><span class="term-tag">pricing</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-F">
+              <div class="glossary-letter" id="F">F</div>
+              <div class="term-entry" data-term="few-shot learning">
+                <p class="term-name">Few-Shot Learning</p>
+                <p class="term-def">Providing a small number of input/output examples in the prompt to demonstrate the desired behavior. Few-shot prompting improves accuracy but adds tokens (cost). Typically 2–5 examples are sufficient; more examples rarely improve results proportionally.</p>
+                <div class="term-example">Example: Showing 3 example sentiment classifications before asking the model to classify new text improves accuracy for specialized domains.</div>
+                <div class="term-tags"><span class="term-tag">prompting</span><span class="term-tag">cost impact</span></div>
+              </div>
+              <div class="term-entry" data-term="fine-tuning rlhf lora">
+                <p class="term-name">Fine-Tuning / RLHF / LoRA</p>
+                <p class="term-def">Fine-tuning adapts a pretrained model to a specific task using custom training data. RLHF (Reinforcement Learning from Human Feedback) trains models to follow instructions using human preference data. LoRA (Low-Rank Adaptation) is an efficient fine-tuning technique that updates only a small fraction of model weights, reducing training cost significantly.</p>
+                <div class="term-example">Example: Fine-tuning GPT-4o Mini on your customer support conversations can match GPT-4o quality for your specific domain at a fraction of the inference cost.</div>
+                <div class="term-tags"><span class="term-tag">training</span><span class="term-tag">cost optimization</span></div>
+              </div>
+              <div class="term-entry" data-term="foundation model">
+                <p class="term-name">Foundation Model</p>
+                <p class="term-def">A large AI model pretrained on massive datasets that serves as the base for many downstream applications. Foundation models (GPT-4, Claude, Gemini) are expensive to train but cheap to use via API. The term emphasizes that these models are "foundations" upon which other capabilities are built.</p>
+                <div class="term-example">Example: GPT-4o is a foundation model that can be used directly or fine-tuned to create specialized models for medical, legal, or coding applications.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span></div>
+              </div>
+              <div class="term-entry" data-term="frequency penalty presence penalty">
+                <p class="term-name">Frequency Penalty / Presence Penalty</p>
+                <p class="term-def">Sampling parameters that reduce repetition in model outputs. Frequency penalty discourages repeating tokens proportional to how often they've appeared. Presence penalty adds a flat penalty for any token that has appeared at all. Neither directly affects cost, but reducing repetition can shorten outputs and lower costs indirectly.</p>
+                <div class="term-example">Example: Setting frequency_penalty=0.5 helps prevent the model from repeating the same phrases in a long generated document.</div>
+                <div class="term-tags"><span class="term-tag">parameters</span></div>
+              </div>
+              <div class="term-entry" data-term="function calling tool use">
+                <p class="term-name">Function Calling / Tool Use</p>
+                <p class="term-def">An API feature allowing models to call predefined functions and use external tools. Function/tool definitions are included in the request as additional input tokens. A large set of tool definitions can add hundreds of tokens per request. The model's function call response is counted as output tokens, and the function result fed back is input tokens.</p>
+                <div class="term-example">Example: Defining 10 tools with 100 tokens each adds 1,000 input tokens to every request in your tool-using agent — at GPT-4o rates, an extra $0.0025 per request.</div>
+                <div class="term-tags"><span class="term-tag">features</span><span class="term-tag">pricing impact</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-G">
+              <div class="glossary-letter" id="G">G</div>
+              <div class="term-entry" data-term="grounding citation hallucination">
+                <p class="term-name">Grounding / Citation / Hallucination</p>
+                <p class="term-def">Grounding connects model responses to verified sources (documents, search results). Citation means providing references for claims. Hallucination is when a model generates plausible-sounding but incorrect information. Grounding via RAG increases token costs but reduces errors, which can be cheaper than the cost of incorrect outputs.</p>
+                <div class="term-example">Example: A grounded medical Q&A system passes retrieved PubMed abstracts as context, adding 2,000 input tokens per query but ensuring medically accurate responses.</div>
+                <div class="term-tags"><span class="term-tag">quality</span><span class="term-tag">rag</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-H">
+              <div class="glossary-letter" id="H">H</div>
+              <div class="term-entry" data-term="hallucination">
+                <p class="term-name">Hallucination</p>
+                <p class="term-def">When a language model generates text that is factually incorrect, invented, or not supported by its training data or provided context. Hallucinations are more common in smaller models and without grounding. The cost of hallucinations (human review, errors) often exceeds the cost savings of using cheaper models.</p>
+                <div class="term-example">Example: A model confidently citing a scientific paper with the wrong authors and journal, even though no such paper was provided in the context.</div>
+                <div class="term-tags"><span class="term-tag">quality</span><span class="term-tag">risks</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-I">
+              <div class="glossary-letter" id="I">I</div>
+              <div class="term-entry" data-term="inference training deployment">
+                <p class="term-name">Inference / Training / Deployment</p>
+                <p class="term-def">Inference is running a trained model to generate outputs (what you pay for with API calls). Training is the process of teaching a model using data (very expensive, done by AI labs). Deployment is making a trained model available for inference. When you use an AI API, you're paying for inference compute.</p>
+                <div class="term-example">Example: GPT-4 cost hundreds of millions of dollars to train, but inference costs are fractions of a cent per request because they're amortized across millions of users.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span></div>
+              </div>
+              <div class="term-entry" data-term="input tokens prompt tokens">
+                <p class="term-name">Input Tokens / Prompt Tokens</p>
+                <p class="term-def">All tokens sent to the model in your API request: system prompt, conversation history, user message, document context, tool definitions, and any examples. Input tokens are counted and billed at the input rate. Strategies to reduce input tokens include shorter system prompts, context compression, and selective history trimming.</p>
+                <div class="term-example">Example: A request with a 500-token system prompt, 2000-token document, and 100-token question has 2,600 input tokens before the model generates a single output token.</div>
+                <div class="term-tags"><span class="term-tag">pricing</span><span class="term-tag">fundamentals</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-K">
+              <div class="glossary-letter" id="K">K</div>
+              <div class="term-entry" data-term="kv cache">
+                <p class="term-name">KV Cache (Key-Value Cache)</p>
+                <p class="term-def">An internal optimization where the model stores intermediate computations (key and value matrices) from previously processed tokens. When a prompt prefix is identical to a previous request, cached KV values can be reused, reducing latency and compute costs. Providers like OpenAI and Anthropic pass these savings on as "cache read" pricing.</p>
+                <div class="term-example">Example: OpenAI automatically caches prompts longer than 1,024 tokens, and cached tokens are billed at $0.125/M (5× cheaper than standard input tokens).</div>
+                <div class="term-tags"><span class="term-tag">performance</span><span class="term-tag">cost optimization</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-L">
+              <div class="glossary-letter" id="L">L</div>
+              <div class="term-entry" data-term="latency ttft time to first token tps tokens per second">
+                <p class="term-name">Latency / TTFT / TPS</p>
+                <p class="term-def">Latency is the total time from sending a request to receiving the complete response. TTFT (Time to First Token) is the delay before streaming begins — critical for perceived responsiveness. TPS (Tokens Per Second) is the generation speed. High-capacity models have lower TPS but higher quality; economy models can do 150–250 TPS.</p>
+                <div class="term-example">Example: Gemini 1.5 Flash achieves ~250 TPS with low TTFT, making it excellent for customer-facing chatbots where speed matters. GPT-4o runs at ~80 TPS but with higher quality.</div>
+                <div class="term-tags"><span class="term-tag">performance</span></div>
+              </div>
+              <div class="term-entry" data-term="llm slm large language model small language model">
+                <p class="term-name">LLM / SLM (Large/Small Language Model)</p>
+                <p class="term-def">LLM refers to large neural networks trained on vast text corpora to generate and understand language — typically models with billions of parameters. SLM refers to smaller, more efficient models (1–10B parameters) optimized for speed and cost. SLMs trade some capability for dramatically reduced inference costs.</p>
+                <div class="term-example">Example: GPT-4o is an LLM (~175B+ parameters); Llama 3.1 8B is an SLM that runs on consumer hardware yet beats older LLMs on many benchmarks.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span></div>
+              </div>
+              <div class="term-entry" data-term="lora">
+                <p class="term-name">LoRA (Low-Rank Adaptation)</p>
+                <p class="term-def">A parameter-efficient fine-tuning method that adds small trainable weight matrices to a frozen base model. LoRA reduces fine-tuning compute and storage requirements by 10–100× versus full fine-tuning, making custom model adaptation practical for small teams. Popular for customizing open-weights models.</p>
+                <div class="term-example">Example: A 70B-parameter Llama model would normally require terabytes of GPU memory to fine-tune; LoRA can adapt it using a fraction of that compute while achieving comparable results.</div>
+                <div class="term-tags"><span class="term-tag">training</span><span class="term-tag">cost optimization</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-M">
+              <div class="glossary-letter" id="M">M</div>
+              <div class="term-entry" data-term="multimodal vision audio">
+                <p class="term-name">Multimodal / Vision / Audio Transcription</p>
+                <p class="term-def">Multimodal models can process multiple data types: text, images, audio, and video. Vision requests encode images as tokens (e.g., ~765 tokens for a 1024px image in GPT-4o). Audio transcription (Whisper) is typically billed per minute of audio. Multimodal requests cost more than text-only due to image tokenization overhead.</p>
+                <div class="term-example">Example: Processing 100 product images with GPT-4o for description generation: ~765 tokens/image × 100 × $2.50/M = $0.19 just in image input costs.</div>
+                <div class="term-tags"><span class="term-tag">features</span><span class="term-tag">pricing impact</span></div>
+              </div>
+              <div class="term-entry" data-term="multi-agent orchestration">
+                <p class="term-name">Multi-Agent / Orchestration</p>
+                <p class="term-def">A system where multiple AI agents collaborate, with one "orchestrator" agent directing specialized "worker" agents. Multi-agent pipelines multiply token costs: each agent call is a separate billable request. Cost planning for multi-agent systems must account for all agent interactions, not just final output.</p>
+                <div class="term-example">Example: A research pipeline with 1 orchestrator + 3 specialist agents might make 10–20 LLM calls to answer one user question, costing 10–20× a single-agent approach.</div>
+                <div class="term-tags"><span class="term-tag">architecture</span><span class="term-tag">pricing impact</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-O">
+              <div class="glossary-letter" id="O">O</div>
+              <div class="term-entry" data-term="open weights open source">
+                <p class="term-name">Open Weights / Open Source</p>
+                <p class="term-def">Models where the trained weights are publicly released for download and use. "Open weights" means you can run the model yourself (e.g., Llama, Mistral). True open-source includes the training code and data too. Open-weights models can be self-hosted for privacy and cost control, or accessed via third-party inference APIs at competitive rates.</p>
+                <div class="term-example">Example: Llama 3.1 70B is open-weights — downloadable for free and self-hostable, or available via Together AI at $0.59/M tokens with no proprietary lock-in.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span><span class="term-tag">cost strategy</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-P">
+              <div class="glossary-letter" id="P">P</div>
+              <div class="term-entry" data-term="prompt engineering">
+                <p class="term-name">Prompt Engineering</p>
+                <p class="term-def">The practice of crafting input prompts to elicit desired model behaviors. Effective prompt engineering can improve output quality without increasing cost, and sometimes reduces token usage by being more concise. Techniques include: chain-of-thought, few-shot examples, role assignment, output format specification, and constraint specification.</p>
+                <div class="term-example">Example: Adding "Respond in exactly one sentence" to a prompt can reduce output tokens from 200 to 15 tokens while still getting the needed information.</div>
+                <div class="term-tags"><span class="term-tag">prompting</span><span class="term-tag">cost optimization</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-R">
+              <div class="glossary-letter" id="R">R</div>
+              <div class="term-entry" data-term="rag retrieval augmented generation">
+                <p class="term-name">RAG (Retrieval-Augmented Generation)</p>
+                <p class="term-def">A technique that combines vector search with text generation. Documents are embedded and stored in a vector database. At query time, relevant chunks are retrieved and inserted into the prompt as context. RAG improves accuracy and reduces hallucination but increases input token costs with every query.</p>
+                <div class="term-example">Example: A customer support RAG system embeds 1,000 help articles. Each user question retrieves the 3 most relevant chunks (~1,500 tokens), adding $0.00375 to the input cost of each GPT-4o query.</div>
+                <div class="term-tags"><span class="term-tag">architecture</span><span class="term-tag">pricing impact</span></div>
+              </div>
+              <div class="term-entry" data-term="rate limiting throttling">
+                <p class="term-name">Rate Limiting / Throttling</p>
+                <p class="term-def">Restrictions on API usage frequency to prevent abuse and ensure fair access. Providers set limits by: requests per minute (RPM), tokens per minute (TPM), and tokens per day (TPD). Hitting rate limits returns 429 errors. Higher rate limits are available at higher usage tiers or through paid commitments.</p>
+                <div class="term-example">Example: OpenAI's free tier allows 3 RPM and 40,000 TPM for GPT-4o. A paid Tier 2 account gets 5,000 RPM and 2,000,000 TPM.</div>
+                <div class="term-tags"><span class="term-tag">limits</span><span class="term-tag">api</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-S">
+              <div class="glossary-letter" id="S">S</div>
+              <div class="term-entry" data-term="streaming">
+                <p class="term-name">Streaming</p>
+                <p class="term-def">A mode where the model sends output tokens incrementally as they're generated rather than waiting for the complete response. Streaming significantly improves perceived responsiveness for user-facing apps but does not reduce cost — you still pay for all output tokens. Some providers have slightly different rate limits for streaming vs non-streaming.</p>
+                <div class="term-example">Example: ChatGPT-style interfaces use streaming so users see words appearing in real-time instead of waiting 5–30 seconds for the full response to appear.</div>
+                <div class="term-tags"><span class="term-tag">api</span><span class="term-tag">performance</span></div>
+              </div>
+              <div class="term-entry" data-term="system prompt">
+                <p class="term-name">System Prompt</p>
+                <p class="term-def">Instructions sent to the model before the conversation that define its role, behavior, and constraints. System prompts are paid for as input tokens with every single request. A 1,000-token system prompt at GPT-4o rates ($2.50/M) costs $0.0025 per request — $2.50 per thousand requests, $75 per 30K requests/day.</p>
+                <div class="term-example">Example: A customer service bot system prompt saying "You are a helpful assistant for Acme Corp. Only answer questions about our products..." gets re-sent (and re-charged) with every message.</div>
+                <div class="term-tags"><span class="term-tag">pricing</span><span class="term-tag">prompting</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-T">
+              <div class="glossary-letter" id="T">T</div>
+              <div class="term-entry" data-term="temperature top-p">
+                <p class="term-name">Temperature / Top-p</p>
+                <p class="term-def">Sampling parameters controlling output randomness. Temperature (0–2) controls how "creative" vs deterministic the model is. Temperature 0 produces near-deterministic outputs (same input = same output), useful for consistent applications. Top-p (nucleus sampling) controls the probability mass considered at each step. Neither parameter affects token cost.</p>
+                <div class="term-example">Example: Temperature 0 for code generation ensures consistent outputs. Temperature 0.9 for creative writing produces varied, surprising responses.</div>
+                <div class="term-tags"><span class="term-tag">parameters</span></div>
+              </div>
+              <div class="term-entry" data-term="throughput">
+                <p class="term-name">Throughput</p>
+                <p class="term-def">The rate at which a system processes requests or tokens, measured in requests per second (RPS) or tokens per second (TPS). Higher throughput means more work done per unit time, which is important for batch processing and high-volume applications. Throughput is limited by rate limits, model speed, and your own infrastructure.</p>
+                <div class="term-example">Example: A model generating 100 TPS that's handling 3 concurrent requests effectively produces 33 TPS per request — important to consider for user-facing applications.</div>
+                <div class="term-tags"><span class="term-tag">performance</span></div>
+              </div>
+              <div class="term-entry" data-term="token tokenization tokenizer">
+                <p class="term-name">Token / Tokenization / Tokenizer</p>
+                <p class="term-def">A token is the fundamental unit of text used by language models — roughly 4 characters or 0.75 words of English text. Tokenization is the process of splitting text into tokens. A tokenizer is the algorithm (e.g., tiktoken for OpenAI) that performs this splitting. All AI API pricing is based on tokens, making tokenization knowledge essential for cost estimation.</p>
+                <div class="term-example">Example: "Hello, world!" tokenizes to ["Hello", ",", " world", "!"] = 4 tokens. "AI tokenization is fascinating" = 6 tokens. 1,000-word document ≈ 1,333 tokens.</div>
+                <div class="term-tags"><span class="term-tag">fundamentals</span><span class="term-tag">pricing</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-V">
+              <div class="glossary-letter" id="V">V</div>
+              <div class="term-entry" data-term="vector database">
+                <p class="term-name">Vector Database</p>
+                <p class="term-def">A database optimized for storing and searching embedding vectors using approximate nearest-neighbor algorithms. Used in RAG systems to find relevant documents given a query embedding. Examples: Pinecone, Weaviate, Chroma, pgvector. Vector search costs are typically much lower than LLM inference costs.</p>
+                <div class="term-example">Example: Searching 1 million document embeddings in Pinecone to find the 5 most relevant results costs fractions of a cent per query — much cheaper than the LLM call that follows.</div>
+                <div class="term-tags"><span class="term-tag">rag</span><span class="term-tag">infrastructure</span></div>
+              </div>
+            </div>
+
+            <div class="glossary-section" id="sec-Z">
+              <div class="glossary-letter" id="Z">Z</div>
+              <div class="term-entry" data-term="zero-shot">
+                <p class="term-name">Zero-Shot Learning</p>
+                <p class="term-def">Asking a model to perform a task without providing any examples in the prompt. Zero-shot prompting uses the fewest input tokens but may produce lower quality results on specialized tasks. The cost savings vs few-shot depend on whether the quality difference is acceptable for your use case.</p>
+                <div class="term-example">Example: "Classify this review as positive or negative: 'Great product!'" is zero-shot. Adding 3 labeled examples would be few-shot, using more tokens but potentially improving accuracy.</div>
+                <div class="term-tags"><span class="term-tag">prompting</span><span class="term-tag">cost optimization</span></div>
+              </div>
+            </div>
+
+          </div>
+          <div class="no-results" id="noResults">No terms found matching your search. Try different keywords.</div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <h2>Related Resources</h2>
+          <div class="two-col">
+            <div>
+              <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:18px">
+                <li><a href="../pricing-guide/">Complete AI Pricing Guide</a> — in-depth pricing explanations</li>
+                <li><a href="../token-counter/">Token Counter</a> — count tokens in your prompts</li>
+                <li><a href="../models/">AI Models Database</a> — current pricing for all models</li>
+                <li><a href="../api-docs/">API Documentation</a> — code examples and patterns</li>
+              </ul>
+            </div>
+            <div>
+              <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:18px">
+                <li><a href="../tool/">Cost Calculator</a> — estimate your monthly spend</li>
+                <li><a href="../guide/">Getting Started Guide</a> — step-by-step walkthrough</li>
+                <li><a href="../benchmarks/">Benchmarks</a> — performance data for all models</li>
+                <li><a href="../case-studies/">Case Studies</a> — real-world cost examples</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+<script>
+const searchInput = document.getElementById('glossarySearch');
+const countEl = document.getElementById('glossaryCount');
+const noResults = document.getElementById('noResults');
+const entries = document.querySelectorAll('.term-entry');
+const sections = document.querySelectorAll('.glossary-section');
+
+function updateCount() {
+  const visible = document.querySelectorAll('.term-entry:not([data-hidden="true"])').length;
+  countEl.textContent = `${visible} of ${entries.length} terms`;
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+  sections.forEach(sec => {
+    const visibleInSection = sec.querySelectorAll('.term-entry:not([data-hidden="true"])').length;
+    sec.style.display = visibleInSection === 0 ? 'none' : '';
+  });
+}
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  entries.forEach(entry => {
+    const text = entry.dataset.term + ' ' + entry.textContent.toLowerCase();
+    entry.dataset.hidden = q && !text.includes(q) ? 'true' : 'false';
+  });
+  updateCount();
+});
+
+updateCount();
+</script>
+</body>
+</html>

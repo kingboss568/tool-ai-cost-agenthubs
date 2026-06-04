@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | AI Cost Calculator</title>
+  <meta name="description" content="Expert articles on AI cost optimization, model selection, prompt engineering, and enterprise AI management from the AI Cost Calculator team.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/blog/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .blog-hero {
+      width: min(1400px, calc(100% - 32px));
+      margin: 32px auto 0;
+      padding: clamp(32px, 5vw, 64px) clamp(24px, 4vw, 56px);
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface), var(--panel) 34%);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+    .blog-hero h1 { max-width: none; font-size: clamp(2rem, 4vw, 3.8rem); margin-bottom: 12px; }
+    .blog-toolbar {
+      width: min(1400px, calc(100% - 32px));
+      margin: 18px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .blog-toolbar input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 340px;
+    }
+    .cat-btn {
+      border: 1px solid var(--line);
+      padding: 8px 14px;
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .cat-btn.active, .cat-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent), transparent 90%);
+    }
+    .blog-grid {
+      width: min(1400px, calc(100% - 32px));
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .blog-card {
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface), var(--panel) 34%);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+    .blog-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      padding: clamp(24px, 4vw, 48px);
+    }
+    .blog-card.featured h2 { font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: 12px; }
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+    .blog-meta {
+      color: var(--muted);
+      font-size: 0.84rem;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .blog-card h2 { margin-bottom: 6px; font-size: 1.2rem; line-height: 1.3; }
+    .blog-card h3 { margin-bottom: 6px; font-size: 1.08rem; line-height: 1.35; }
+    .blog-excerpt { color: var(--muted); font-size: 0.92rem; line-height: 1.65; margin: 0; }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+    .read-more:hover { text-decoration: underline; }
+    .featured-visual {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 70%), color-mix(in srgb, var(--accent-2), transparent 60%));
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+    }
+    .no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+    }
+    @media (max-width: 980px) {
+      .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .blog-card.featured { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/" aria-current="page">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="blog-hero">
+      <div>
+        <p class="eyebrow">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="vertical-align:-2px"><rect x="1" y="2" width="14" height="11" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M4 6h8M4 9h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          AI Cost Blog
+        </p>
+        <h1>Expert Insights on AI Costs</h1>
+        <p class="lede">In-depth guides, analysis, and strategies to optimize your AI spending and get more from every API dollar.</p>
+      </div>
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <rect x="10" y="10" width="100" height="100" rx="8" fill="color-mix(in srgb, #0ea5e9, transparent 85%)"/>
+        <rect x="24" y="32" width="72" height="8" rx="2" fill="#0ea5e9" opacity=".7"/>
+        <rect x="24" y="46" width="56" height="6" rx="2" fill="#0ea5e9" opacity=".4"/>
+        <rect x="24" y="58" width="64" height="6" rx="2" fill="#0ea5e9" opacity=".4"/>
+        <rect x="24" y="70" width="48" height="6" rx="2" fill="#0ea5e9" opacity=".3"/>
+        <rect x="24" y="82" width="40" height="6" rx="2" fill="#f59e0b" opacity=".6"/>
+      </svg>
+    </section>
+
+    <div class="blog-toolbar">
+      <input type="search" id="blogSearch" placeholder="Search articles..." aria-label="Search articles">
+      <div style="display:flex;flex-wrap:wrap;gap:8px" id="catFilters">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="cost-optimization">Cost Optimization</button>
+        <button class="cat-btn" data-cat="guides">Guides</button>
+        <button class="cat-btn" data-cat="techniques">Techniques</button>
+        <button class="cat-btn" data-cat="enterprise">Enterprise</button>
+        <button class="cat-btn" data-cat="comparisons">Comparisons</button>
+        <button class="cat-btn" data-cat="analysis">Analysis</button>
+      </div>
+    </div>
+
+    <div class="ad-unit" style="width:min(1400px,calc(100% - 32px));margin:18px auto">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="blog-grid" id="blogGrid">
+
+      <!-- Featured post -->
+      <article class="blog-card featured" data-cat="cost-optimization" data-title="10 proven ways to cut ai api costs by 60 or more">
+        <div>
+          <span class="cat-badge">Cost Optimization</span>
+          <h2>10 Proven Ways to Cut AI API Costs by 60% or More</h2>
+          <div class="blog-meta">
+            <span>AI Cost Team</span>
+            <span>June 1, 2025</span>
+            <span>8 min read</span>
+          </div>
+          <p class="blog-excerpt">From prompt caching to batch APIs, discover the most impactful strategies that engineering teams are using right now to dramatically reduce their AI API bills — with real before/after cost calculations.</p>
+          <a href="../blog/cost-optimization/" class="read-more">Read Article &rarr;</a>
+        </div>
+        <div class="featured-visual">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+            <circle cx="40" cy="40" r="36" stroke="#0ea5e9" stroke-width="2" opacity=".4"/>
+            <path d="M28 52 L40 28 L52 52" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 44h16" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="40" cy="28" r="4" fill="#f59e0b"/>
+          </svg>
+        </div>
+      </article>
+
+      <!-- Post 2 -->
+      <article class="blog-card" data-cat="guides" data-title="how to choose the right ai model a practical framework">
+        <span class="cat-badge">Guides</span>
+        <h3>How to Choose the Right AI Model: A Practical Framework</h3>
+        <div class="blog-meta">
+          <span>May 28, 2025</span>
+          <span>7 min read</span>
+        </div>
+        <p class="blog-excerpt">A structured decision framework for matching AI models to your specific use case — balancing cost, speed, accuracy, and context window requirements.</p>
+        <a href="../blog/choosing-models/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 3 -->
+      <article class="blog-card" data-cat="techniques" data-title="prompt engineering for cost efficiency advanced techniques">
+        <span class="cat-badge">Techniques</span>
+        <h3>Prompt Engineering for Cost Efficiency: Advanced Techniques</h3>
+        <div class="blog-meta">
+          <span>May 20, 2025</span>
+          <span>6 min read</span>
+        </div>
+        <p class="blog-excerpt">Every unnecessary token costs money. Learn how to craft prompts that get better results with fewer tokens — from structured output formats to system prompt optimization.</p>
+        <a href="../blog/prompt-engineering/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 4 -->
+      <article class="blog-card" data-cat="enterprise" data-title="enterprise ai cost management a complete guide">
+        <span class="cat-badge">Enterprise</span>
+        <h3>Enterprise AI Cost Management: A Complete Guide</h3>
+        <div class="blog-meta">
+          <span>May 15, 2025</span>
+          <span>10 min read</span>
+        </div>
+        <p class="blog-excerpt">How large organizations are building governance frameworks, cost allocation systems, and optimization pipelines to keep AI spending under control at scale.</p>
+        <a href="../blog/enterprise-ai/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 5 -->
+      <article class="blog-card" data-cat="comparisons" data-title="understanding gpt-4o vs claude 3 5 sonnet">
+        <span class="cat-badge">Comparisons</span>
+        <h3>Understanding GPT-4o vs Claude 3.5 Sonnet</h3>
+        <div class="blog-meta">
+          <span>May 10, 2025</span>
+          <span>9 min read</span>
+        </div>
+        <p class="blog-excerpt">A data-driven comparison of the two most popular frontier AI models — looking at cost per token, benchmark performance, speed, and best-fit use cases for each.</p>
+        <a href="../blog/gpt4o-vs-claude/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 6 -->
+      <article class="blog-card" data-cat="analysis" data-title="the true cost of building an ai chatbot">
+        <span class="cat-badge">Analysis</span>
+        <h3>The True Cost of Building an AI Chatbot</h3>
+        <div class="blog-meta">
+          <span>May 5, 2025</span>
+          <span>8 min read</span>
+        </div>
+        <p class="blog-excerpt">Beyond per-token pricing: the full picture of AI chatbot costs including infrastructure, embedding storage, moderation, human fallback, and ongoing maintenance.</p>
+        <a href="../blog/chatbot-costs/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 7 -->
+      <article class="blog-card" data-cat="cost-optimization" data-title="batch api guide save 50 percent on ai costs">
+        <span class="cat-badge">Cost Optimization</span>
+        <h3>Batch API Guide: Save 50% on AI Costs</h3>
+        <div class="blog-meta">
+          <span>May 1, 2025</span>
+          <span>5 min read</span>
+        </div>
+        <p class="blog-excerpt">The Batch API is one of the most under-used cost optimization tools. This guide covers when to use it, how to implement it, and the exact savings you can expect.</p>
+        <a href="../blog/batch-api-guide/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <!-- Post 8 -->
+      <article class="blog-card" data-cat="analysis" data-title="fine-tuning vs prompting cost tradeoffs">
+        <span class="cat-badge">Analysis</span>
+        <h3>Fine-tuning vs Prompting: Cost Tradeoffs</h3>
+        <div class="blog-meta">
+          <span>April 25, 2025</span>
+          <span>7 min read</span>
+        </div>
+        <p class="blog-excerpt">When does fine-tuning a smaller model beat prompt engineering on a large model? A full cost-benefit analysis with break-even calculations for different volume scenarios.</p>
+        <a href="../blog/fine-tuning-costs/" class="read-more">Read More &rarr;</a>
+      </article>
+
+      <div class="no-results" id="noResults" style="display:none">
+        <p>No articles match your search. Try different keywords or clear the filter.</p>
+      </div>
+    </div>
+
+    <div class="ad-unit" style="width:min(1400px,calc(100% - 32px));margin:18px auto 40px">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+  <script>
+    const cards = Array.from(document.querySelectorAll('#blogGrid .blog-card'));
+    const noResults = document.getElementById('noResults');
+    let activeCat = 'all';
+    let searchVal = '';
+
+    function filter() {
+      let shown = 0;
+      cards.forEach(c => {
+        const cat = c.dataset.cat || '';
+        const title = c.dataset.title || '';
+        const catMatch = activeCat === 'all' || cat === activeCat;
+        const searchMatch = !searchVal || title.includes(searchVal.toLowerCase());
+        const visible = catMatch && searchMatch;
+        c.style.display = visible ? '' : 'none';
+        if (visible) shown++;
+      });
+      noResults.style.display = shown === 0 ? '' : 'none';
+    }
+
+    document.getElementById('blogSearch').addEventListener('input', e => {
+      searchVal = e.target.value.trim();
+      filter();
+    });
+
+    document.getElementById('catFilters').addEventListener('click', e => {
+      const btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat;
+      filter();
+    });
+  </script>
+</body>
+</html>

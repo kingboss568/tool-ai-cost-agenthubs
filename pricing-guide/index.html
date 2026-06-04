@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete AI Pricing Guide 2024 | AI Cost Calculator</title>
+  <meta name="description" content="Complete guide to understanding AI API pricing. Learn how tokens work, input vs output costs, context window pricing, optimization strategies, and how to reduce your AI spend.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/pricing-guide/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .guide-toc { background:color-mix(in srgb,var(--accent),transparent 93%); border:1px solid color-mix(in srgb,var(--accent),transparent 60%); padding:20px 24px; margin-bottom:24px; }
+    .guide-toc h3 { margin:0 0 12px; font-size:.95rem; }
+    .guide-toc ol { margin:0; padding-left:20px; font-size:.88rem; line-height:1.9; }
+    .guide-section { margin-bottom:32px; }
+    .guide-section h2 { font-size:1.25rem; border-bottom:2px solid var(--accent); padding-bottom:8px; margin-bottom:16px; }
+    .guide-section h3 { font-size:1rem; color:var(--ink); margin:20px 0 8px; }
+    .guide-section p { color:var(--muted); font-size:.92rem; line-height:1.7; margin:0 0 12px; }
+    .guide-section ul, .guide-section ol { color:var(--muted); font-size:.92rem; line-height:1.8; padding-left:20px; }
+    .info-box { background:color-mix(in srgb,var(--accent-2),transparent 90%); border-left:4px solid var(--accent-2); padding:14px 18px; margin:16px 0; font-size:.9rem; color:var(--ink); }
+    .info-box strong { display:block; margin-bottom:4px; }
+    .tip-box { background:color-mix(in srgb,#22c55e,transparent 90%); border-left:4px solid #22c55e; padding:14px 18px; margin:16px 0; font-size:.9rem; }
+    .warn-box { background:color-mix(in srgb,#ef4444,transparent 90%); border-left:4px solid #ef4444; padding:14px 18px; margin:16px 0; font-size:.9rem; }
+    .price-compare { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; margin:16px 0; }
+    .price-card { border:1px solid var(--line); padding:16px; text-align:center; }
+    .price-card .model { font-weight:700; font-size:.9rem; }
+    .price-card .input { font-size:1.2rem; font-weight:800; color:var(--accent); margin:6px 0 2px; }
+    .price-card .output { font-size:.88rem; color:var(--muted); }
+    .mini-calc { background:color-mix(in srgb,var(--accent),transparent 95%); border:1px solid var(--line); padding:20px; margin:20px 0; }
+    .mini-calc h3 { margin:0 0 14px; font-size:1rem; }
+    .mini-calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .mini-calc label { display:block; font-size:.82rem; color:var(--muted); margin-bottom:4px; }
+    .mini-calc input, .mini-calc select { width:100%; }
+    .mini-result { margin-top:14px; padding:12px; background:var(--panel); font-size:.9rem; }
+    .strategy-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin:16px 0; }
+    .strategy-card { border:1px solid var(--line); padding:18px; }
+    .strategy-num { font-size:1.6rem; font-weight:900; color:color-mix(in srgb,var(--accent),transparent 50%); line-height:1; margin-bottom:8px; }
+    .strategy-title { font-weight:700; font-size:.95rem; margin-bottom:6px; }
+    .strategy-desc { font-size:.85rem; color:var(--muted); line-height:1.55; }
+    .savings-badge { display:inline-block; font-size:.75rem; font-weight:700; padding:2px 8px; background:#dcfce7; color:#166534; margin-top:8px; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/" aria-current="page">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Reference</p>
+          <h1>Complete AI Pricing Guide 2024</h1>
+          <p class="lede">Everything you need to understand AI API pricing — from how tokens work to advanced cost optimization strategies that can cut your AI spend by 50–90%.</p>
+        </div>
+
+        <div class="workspace-card">
+          <div class="guide-toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              <li><a href="#how-pricing-works">How AI API Pricing Works</a></li>
+              <li><a href="#what-is-a-token">What Is a Token?</a></li>
+              <li><a href="#input-vs-output">Input vs Output Pricing</a></li>
+              <li><a href="#context-window">Context Window Costs</a></li>
+              <li><a href="#pricing-tiers">Comparing Pricing Tiers</a></li>
+              <li><a href="#optimization">10 Cost Optimization Strategies</a></li>
+              <li><a href="#batch-api">Batch API Discounts</a></li>
+              <li><a href="#fine-tuning">Fine-Tuning Costs</a></li>
+              <li><a href="#embeddings">Embedding Costs</a></li>
+              <li><a href="#hidden-costs">Hidden Costs</a></li>
+            </ol>
+          </div>
+
+          <div class="guide-section" id="how-pricing-works">
+            <h2>1. How AI API Pricing Works</h2>
+            <p>AI API providers charge based on the number of <strong>tokens</strong> processed in each API call. Every time you send a request to an AI model, you're charged for two things: the tokens you send (input) and the tokens the model generates back (output). These two rates are almost always different, with output typically costing more.</p>
+            <p>The pricing unit is typically expressed as <strong>cost per million tokens</strong> ($/M tokens), though you're only charged for what you actually use. A request using 1,000 tokens at a $1/M rate would cost exactly $0.001.</p>
+            <div class="info-box">
+              <strong>The Basic Formula</strong>
+              Cost per request = (input_tokens × input_rate + output_tokens × output_rate) ÷ 1,000,000
+            </div>
+            <p>For example, a GPT-4o request with 500 input tokens and 200 output tokens costs: (500 × $2.50 + 200 × $10.00) / 1,000,000 = $0.001250 + $0.002000 = <strong>$0.003250 per request</strong>.</p>
+            <p>At 10,000 requests/day that's $32.50/day or ~$975/month. This is why understanding token costs is so critical before scaling.</p>
+          </div>
+
+          <div class="mini-calc" id="inline-calc-1">
+            <h3>Try It: Basic Cost Calculator</h3>
+            <div class="mini-calc-grid">
+              <div>
+                <label>Input tokens per request</label>
+                <input type="number" id="mc1in" value="500" min="0">
+              </div>
+              <div>
+                <label>Output tokens per request</label>
+                <input type="number" id="mc1out" value="200" min="0">
+              </div>
+              <div>
+                <label>Input price ($/M tokens)</label>
+                <input type="number" id="mc1inrate" value="2.50" step="0.01" min="0">
+              </div>
+              <div>
+                <label>Output price ($/M tokens)</label>
+                <input type="number" id="mc1outrate" value="10.00" step="0.01" min="0">
+              </div>
+            </div>
+            <label style="display:block;font-size:.82rem;color:var(--muted);margin:10px 0 4px">Requests per day</label>
+            <input type="number" id="mc1reqs" value="10000" min="0" style="max-width:200px">
+            <button class="button" onclick="calcMini1()" style="margin-top:10px;margin-left:10px">Calculate</button>
+            <div class="mini-result" id="mc1result">Enter values and click Calculate.</div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <div class="guide-section" id="what-is-a-token">
+            <h2>2. What Is a Token?</h2>
+            <p>A token is the basic unit of text that AI models process. Tokens are not the same as words — they're fragments of words determined by a tokenization algorithm. Most modern LLMs use a variant of Byte-Pair Encoding (BPE) to split text into tokens.</p>
+            <h3>Token Length Rules of Thumb</h3>
+            <ul>
+              <li><strong>1 token ≈ 4 characters</strong> of English text</li>
+              <li><strong>1 token ≈ 0.75 words</strong> (or ~100 tokens ≈ 75 words)</li>
+              <li>Common words are often 1 token: "the", "cat", "run"</li>
+              <li>Long or uncommon words may be 2–4 tokens: "tokenization" = 3 tokens</li>
+              <li>Numbers and code are often more expensive: "12345" may be 5 tokens</li>
+              <li>Non-English text often costs more tokens per word</li>
+            </ul>
+            <div class="info-box">
+              <strong>Practical Estimates</strong>
+              A tweet (280 chars) ≈ 70 tokens · A page of text (500 words) ≈ 667 tokens · A short story (10,000 words) ≈ 13,333 tokens · An average codebase file (200 lines) ≈ 1,500–2,500 tokens
+            </div>
+            <p>Use our <a href="../token-counter/">Token Counter tool</a> to measure your exact prompts and get accurate cost estimates before scaling.</p>
+          </div>
+
+          <div class="guide-section" id="input-vs-output">
+            <h2>3. Input vs Output Pricing</h2>
+            <p>Almost every AI provider charges <strong>more for output tokens than input tokens</strong>. The ratio varies, but output typically costs 3–5x more than input. This is because generating each output token requires a full forward pass through the model, while reading input tokens can be batched more efficiently.</p>
+            <div class="price-compare">
+              <div class="price-card">
+                <div class="model">GPT-4o</div>
+                <div class="input">$2.50/M</div>
+                <div class="output">→ $10.00/M output (4×)</div>
+              </div>
+              <div class="price-card">
+                <div class="model">Claude 3.5 Sonnet</div>
+                <div class="input">$3.00/M</div>
+                <div class="output">→ $15.00/M output (5×)</div>
+              </div>
+              <div class="price-card">
+                <div class="model">Gemini 1.5 Pro</div>
+                <div class="input">$1.25/M</div>
+                <div class="output">→ $5.00/M output (4×)</div>
+              </div>
+              <div class="price-card">
+                <div class="model">Llama 3.1 70B</div>
+                <div class="input">$0.59/M</div>
+                <div class="output">→ $0.79/M output (1.3×)</div>
+              </div>
+            </div>
+            <h3>Implications for Your Design</h3>
+            <ul>
+              <li>If your use case generates long outputs (essays, code, reports), output costs will dominate your bill</li>
+              <li>For classification or short-answer tasks, input costs dominate</li>
+              <li>Adding system prompt context (input) is usually cheaper than expecting the model to reason more (output)</li>
+              <li>Streaming responses doesn't change cost — you pay for all output tokens regardless</li>
+            </ul>
+          </div>
+
+          <div class="guide-section" id="context-window">
+            <h2>4. Context Window Pricing</h2>
+            <p>The context window is the maximum number of tokens a model can process in one call (input + output combined). Larger context windows are more expensive to serve, and some providers add surcharges for very long contexts.</p>
+            <h3>How Context Affects Cost</h3>
+            <p>When you maintain a conversation history or include a large document in every request, the full history is re-sent as input each time. A 10-message conversation that started with a 2,000-token system prompt might use 8,000 input tokens even for a simple question.</p>
+            <div class="warn-box">
+              <strong>Watch out for conversation cost growth!</strong> A 20-turn conversation with 1K tokens per turn can accumulate 20K input tokens by the final message. With GPT-4o at $2.50/M, that one final message costs $0.05 in input alone — 10× more than the first message.
+            </div>
+            <h3>Long Context Pricing Tiers</h3>
+            <p>Google's Gemini 1.5 Pro and Flash charge different rates for requests over 128K tokens, making them cost-effective for long contexts compared to alternatives. For contexts under 128K, most models charge their standard rate.</p>
+          </div>
+        </div>
+
+        <div class="workspace-card">
+          <div class="guide-section" id="pricing-tiers">
+            <h2>5. Comparing Pricing Tiers</h2>
+            <p>AI models fall into rough pricing tiers based on capability and size. Choosing the right tier for your task is one of the highest-leverage cost optimization moves.</p>
+            <div style="overflow-x:auto">
+              <table>
+                <thead>
+                  <tr><th>Tier</th><th>Example Models</th><th>Input Range</th><th>Best For</th><th>Avoid For</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Ultra Premium</strong></td>
+                    <td>Claude 3 Opus, o1 Preview</td>
+                    <td>$15+/M</td>
+                    <td>Complex reasoning, research, tasks where errors are costly</td>
+                    <td>High-volume, simple tasks</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Premium</strong></td>
+                    <td>GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro</td>
+                    <td>$1.25–$3/M</td>
+                    <td>Production applications, code generation, analysis</td>
+                    <td>Simple classification, summarization</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Economy</strong></td>
+                    <td>GPT-4o Mini, Gemini 1.5 Flash, Claude 3 Haiku</td>
+                    <td>$0.075–$0.25/M</td>
+                    <td>High-volume, moderate complexity tasks</td>
+                    <td>Deep reasoning, complex instructions</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Budget</strong></td>
+                    <td>Gemini Flash, Mistral 7B, Llama 3.1 8B</td>
+                    <td>Under $0.10/M</td>
+                    <td>Simple classification, extraction, routing</td>
+                    <td>Tasks requiring nuanced understanding</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tip-box">
+              <strong>Strategy:</strong> Use a routing layer to automatically select the right tier based on task complexity. Simple queries go to budget models, complex ones to premium. This "model cascade" can reduce costs by 60–80% while maintaining quality.
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <div class="guide-section" id="optimization">
+            <h2>6. 10 Cost Optimization Strategies</h2>
+            <div class="strategy-grid">
+              <div class="strategy-card">
+                <div class="strategy-num">01</div>
+                <div class="strategy-title">Use the Right Model Tier</div>
+                <div class="strategy-desc">Don't use GPT-4o for simple classification. Route tasks to the cheapest model that meets your quality threshold. Build an evaluation set to test model tiers against each other.</div>
+                <span class="savings-badge">40–80% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">02</div>
+                <div class="strategy-title">Implement Prompt Caching</div>
+                <div class="strategy-desc">Anthropic and OpenAI offer prompt caching that can reduce costs by up to 90% when your system prompt is repeated across many requests. Cache your large system prompts and reference documents.</div>
+                <span class="savings-badge">50–90% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">03</div>
+                <div class="strategy-title">Use Batch API</div>
+                <div class="strategy-desc">For non-real-time workloads, OpenAI's Batch API offers 50% discounts with 24-hour SLA. Perfect for content generation, data extraction, and analysis pipelines that don't need instant responses.</div>
+                <span class="savings-badge">50% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">04</div>
+                <div class="strategy-title">Trim Your System Prompt</div>
+                <div class="strategy-desc">Every word in your system prompt is paid for with every request. Audit your prompts — remove redundant instructions, use concise language. A 500-token reduction saves $0.00125 per GPT-4o request.</div>
+                <span class="savings-badge">10–30% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">05</div>
+                <div class="strategy-title">Limit Output Length</div>
+                <div class="strategy-desc">Set max_tokens to cap output at what you actually need. If you only need a yes/no decision, tell the model that explicitly. Output costs 3–5× more than input, so every saved output token counts double.</div>
+                <span class="savings-badge">20–50% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">06</div>
+                <div class="strategy-title">Cache API Responses</div>
+                <div class="strategy-desc">For deterministic or near-deterministic prompts, cache the output at the application layer (Redis, database). A cached response has zero token cost. Even 20% cache hit rate meaningfully reduces bills.</div>
+                <span class="savings-badge">20–60% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">07</div>
+                <div class="strategy-title">Compress Context History</div>
+                <div class="strategy-desc">Instead of passing full conversation history, summarize older messages. A 20-message history can be summarized into 300 tokens without losing context continuity, versus sending 10,000 tokens.</div>
+                <span class="savings-badge">30–70% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">08</div>
+                <div class="strategy-title">Use Structured Output</div>
+                <div class="strategy-desc">Request JSON output with a strict schema instead of verbose prose. "{"sentiment": "positive", "score": 0.92}" uses far fewer tokens than a paragraph explanation. Use response_format: json_object.</div>
+                <span class="savings-badge">30–60% savings</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">09</div>
+                <div class="strategy-title">Fine-tune Small Models</div>
+                <div class="strategy-desc">For high-volume repetitive tasks, fine-tuning a smaller model on your domain data can match a larger model's performance at a fraction of the inference cost. Amortize fine-tuning cost over millions of requests.</div>
+                <span class="savings-badge">60–90% savings at scale</span>
+              </div>
+              <div class="strategy-card">
+                <div class="strategy-num">10</div>
+                <div class="strategy-title">Set Spending Limits</div>
+                <div class="strategy-desc">Enable hard limits in your API provider dashboard. Use our <a href="../budget/">Budget Planner</a> to calculate safe monthly allocations. Implement per-user rate limiting in your application to prevent runaway costs.</div>
+                <span class="savings-badge">Prevents cost overruns</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workspace-card">
+          <div class="guide-section" id="batch-api">
+            <h2>7. Batch API Discounts</h2>
+            <p>Several providers offer discounted pricing when requests are submitted as a batch and processed asynchronously rather than in real-time. This is ideal for workflows that don't need immediate responses.</p>
+            <div style="overflow-x:auto">
+              <table>
+                <thead><tr><th>Provider</th><th>Batch Discount</th><th>Turnaround SLA</th><th>Minimum Batch</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>OpenAI</strong></td><td>50% off</td><td>24 hours</td><td>1 request</td></tr>
+                  <tr><td><strong>Anthropic</strong></td><td>50% off</td><td>24 hours</td><td>1 request</td></tr>
+                  <tr><td><strong>Google</strong></td><td>Varies</td><td>Async</td><td>1 request</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>Good Batch API Use Cases</h3>
+            <ul>
+              <li>Content moderation pipelines (not real-time)</li>
+              <li>Nightly data extraction and summarization</li>
+              <li>Bulk document analysis or classification</li>
+              <li>Training data generation</li>
+              <li>SEO content creation pipelines</li>
+              <li>Evaluation and testing runs</li>
+            </ul>
+            <p>Use our <a href="../batch/">Batch Calculator</a> to estimate batch vs real-time cost differences for your workload.</p>
+          </div>
+
+          <div class="guide-section" id="fine-tuning">
+            <h2>8. Fine-Tuning Costs</h2>
+            <p>Fine-tuning trains a model on your custom dataset, producing a specialized model with improved performance on your specific task. This can reduce the need for expensive large models.</p>
+            <div style="overflow-x:auto">
+              <table>
+                <thead><tr><th>Provider</th><th>Base Model</th><th>Training Cost</th><th>Inference Cost (Fine-tuned)</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>OpenAI</strong></td><td>GPT-4o Mini</td><td>$3.00/M training tokens</td><td>$0.30/$1.20 per M in/out</td></tr>
+                  <tr><td><strong>OpenAI</strong></td><td>GPT-3.5 Turbo</td><td>$8.00/M training tokens</td><td>$3.00/$6.00 per M in/out</td></tr>
+                  <tr><td><strong>Together AI</strong></td><td>Llama 3.1 8B</td><td>$0.20–$0.50/M</td><td>$0.18–$0.36 per M in/out</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="color:var(--muted);font-size:.9rem;margin-top:12px">Fine-tuning ROI analysis: if a fine-tuned GPT-4o Mini ($0.30/M) achieves the same quality as GPT-4o ($2.50/M) on your task, and you run 100M tokens/month, the monthly savings are $220 — potentially covering training costs in under a month.</p>
+          </div>
+
+          <div class="guide-section" id="embeddings">
+            <h2>9. Embedding Costs</h2>
+            <p>Embeddings convert text into numerical vectors for search, clustering, and RAG systems. Embedding models are generally much cheaper than generation models.</p>
+            <div style="overflow-x:auto">
+              <table>
+                <thead><tr><th>Model</th><th>Provider</th><th>Price</th><th>Dimensions</th></tr></thead>
+                <tbody>
+                  <tr><td>text-embedding-3-small</td><td>OpenAI</td><td>$0.02/M tokens</td><td>1,536</td></tr>
+                  <tr><td>text-embedding-3-large</td><td>OpenAI</td><td>$0.13/M tokens</td><td>3,072</td></tr>
+                  <tr><td>Embed v3 English</td><td>Cohere</td><td>$0.10/M tokens</td><td>1,024</td></tr>
+                  <tr><td>Embed v3 Multilingual</td><td>Cohere</td><td>$0.10/M tokens</td><td>1,024</td></tr>
+                  <tr><td>Gemini Embedding</td><td>Google</td><td>Free (API)</td><td>768</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tip-box">
+              Embeddings are typically a one-time cost per document. Once embedded, you can search millions of documents for fractions of a cent per query. The main cost driver is re-embedding when documents change.
+            </div>
+          </div>
+
+          <div class="guide-section" id="hidden-costs">
+            <h2>10. Hidden Costs to Watch For</h2>
+            <ul>
+              <li><strong>Retry costs:</strong> Failed API calls that are retried still consume tokens if the request was received. Always implement exponential backoff to avoid duplicate charges.</li>
+              <li><strong>Function/tool call tokens:</strong> Function definitions added to your request (for tool use) count as input tokens. A large tool schema can add 200–1000 tokens per request.</li>
+              <li><strong>System prompt overhead:</strong> Your system prompt is counted as input tokens on every request, even if it never changes.</li>
+              <li><strong>Streaming overhead:</strong> Some providers have minimum billing increments even for very short outputs.</li>
+              <li><strong>Taxes and fees:</strong> EU providers may add VAT; some platforms add platform fees on top of model costs.</li>
+              <li><strong>Overage costs:</strong> Exceeding rate limits doesn't always result in errors — some providers continue serving at higher per-token costs.</li>
+              <li><strong>Image tokens:</strong> Vision requests encode images as tokens. A 1024×1024 image in GPT-4o costs ~765 input tokens ($0.0019) regardless of how few words describe it.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="workspace-card" style="text-align:center;padding:32px">
+          <h2 style="margin-top:0">Ready to Calculate Your Costs?</h2>
+          <p style="color:var(--muted);max-width:500px;margin:0 auto 20px">Use our free tools to estimate, compare, and optimize your AI spending.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+            <a href="../tool/" class="button">Cost Calculator</a>
+            <a href="../compare/" class="button" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Compare Models</a>
+            <a href="../budget/" class="button" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Budget Planner</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+<script>
+function calcMini1() {
+  const inp = +document.getElementById('mc1in').value;
+  const out = +document.getElementById('mc1out').value;
+  const inRate = +document.getElementById('mc1inrate').value;
+  const outRate = +document.getElementById('mc1outrate').value;
+  const reqs = +document.getElementById('mc1reqs').value;
+  const perReq = (inp * inRate + out * outRate) / 1e6;
+  const daily = perReq * reqs;
+  const monthly = daily * 30;
+  document.getElementById('mc1result').innerHTML =
+    `<strong>Per request:</strong> $${perReq.toFixed(6)} &nbsp;·&nbsp;
+     <strong>Daily (${reqs.toLocaleString()} reqs):</strong> $${daily.toFixed(4)} &nbsp;·&nbsp;
+     <strong>Monthly:</strong> $${monthly.toFixed(2)}`;
+}
+</script>
+</body>
+</html>

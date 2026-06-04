@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting Started Guide | AI Cost Calculator</title>
+  <meta name="description" content="Step-by-step guide to using the AI Cost Calculator. Learn how to estimate token usage, compare models, set budgets, and optimize your AI spending from day one.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/guide/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .step-list { counter-reset: steps; list-style:none; padding:0; margin:0; }
+    .step-item { counter-increment: steps; display:flex; gap:20px; padding:24px 0; border-bottom:1px solid var(--line); }
+    .step-item:last-child { border-bottom:none; }
+    .step-num { flex-shrink:0; width:44px; height:44px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:900; }
+    .step-content h3 { margin:0 0 8px; font-size:1.05rem; }
+    .step-content p { margin:0 0 10px; font-size:.9rem; color:var(--muted); line-height:1.65; }
+    .step-content ul { margin:0 0 10px; padding-left:20px; font-size:.9rem; color:var(--muted); line-height:1.8; }
+    .code-block { background:#0d1117; color:#e6edf3; padding:14px 16px; font-family:monospace; font-size:.83rem; line-height:1.6; overflow-x:auto; margin:10px 0; border-left:3px solid var(--accent); }
+    .code-comment { color:#8b949e; }
+    .code-key { color:#79c0ff; }
+    .code-val { color:#a5d6ff; }
+    .code-str { color:#a8d9a0; }
+    .tip-box { background:color-mix(in srgb,#22c55e,transparent 90%); border-left:4px solid #22c55e; padding:12px 16px; margin:12px 0; font-size:.88rem; color:var(--ink); }
+    .tip-box strong { display:block; margin-bottom:4px; }
+    .advanced-section { background:color-mix(in srgb,var(--accent-2),transparent 93%); border:1px solid color-mix(in srgb,var(--accent-2),transparent 60%); padding:20px 24px; margin:24px 0; }
+    .advanced-section h2 { margin:0 0 16px; font-size:1.1rem; color:var(--ink); }
+    .guide-cta { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-top:16px; }
+    .guide-cta-card { border:1px solid var(--line); padding:16px; text-align:center; }
+    .guide-cta-card strong { display:block; font-size:.9rem; margin-bottom:6px; }
+    .guide-cta-card a { font-size:.83rem; color:var(--accent); text-decoration:none; }
+    .toc { background:color-mix(in srgb,var(--accent),transparent 93%); border:1px solid color-mix(in srgb,var(--accent),transparent 60%); padding:16px 20px; margin-bottom:24px; }
+    .toc ol { margin:8px 0 0; padding-left:20px; font-size:.88rem; line-height:1.9; }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/" aria-current="page">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <p class="eyebrow">Learn</p>
+          <h1>Getting Started Guide</h1>
+          <p class="lede">New to AI cost estimation? This guide walks you through everything — from understanding tokens to setting up a complete cost management workflow for your project in under 30 minutes.</p>
+        </div>
+
+        <div class="workspace-card">
+          <div class="toc">
+            <strong style="font-size:.9rem">In this guide:</strong>
+            <ol>
+              <li><a href="#intro">What this tool does</a></li>
+              <li><a href="#step1">Step 1: Enter model and volume</a></li>
+              <li><a href="#step2">Step 2: Estimate token usage</a></li>
+              <li><a href="#step3">Step 3: Read your cost estimate</a></li>
+              <li><a href="#step4">Step 4: Compare models</a></li>
+              <li><a href="#step5">Step 5: Set a budget</a></li>
+              <li><a href="#step6">Step 6: Save to workspace</a></li>
+              <li><a href="#advanced-templates">Advanced: Templates</a></li>
+              <li><a href="#advanced-batch">Advanced: Batch strategy</a></li>
+              <li><a href="#next-steps">Next steps</a></li>
+            </ol>
+          </div>
+
+          <div id="intro">
+            <h2 style="font-size:1.2rem;margin-bottom:10px">What AI Cost Calculator Does</h2>
+            <p style="color:var(--muted);font-size:.92rem;line-height:1.65">AI Cost Calculator is a free, browser-based tool that helps developers, product teams, and businesses estimate and manage the cost of using AI language model APIs. All calculations happen locally in your browser — no account required, no data sent to servers.</p>
+            <p style="color:var(--muted);font-size:.92rem;line-height:1.65">The tool covers 13 different calculators and 50 informational pages, giving you everything you need to make informed decisions about which AI models to use and how to keep costs predictable as you scale.</p>
+            <div class="guide-cta">
+              <div class="guide-cta-card">
+                <strong>13 Calculators</strong>
+                <a href="../tool/">Start with Cost Calc →</a>
+              </div>
+              <div class="guide-cta-card">
+                <strong>17 AI Models</strong>
+                <a href="../models/">View Models →</a>
+              </div>
+              <div class="guide-cta-card">
+                <strong>0 Sign-ups</strong>
+                <a href="../tool/">Use Immediately →</a>
+              </div>
+              <div class="guide-cta-card">
+                <strong>100% Free</strong>
+                <a href="../about/">Learn More →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card">
+          <ol class="step-list">
+            <li class="step-item" id="step1">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <h3>Enter Your Model and Daily Request Volume</h3>
+                <p>Open the <a href="../tool/">Cost Calculator</a> and start by selecting the AI model you plan to use (or are currently using). Then enter your expected daily request volume — the number of API calls your application will make per day.</p>
+                <p>If you're still exploring, don't worry about getting this perfect. Use realistic estimates based on your user base:</p>
+                <ul>
+                  <li><strong>Small project / prototype:</strong> 100–1,000 requests/day</li>
+                  <li><strong>Growing SaaS product:</strong> 10,000–100,000 requests/day</li>
+                  <li><strong>High-volume production:</strong> 1M+ requests/day</li>
+                </ul>
+                <div class="tip-box">
+                  <strong>Tip: Start with a low estimate and work up</strong>
+                  It's easier to start with conservative estimates and adjust than to over-provision. The calculator shows low/expected/high ranges so you always have a safety margin.
+                </div>
+              </div>
+            </li>
+
+            <li class="step-item" id="step2">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h3>Estimate Your Token Usage</h3>
+                <p>Tokens are the core pricing unit for all AI models. You need to estimate both input tokens (your prompt + context) and output tokens (the AI's response) per request.</p>
+                <p>Use the <a href="../token-counter/">Token Counter</a> to paste a sample prompt and see exactly how many tokens it uses. A few reference points:</p>
+                <ul>
+                  <li>A typical chat message + system prompt: <strong>200–800 input tokens</strong></li>
+                  <li>A RAG query with retrieved context: <strong>1,000–3,000 input tokens</strong></li>
+                  <li>A short AI response: <strong>100–300 output tokens</strong></li>
+                  <li>A long report or analysis: <strong>500–2,000 output tokens</strong></li>
+                </ul>
+                <div class="code-block"><span class="code-comment"># Quick token estimation formula</span>
+<span class="code-key">words_in_prompt</span> = <span class="code-val">350</span>  <span class="code-comment"># count your words</span>
+<span class="code-key">input_tokens</span> = <span class="code-val">words_in_prompt</span> * <span class="code-val">1.33</span>  <span class="code-comment"># ~133 tokens per 100 words</span>
+<span class="code-key">output_tokens</span> = <span class="code-val">200</span>  <span class="code-comment"># estimate expected response length</span></div>
+                <div class="tip-box">
+                  <strong>Tip: Measure, don't estimate</strong>
+                  For the most accurate estimates, run a sample of real prompts through the Token Counter. Real-world token counts often differ 20–40% from rough estimates.
+                </div>
+              </div>
+            </li>
+
+            <li class="step-item" id="step3">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h3>Read Your Cost Estimate</h3>
+                <p>The Cost Calculator shows you a range of estimates:</p>
+                <ul>
+                  <li><strong>Low estimate:</strong> Best case — minimum token usage scenario</li>
+                  <li><strong>Expected estimate:</strong> Most likely cost based on your inputs</li>
+                  <li><strong>High estimate:</strong> Worst case — accounts for token variability and retries</li>
+                </ul>
+                <p>Monthly cost is calculated as: daily cost × 30 days. Yearly cost is monthly × 12. The gap between low and high estimates reflects the natural variance in AI responses — output tokens in particular vary widely for the same prompt.</p>
+                <div class="tip-box">
+                  <strong>Tip: Budget for the high estimate</strong>
+                  For production systems, budget for the high estimate and alert at 80% of that budget. This prevents surprises and leaves room for traffic spikes.
+                </div>
+              </div>
+            </li>
+
+            <li class="step-item" id="step4">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h3>Compare Models to Find the Best Value</h3>
+                <p>Once you have a baseline cost estimate, open the <a href="../compare/">Model Comparison Tool</a> to see your same configuration priced across multiple models simultaneously.</p>
+                <p>This step often reveals surprising insights:</p>
+                <ul>
+                  <li>GPT-4o Mini is often 90–95% as capable as GPT-4o for routine tasks at 17× lower cost</li>
+                  <li>Gemini 1.5 Flash is among the cheapest models per token with surprisingly good quality</li>
+                  <li>For long-context use cases (100K+ tokens), Google's 1M context window may be the only option</li>
+                </ul>
+                <p>Check the <a href="../benchmarks/">Benchmarks page</a> to understand the quality tradeoffs between models before committing to a cheaper option.</p>
+                <div class="tip-box">
+                  <strong>Tip: Run your own quality evaluation</strong>
+                  Collect 20–50 real examples from your use case and test multiple models before deciding. Public benchmarks don't always predict performance on your specific task.
+                </div>
+              </div>
+            </li>
+
+            <li class="step-item" id="step5">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <h3>Set Up a Budget Plan</h3>
+                <p>Open the <a href="../budget/">Budget Planner</a> to set monthly spending limits and calculate per-user costs. This is essential before going to production.</p>
+                <p>Key budget planning steps:</p>
+                <ul>
+                  <li>Set a hard monthly cap in your AI provider dashboard (OpenAI, Anthropic, Google all support this)</li>
+                  <li>Calculate your cost per active user to understand unit economics</li>
+                  <li>Add a 30–50% buffer to your expected cost for growth and spikes</li>
+                  <li>Set up alerts at 70% of your monthly limit</li>
+                </ul>
+                <div class="code-block"><span class="code-comment"># Budget check at the application level</span>
+<span class="code-key">monthly_budget</span> = <span class="code-val">500</span>  <span class="code-comment"># USD</span>
+<span class="code-key">cost_per_request</span> = <span class="code-val">0.0035</span>  <span class="code-comment"># from calculator</span>
+<span class="code-key">max_requests_per_month</span> = <span class="code-val">monthly_budget / cost_per_request</span>
+<span class="code-comment"># = 142,857 requests — implement rate limiting at this threshold</span></div>
+              </div>
+            </li>
+
+            <li class="step-item" id="step6">
+              <div class="step-num">6</div>
+              <div class="step-content">
+                <h3>Save Your Project to Workspace</h3>
+                <p>Open the <a href="../workspace/">My Workspace</a> to save your configurations for easy reference. The workspace stores your estimates locally in your browser (localStorage), so they persist between sessions without any account required.</p>
+                <p>What to save in your workspace:</p>
+                <ul>
+                  <li>Your final model choice and token configuration</li>
+                  <li>Monthly budget allocation by use case</li>
+                  <li>Model comparison results for your specific prompts</li>
+                  <li>Notes on evaluation findings and tradeoffs considered</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="workspace-card">
+          <div class="advanced-section" id="advanced-templates">
+            <h2>Advanced: Using Templates</h2>
+            <p style="color:var(--muted);font-size:.9rem;line-height:1.65">The <a href="../templates/">Templates Library</a> contains pre-built configurations for common AI use cases — customer support chatbots, code review assistants, content generation pipelines, and more. Instead of starting from scratch, load a template and customize the values to match your requirements.</p>
+            <p style="color:var(--muted);font-size:.9rem;line-height:1.65">Each template includes recommended models, typical token counts based on real production deployments, and suggested optimization strategies. Templates are a great starting point when you don't yet have real usage data.</p>
+          </div>
+
+          <div class="advanced-section" id="advanced-batch">
+            <h2>Advanced: Batch vs Real-Time Strategies</h2>
+            <p style="color:var(--muted);font-size:.9rem;line-height:1.65">Not all AI workloads need real-time responses. For tasks like content generation, data extraction, sentiment analysis, and document processing, using the Batch API can cut costs by 50% with a 24-hour SLA.</p>
+            <p style="color:var(--muted);font-size:.9rem;line-height:1.65">Use the <a href="../batch/">Batch Calculator</a> to compare real-time vs batch costs for your workload. A typical finding: if 40% of your volume is non-urgent, shifting those to batch reduces total costs by ~20%.</p>
+            <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:20px">
+              <li><strong>Use real-time:</strong> user-facing chat, interactive code completion, live search</li>
+              <li><strong>Use batch:</strong> nightly reports, bulk content moderation, SEO generation, data labeling</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ad-unit" style="margin:24px 0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <div class="workspace-card" id="next-steps">
+          <h2>Next Steps</h2>
+          <div class="two-col">
+            <div>
+              <h3 style="font-size:1rem">Deepen Your Understanding</h3>
+              <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:18px">
+                <li><a href="../pricing-guide/">Read the Pricing Guide</a> — understand every pricing nuance</li>
+                <li><a href="../glossary/">Browse the Glossary</a> — learn AI cost terminology</li>
+                <li><a href="../tutorials/">Watch Tutorials</a> — step-by-step walkthroughs</li>
+                <li><a href="../case-studies/">Study Case Studies</a> — real-world examples with numbers</li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="font-size:1rem">Plan for Scale</h3>
+              <ul style="color:var(--muted);font-size:.9rem;line-height:1.9;padding-left:18px">
+                <li><a href="../roi/">Calculate ROI</a> — justify AI investment to stakeholders</li>
+                <li><a href="../estimator/">Project Estimator</a> — full project cost planning</li>
+                <li><a href="../prompt-optimizer/">Optimize Prompts</a> — reduce token usage</li>
+                <li><a href="../usage-analyzer/">Analyze Usage</a> — understand your cost breakdown</li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin-top:20px;text-align:center">
+            <a href="../tool/" class="button" style="font-size:1rem;padding:12px 28px">Start Calculating Now →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+</body>
+</html>

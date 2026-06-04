@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt Optimizer | AI Cost Calculator</title>
+  <meta name="description" content="Analyze and optimize your AI prompts to reduce token usage and API costs. See token savings and cost reduction per million requests.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/prompt-optimizer/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .opt-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+    .opt-textarea { width: 100%; border: 1px solid var(--line); padding: 12px; font: inherit; font-size: .9rem; line-height: 1.6; resize: vertical; min-height: 200px; background: var(--surface); color: var(--ink); outline: none; }
+    .opt-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 82%); }
+    .token-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--line); background: var(--surface); font-size: .85rem; }
+    .token-bar strong { color: var(--accent); }
+    .savings-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .savings-stat { border: 1px solid var(--line); padding: 12px; background: var(--surface); }
+    .savings-stat span { display: block; color: var(--muted); font-size: .75rem; }
+    .savings-stat strong { display: block; font-size: 1.1rem; margin-top: 3px; }
+    .rule-toggle { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--line); background: var(--surface); font-size: .85rem; }
+    .rule-toggle input[type=checkbox] { width: auto; margin: 0; }
+    .rule-toggle label { flex: 1; cursor: pointer; }
+    .diff-view { font-family: ui-monospace, 'Cascadia Code', monospace; font-size: .82rem; line-height: 1.7; white-space: pre-wrap; border: 1px solid var(--line); padding: 14px; background: #1a1d1f; color: #e6e8ea; overflow: auto; max-height: 300px; }
+    .diff-del { color: #f87171; text-decoration: line-through; }
+    .diff-add { color: #4ade80; }
+    .highlight-redundant { background: #fef08a; color: #713f12; }
+    @media(max-width:800px) { .opt-grid,.savings-row { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <section class="app-grid">
+      <nav class="side-nav" aria-label="App sections">
+        <a href="../">Home</a>
+        <div class="side-nav-label">Tools</div>
+        <a href="../tool/">Cost Calculator</a>
+        <a href="../compare/">Model Comparison</a>
+        <a href="../token-counter/">Token Counter</a>
+        <a href="../budget/">Budget Planner</a>
+        <a href="../roi/">ROI Calculator</a>
+        <a href="../batch/">Batch Calculator</a>
+        <a href="../model-picker/">Model Picker</a>
+        <a href="../cost-breakdown/">Cost Breakdown</a>
+        <a href="../estimator/">Project Estimator</a>
+        <a href="../prompt-optimizer/" aria-current="page">Prompt Optimizer</a>
+        <a href="../usage-analyzer/">Usage Analyzer</a>
+        <a href="../calculator/">Advanced Calc</a>
+        <a href="../converter/">Converter</a>
+        <div class="side-nav-label">Reference</div>
+        <a href="../models/">AI Models</a>
+        <a href="../providers/">Providers</a>
+        <a href="../pricing-guide/">Pricing Guide</a>
+        <a href="../benchmarks/">Benchmarks</a>
+        <a href="../glossary/">Glossary</a>
+        <a href="../api-docs/">API Docs</a>
+        <a href="../library/">Library</a>
+        <div class="side-nav-label">Workspace</div>
+        <a href="../workspace/">My Workspace</a>
+        <a href="../templates/">Templates</a>
+        <a href="../reports/">Reports</a>
+        <a href="../settings/">Settings</a>
+        <div class="side-nav-label">Learn</div>
+        <a href="../guide/">Getting Started</a>
+        <a href="../tutorials/">Tutorials</a>
+        <a href="../case-studies/">Case Studies</a>
+        <a href="../blog/">Blog</a>
+        <a href="../examples/">Examples</a>
+        <div class="side-nav-label">Support</div>
+        <a href="../help/">Help Center</a>
+        <a href="../faq/">FAQ</a>
+        <a href="../feedback/">Feedback</a>
+        <a href="../contact/">Contact</a>
+        <div class="side-nav-label">More</div>
+        <a href="../plans/">Plans</a>
+        <a href="../pro/">Pro</a>
+        <a href="../roadmap/">Roadmap</a>
+        <a href="../changelog/">Changelog</a>
+        <a href="../about/">About</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="../terms/">Terms</a>
+      </nav>
+      <div class="workspace-main">
+        <div class="page-title-panel">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin-bottom:10px">
+            <rect width="48" height="48" rx="4" fill="color-mix(in srgb, var(--accent), transparent 85%)"/>
+            <rect x="8" y="10" width="22" height="5" rx="2" fill="var(--accent)"/>
+            <rect x="8" y="19" width="32" height="5" rx="2" fill="var(--accent)" opacity=".4"/>
+            <rect x="8" y="28" width="18" height="5" rx="2" fill="var(--accent)" opacity=".25"/>
+            <circle cx="36" cy="34" r="7" fill="var(--accent)"/>
+            <path d="M33 34 L35 36 L39 32" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <p class="eyebrow">Token Optimization</p>
+          <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);max-width:none">Prompt Optimizer</h1>
+          <p class="lede">Paste your prompt to see optimization suggestions that reduce token count and API costs. Toggle rules on/off and compare before/after token counts.</p>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- Savings summary -->
+        <div class="savings-row" id="savingsRow">
+          <div class="savings-stat"><span>Original tokens</span><strong id="s-origTokens">0</strong></div>
+          <div class="savings-stat"><span>Optimized tokens</span><strong id="s-optTokens" style="color:#18764f">0</strong></div>
+          <div class="savings-stat"><span>Tokens saved</span><strong id="s-saved" style="color:#18764f">0</strong></div>
+          <div class="savings-stat"><span>% reduction</span><strong id="s-pct" style="color:#18764f">0%</strong></div>
+          <div class="savings-stat"><span>Cost saved / 1M req (GPT-4o)</span><strong id="s-costSaved" style="color:#18764f">$0.00</strong></div>
+          <div class="savings-stat"><span>Annual savings (1M req/mo)</span><strong id="s-annualSave" style="color:#18764f">$0.00</strong></div>
+        </div>
+
+        <!-- Optimization rules -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:18px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <h2 style="margin:0;font-size:1rem">Optimization rules</h2>
+            <button class="button secondary" id="applyAllBtn" style="font-size:.82rem;padding:7px 10px">Apply all</button>
+          </div>
+          <div id="ruleList" style="display:grid;gap:8px"></div>
+        </div>
+
+        <!-- Before / After -->
+        <div class="opt-grid">
+          <div class="opt-panel">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <h2 style="margin:0;font-size:1rem">Original prompt</h2>
+              <button class="button secondary" id="clearOrigBtn" style="font-size:.78rem;padding:6px 10px">Clear</button>
+            </div>
+            <textarea class="opt-textarea" id="origPrompt" placeholder="Paste your prompt here..."></textarea>
+            <div class="token-bar"><span>Tokens:</span> <strong id="origTok">0</strong> <span>· Characters:</span> <strong id="origChars">0</strong></div>
+          </div>
+          <div class="opt-panel">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <h2 style="margin:0;font-size:1rem">Optimized prompt</h2>
+              <button class="button secondary" id="copyOptBtn" style="font-size:.78rem;padding:6px 10px">Copy</button>
+            </div>
+            <textarea class="opt-textarea" id="optPrompt" placeholder="Optimized version will appear here..." style="background:color-mix(in srgb,#22c55e,transparent 95%)"></textarea>
+            <div class="token-bar"><span>Tokens:</span> <strong id="optTok" style="color:#18764f">0</strong> <span>· Characters:</span> <strong id="optChars">0</strong></div>
+          </div>
+        </div>
+
+        <!-- Diff view -->
+        <div style="border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%);padding:20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <h2 style="margin:0;font-size:1rem">Changes applied</h2>
+            <div style="font-size:.78rem;color:var(--muted)"><span style="color:#f87171">red = removed</span> · <span style="color:#4ade80">green = added</span></div>
+          </div>
+          <div class="diff-view" id="diffView">Paste a prompt above to see optimization changes.</div>
+        </div>
+
+        <div class="ad-unit" style="margin:0">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+
+<script>
+const RULES = [
+  {
+    id: 'filler',
+    name: 'Remove filler phrases',
+    desc: 'Removes phrases like "please", "kindly", "certainly", "of course"',
+    enabled: true,
+    apply: t => t
+      .replace(/\b(please\s+kindly|kindly\s+please)\b/gi, '')
+      .replace(/\bplease\b\s*/gi, '')
+      .replace(/\bkindly\b\s*/gi, '')
+      .replace(/\bcertainly\b[,.]?\s*/gi, '')
+      .replace(/\bof course\b[,.]?\s*/gi, '')
+      .replace(/\bas an AI\b[,.]?\s*/gi, '')
+      .replace(/\bI want you to\b\s*/gi, '')
+      .replace(/\bI need you to\b\s*/gi, '')
+      .replace(/\bI would like you to\b\s*/gi, '')
+  },
+  {
+    id: 'verbose',
+    name: 'Shorten verbose patterns',
+    desc: 'Replaces long phrases with shorter equivalents',
+    enabled: true,
+    apply: t => t
+      .replace(/\bin order to\b/gi, 'to')
+      .replace(/\bdue to the fact that\b/gi, 'because')
+      .replace(/\bat this point in time\b/gi, 'now')
+      .replace(/\bin the event that\b/gi, 'if')
+      .replace(/\bfor the purpose of\b/gi, 'to')
+      .replace(/\bwith regard to\b/gi, 'regarding')
+      .replace(/\bwith respect to\b/gi, 'regarding')
+      .replace(/\bprior to\b/gi, 'before')
+      .replace(/\bsubsequent to\b/gi, 'after')
+      .replace(/\bin spite of the fact that\b/gi, 'although')
+      .replace(/\ba large number of\b/gi, 'many')
+      .replace(/\ba majority of\b/gi, 'most')
+      .replace(/\bthe majority of\b/gi, 'most')
+      .replace(/\bin the near future\b/gi, 'soon')
+      .replace(/\bat the present time\b/gi, 'currently')
+  },
+  {
+    id: 'whitespace',
+    name: 'Normalize whitespace',
+    desc: 'Removes extra blank lines and trims leading/trailing whitespace',
+    enabled: true,
+    apply: t => t
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/[ \t]+\n/g, '\n')
+      .replace(/\n[ \t]+/g, '\n')
+      .trim()
+  },
+  {
+    id: 'redundant',
+    name: 'Remove redundant instructions',
+    desc: 'Flags and removes common redundant phrases like "make sure to", "be sure to"',
+    enabled: true,
+    apply: t => t
+      .replace(/\bmake sure to\b\s*/gi, '')
+      .replace(/\bbe sure to\b\s*/gi, '')
+      .replace(/\bremember to\b\s*/gi, '')
+      .replace(/\bdon't forget to\b\s*/gi, '')
+      .replace(/\bit is important to note that\b\s*/gi, 'Note: ')
+      .replace(/\bit should be noted that\b\s*/gi, 'Note: ')
+      .replace(/\bit is worth mentioning that\b\s*/gi, '')
+  },
+  {
+    id: 'output',
+    name: 'Shorten output format instructions',
+    desc: 'Condenses verbose output instructions',
+    enabled: false,
+    apply: t => t
+      .replace(/\bPlease provide a (detailed|comprehensive|thorough|complete) (response|answer|explanation)\b/gi, 'Respond in detail')
+      .replace(/\bProvide a (detailed|comprehensive|thorough) (response|answer|explanation)\b/gi, 'Respond in detail')
+      .replace(/\bGive me a (detailed|comprehensive|thorough) (response|answer|explanation)\b/gi, 'Give detail')
+  },
+];
+
+const estimateTokens = t => t ? Math.max(1, Math.round(t.length / 4)) : 0;
+const GPT4O_IN_RATE = 2.5; // per 1M
+const fmt = v => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(v);
+const n = v => new Intl.NumberFormat('en-US').format(v);
+
+function buildRuleList() {
+  const el = document.getElementById('ruleList');
+  el.innerHTML = RULES.map(r => `
+    <div class="rule-toggle">
+      <input type="checkbox" id="rule-${r.id}" ${r.enabled ? 'checked' : ''}>
+      <label for="rule-${r.id}"><strong>${r.name}</strong> — <span style="color:var(--muted)">${r.desc}</span></label>
+    </div>
+  `).join('');
+  RULES.forEach(r => {
+    document.getElementById('rule-'+r.id).addEventListener('change', function() {
+      r.enabled = this.checked;
+      optimize();
+    });
+  });
+}
+
+function applyRules(text) {
+  let result = text;
+  RULES.forEach(r => {
+    if (r.enabled) result = r.apply(result);
+  });
+  return result;
+}
+
+function simpleDiff(orig, opt) {
+  if (!orig) return 'Paste a prompt above to see optimization changes.';
+  // Word-level diff approximation
+  const origWords = orig.split(/(\s+)/);
+  const optWords = opt.split(/(\s+)/);
+  // Simple LCS approach for display
+  let result = '';
+  // Just show what was removed/added by comparing words
+  const origSet = new Set(orig.split(/\s+/).filter(Boolean));
+  const optSet = new Set(opt.split(/\s+/).filter(Boolean));
+
+  // Show original with removals highlighted
+  let display = orig;
+  // Mark words that were removed
+  const removed = [...origSet].filter(w => !optSet.has(w));
+  // Basic: just show the optimized text in the diff view with a change note
+  if (orig === opt) return 'No changes — all optimization rules resulted in identical text.';
+
+  // Build a simple character-level view
+  let lines = [];
+  const origLines = orig.split('\n');
+  const optLines = opt.split('\n');
+  const maxLen = Math.max(origLines.length, optLines.length);
+  for (let i = 0; i < maxLen; i++) {
+    const o = origLines[i] ?? '';
+    const n2 = optLines[i] ?? '';
+    if (o === n2) {
+      lines.push(o);
+    } else {
+      if (o) lines.push(`<span class="diff-del">${o.replace(/</g,'&lt;')}</span>`);
+      if (n2) lines.push(`<span class="diff-add">${n2.replace(/</g,'&lt;')}</span>`);
+    }
+  }
+  return lines.join('\n');
+}
+
+function optimize() {
+  const orig = document.getElementById('origPrompt').value;
+  const opt = applyRules(orig);
+
+  document.getElementById('optPrompt').value = opt;
+
+  const origTok = estimateTokens(orig);
+  const optTok = estimateTokens(opt);
+  const saved = origTok - optTok;
+  const pct = origTok > 0 ? ((saved / origTok) * 100).toFixed(1) : 0;
+
+  const costSavedPerMReq = (saved / 1e6) * GPT4O_IN_RATE * 1e6; // savings per 1M requests
+  const annualSave = costSavedPerMReq * 12;
+
+  document.getElementById('origTok').textContent = n(origTok);
+  document.getElementById('origChars').textContent = n(orig.length);
+  document.getElementById('optTok').textContent = n(optTok);
+  document.getElementById('optChars').textContent = n(opt.length);
+  document.getElementById('s-origTokens').textContent = n(origTok);
+  document.getElementById('s-optTokens').textContent = n(optTok);
+  document.getElementById('s-saved').textContent = n(saved);
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('s-costSaved').textContent = fmt(costSavedPerMReq);
+  document.getElementById('s-annualSave').textContent = fmt(annualSave);
+
+  document.getElementById('diffView').innerHTML = simpleDiff(orig, opt);
+}
+
+document.getElementById('origPrompt').addEventListener('input', optimize);
+document.getElementById('clearOrigBtn').addEventListener('click', () => {
+  document.getElementById('origPrompt').value = '';
+  optimize();
+});
+document.getElementById('copyOptBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(document.getElementById('optPrompt').value).then(() => {
+    const btn = document.getElementById('copyOptBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+});
+document.getElementById('applyAllBtn').addEventListener('click', () => {
+  RULES.forEach(r => {
+    r.enabled = true;
+    const el = document.getElementById('rule-'+r.id);
+    if (el) el.checked = true;
+  });
+  optimize();
+});
+
+buildRuleList();
+optimize();
+</script>
+</body>
+</html>

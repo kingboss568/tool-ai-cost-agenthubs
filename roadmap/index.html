@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product Roadmap | AI Cost Calculator</title>
+  <meta name="description" content="See what we've shipped, what's in progress, and what's coming next for AI Cost Calculator — the AI pricing and budgeting tool for developers and teams.">
+  <link rel="canonical" href="https://ai-cost.agenthubs.org/roadmap/">
+  <meta name="google-adsense-account" content="ca-pub-0268893833921284">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .roadmap-hero {
+      background: linear-gradient(135deg, #0d1117 0%, #0c2340 40%, #0a3d52 100%);
+      color: #fff;
+      padding: clamp(48px,8vw,96px) clamp(16px,4vw,48px);
+      position: relative;
+      overflow: hidden;
+    }
+    .roadmap-hero::before {
+      content:'';position:absolute;inset:0;
+      background: radial-gradient(ellipse 60% 60% at 20% 40%, rgba(14,165,233,0.25) 0%,transparent 60%),
+                  radial-gradient(ellipse 40% 40% at 80% 60%, rgba(16,185,129,0.2) 0%,transparent 60%);
+      pointer-events:none;
+    }
+    .roadmap-hero-inner { width:min(1400px,calc(100% - 32px)); margin:0 auto; position:relative; z-index:1; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center; }
+    .roadmap-hero h1 { max-width:none; font-size:clamp(2rem,5vw,3.5rem); margin-bottom:12px; background:linear-gradient(135deg,#fff,#93c5fd); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .roadmap-hero .lede { color:rgba(255,255,255,0.75); max-width:52ch; }
+    .roadmap-wrap { width:min(1100px,calc(100% - 32px)); margin:40px auto 60px; }
+    .roadmap-legend { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:40px; padding:16px 20px; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--surface); }
+    .legend-item { display:flex; align-items:center; gap:8px; font-size:0.88rem; font-weight:600; color:var(--muted); }
+    .status-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:3px 10px; border-radius:999px;
+      font-size:0.76rem; font-weight:700; letter-spacing:0.02em;
+      white-space:nowrap;
+    }
+    .badge-shipped { background:rgba(16,185,129,0.12); color:#059669; border:1px solid rgba(16,185,129,0.3); }
+    .badge-inprogress { background:rgba(14,165,233,0.12); color:#0284c7; border:1px solid rgba(14,165,233,0.3); }
+    .badge-planned { background:rgba(99,102,241,0.12); color:#6366f1; border:1px solid rgba(99,102,241,0.3); }
+    .badge-considering { background:rgba(107,114,128,0.1); color:var(--muted); border:1px solid var(--line); }
+    .quarter-section { margin-bottom:48px; }
+    .quarter-header {
+      display:flex; align-items:center; gap:16px; margin-bottom:20px;
+      padding-bottom:12px; border-bottom:2px solid var(--line);
+    }
+    .quarter-label {
+      font-size:1.25rem; font-weight:800; color:var(--ink);
+    }
+    .quarter-tag {
+      padding:4px 12px; border-radius:999px;
+      font-size:0.78rem; font-weight:700; letter-spacing:0.04em;
+    }
+    .tag-shipped { background:rgba(16,185,129,0.15); color:#059669; }
+    .tag-inprogress { background:rgba(14,165,233,0.15); color:#0284c7; }
+    .tag-planned { background:rgba(99,102,241,0.15); color:#6366f1; }
+    .tag-considering { background:rgba(107,114,128,0.1); color:var(--muted); }
+    .items-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+      gap:12px;
+    }
+    .roadmap-item {
+      padding:16px 18px;
+      border:1px solid var(--line);
+      border-radius:var(--radius-sm);
+      background:var(--surface);
+      display:flex; align-items:flex-start; gap:12px;
+      transition:all 0.2s;
+    }
+    .roadmap-item:hover { box-shadow:var(--shadow); border-color:rgba(14,165,233,0.3); }
+    .item-icon { font-size:1.2rem; flex-shrink:0; margin-top:1px; }
+    .item-body {}
+    .item-title { font-weight:700; font-size:0.95rem; margin:0 0 4px; color:var(--ink); }
+    .item-desc { font-size:0.84rem; color:var(--muted); margin:0; line-height:1.5; }
+    .roadmap-item.shipped { border-left:3px solid #10b981; }
+    .roadmap-item.inprogress { border-left:3px solid #0ea5e9; }
+    .roadmap-item.planned { border-left:3px solid #6366f1; }
+    .roadmap-item.considering { border-left:3px solid #9ca3af; }
+    .cta-band { padding:32px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); text-align:center; margin-top:48px; }
+    .cta-band h2 { margin-bottom:10px; }
+    .cta-band p { color:var(--muted); margin-bottom:20px; max-width:52ch; margin-left:auto; margin-right:auto; }
+    @media(max-width:768px){ .roadmap-hero-inner{grid-template-columns:1fr;} .items-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+  <header class="topbar">
+    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../tool/">Tool</a>
+      <a href="../compare/">Compare</a>
+      <a href="../models/">Models</a>
+      <a href="../blog/">Blog</a>
+      <a href="../plans/">Plans</a>
+    </nav>
+  </header>
+  <main>
+    <div class="roadmap-hero">
+      <div class="roadmap-hero-inner">
+        <div>
+          <p class="eyebrow" style="color:rgba(255,255,255,0.7)">Product Roadmap</p>
+          <h1>What We're Building</h1>
+          <p class="lede">A transparent view into our plans — what's shipped, what's in progress, and what's on the horizon for AI Cost Calculator.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+            <a href="../changelog/" class="button" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.25);color:#fff">View Changelog</a>
+            <a href="../feedback/" class="button primary-accent">Request a Feature</a>
+          </div>
+        </div>
+        <svg width="140" height="140" viewBox="0 0 140 140" fill="none" aria-hidden="true">
+          <rect x="10" y="10" width="120" height="120" rx="12" fill="rgba(14,165,233,0.1)" stroke="rgba(14,165,233,0.3)" stroke-width="1.5"/>
+          <line x1="30" y1="50" x2="30" y2="110" stroke="rgba(14,165,233,0.4)" stroke-width="2"/>
+          <circle cx="30" cy="50" r="6" fill="#10b981"/>
+          <rect x="44" y="44" width="70" height="12" rx="3" fill="rgba(16,185,129,0.3)"/>
+          <circle cx="30" cy="75" r="6" fill="#0ea5e9"/>
+          <rect x="44" y="69" width="50" height="12" rx="3" fill="rgba(14,165,233,0.3)"/>
+          <circle cx="30" cy="100" r="6" fill="#6366f1" opacity=".6"/>
+          <rect x="44" y="94" width="60" height="12" rx="3" fill="rgba(99,102,241,0.2)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="roadmap-wrap">
+
+      <div class="roadmap-legend">
+        <div class="legend-item"><span class="status-badge badge-shipped">✅ Shipped</span> Completed and live</div>
+        <div class="legend-item"><span class="status-badge badge-inprogress">🔄 In Progress</span> Actively being built</div>
+        <div class="legend-item"><span class="status-badge badge-planned">📋 Planned</span> On the schedule</div>
+        <div class="legend-item"><span class="status-badge badge-considering">💡 Considering</span> Evaluating feasibility</div>
+      </div>
+
+      <div class="ad-unit" style="margin:0 0 32px">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Q2 2025 -->
+      <div class="quarter-section">
+        <div class="quarter-header">
+          <span class="quarter-label">Q2 2025</span>
+          <span class="quarter-tag tag-shipped">✅ Shipped</span>
+        </div>
+        <div class="items-grid">
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">AI Cost Calculator (Core Tool)</p>
+              <p class="item-desc">The foundational calculator with token-based pricing estimates for major AI providers.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Model Comparison Tool</p>
+              <p class="item-desc">Side-by-side comparison of any two AI models across cost, speed, and context window.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Token Counter</p>
+              <p class="item-desc">Real-time token counting for text and code, with cost projection per model.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">ROI Calculator</p>
+              <p class="item-desc">Calculate return on investment for AI features with customizable value assumptions.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Budget Planner</p>
+              <p class="item-desc">Plan monthly AI budgets across multiple use cases and models with scenario modeling.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Batch Calculator</p>
+              <p class="item-desc">Calculate cost savings from using batch processing APIs (50% discount tier).</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">50-Page Site Expansion</p>
+              <p class="item-desc">Model Picker, Project Estimator, Prompt Optimizer, Usage Analyzer, Cost Breakdown, and more.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">AdSense Integration</p>
+              <p class="item-desc">Monetization via Google AdSense with auto ads across all pages.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">AI Models Database</p>
+              <p class="item-desc">Comprehensive database of 17+ AI models with pricing, specs, and benchmarks.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Glossary (40+ Terms)</p>
+              <p class="item-desc">Comprehensive glossary of AI pricing and technology terminology.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Blog Section</p>
+              <p class="item-desc">In-depth articles on AI cost optimization, model selection, and enterprise AI management.</p>
+            </div>
+          </div>
+          <div class="roadmap-item shipped">
+            <span class="item-icon">✅</span>
+            <div class="item-body">
+              <p class="item-title">Complete UI Redesign</p>
+              <p class="item-desc">World-class UI with glassmorphism topbar, gradient hero sections, and responsive layout.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 2025 -->
+      <div class="quarter-section">
+        <div class="quarter-header">
+          <span class="quarter-label">Q3 2025</span>
+          <span class="quarter-tag tag-inprogress">🔄 In Progress</span>
+        </div>
+        <div class="items-grid">
+          <div class="roadmap-item inprogress">
+            <span class="item-icon">🔄</span>
+            <div class="item-body">
+              <p class="item-title">Real-time Pricing API Integration</p>
+              <p class="item-desc">Live pricing data pulled from provider APIs, updated daily. No more manually updated static tables.</p>
+            </div>
+          </div>
+          <div class="roadmap-item inprogress">
+            <span class="item-icon">🔄</span>
+            <div class="item-body">
+              <p class="item-title">User Accounts &amp; Cloud Sync</p>
+              <p class="item-desc">Save calculations, projects, and settings to the cloud. Access your data from any device.</p>
+            </div>
+          </div>
+          <div class="roadmap-item inprogress">
+            <span class="item-icon">🔄</span>
+            <div class="item-body">
+              <p class="item-title">Team Workspace Features</p>
+              <p class="item-desc">Shared workspace for teams — shared projects, templates, and reports accessible to all team members.</p>
+            </div>
+          </div>
+          <div class="roadmap-item inprogress">
+            <span class="item-icon">🔄</span>
+            <div class="item-body">
+              <p class="item-title">CSV Import for Usage Data</p>
+              <p class="item-desc">Upload your actual API usage data in CSV format for accurate cost analysis based on real usage patterns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-unit" style="margin:0 0 32px">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Q4 2025 -->
+      <div class="quarter-section">
+        <div class="quarter-header">
+          <span class="quarter-label">Q4 2025</span>
+          <span class="quarter-tag tag-planned">📋 Planned</span>
+        </div>
+        <div class="items-grid">
+          <div class="roadmap-item planned">
+            <span class="item-icon">📋</span>
+            <div class="item-body">
+              <p class="item-title">Pro Subscription Tier</p>
+              <p class="item-desc">$9/month plan with cloud sync, team features, real-time pricing, CSV export, and priority support.</p>
+            </div>
+          </div>
+          <div class="roadmap-item planned">
+            <span class="item-icon">📋</span>
+            <div class="item-body">
+              <p class="item-title">Custom Pricing Configurations</p>
+              <p class="item-desc">Enter your negotiated enterprise pricing rates for accurate cost calculations specific to your contract.</p>
+            </div>
+          </div>
+          <div class="roadmap-item planned">
+            <span class="item-icon">📋</span>
+            <div class="item-body">
+              <p class="item-title">Usage Alerts &amp; Notifications</p>
+              <p class="item-desc">Set budget thresholds and receive email notifications when projected or actual costs exceed limits.</p>
+            </div>
+          </div>
+          <div class="roadmap-item planned">
+            <span class="item-icon">📋</span>
+            <div class="item-body">
+              <p class="item-title">Webhook Integrations</p>
+              <p class="item-desc">Send cost reports and alerts to Slack, Teams, or any webhook endpoint for team notifications.</p>
+            </div>
+          </div>
+          <div class="roadmap-item planned">
+            <span class="item-icon">📋</span>
+            <div class="item-body">
+              <p class="item-title">API Access</p>
+              <p class="item-desc">Programmatic access to AI pricing data and calculation tools via a RESTful API with API key auth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026 -->
+      <div class="quarter-section">
+        <div class="quarter-header">
+          <span class="quarter-label">2026 &amp; Beyond</span>
+          <span class="quarter-tag tag-considering">💡 Considering</span>
+        </div>
+        <div class="items-grid">
+          <div class="roadmap-item considering">
+            <span class="item-icon">💡</span>
+            <div class="item-body">
+              <p class="item-title">Mobile App (iOS &amp; Android)</p>
+              <p class="item-desc">Native mobile app for quick cost calculations and usage monitoring on the go.</p>
+            </div>
+          </div>
+          <div class="roadmap-item considering">
+            <span class="item-icon">💡</span>
+            <div class="item-body">
+              <p class="item-title">Browser Extension</p>
+              <p class="item-desc">Quick-access cost calculator as a browser extension, with pricing tooltips on AI provider pages.</p>
+            </div>
+          </div>
+          <div class="roadmap-item considering">
+            <span class="item-icon">💡</span>
+            <div class="item-body">
+              <p class="item-title">VS Code Extension</p>
+              <p class="item-desc">Token counter and cost estimator directly in your code editor — see API costs as you write prompts.</p>
+            </div>
+          </div>
+          <div class="roadmap-item considering">
+            <span class="item-icon">💡</span>
+            <div class="item-body">
+              <p class="item-title">Slack / Teams Integration</p>
+              <p class="item-desc">Run calculations and get cost reports directly in your team's chat workspace via slash commands.</p>
+            </div>
+          </div>
+          <div class="roadmap-item considering">
+            <span class="item-icon">💡</span>
+            <div class="item-body">
+              <p class="item-title">Enterprise SSO</p>
+              <p class="item-desc">SAML/OIDC single sign-on for enterprise customers. Integrate with Okta, Azure AD, and Google Workspace.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="margin:0 auto 16px;display:block">
+          <circle cx="24" cy="24" r="20" fill="rgba(14,165,233,0.1)" stroke="rgba(14,165,233,0.3)" stroke-width="1.5"/>
+          <path d="M24 14v6M24 28v6M14 24h6M28 24h6" stroke="#0ea5e9" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h2>Have a Feature Idea?</h2>
+        <p>We read every feature request and use them to prioritize our roadmap. Tell us what would make AI Cost Calculator more useful for your workflow.</p>
+        <a href="../feedback/" class="button primary-accent">Submit a Feature Request &rarr;</a>
+      </div>
+    </div>
+  </main>
+  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
+</body>
+</html>
