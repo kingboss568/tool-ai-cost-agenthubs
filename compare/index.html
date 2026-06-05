@@ -3,248 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Model Comparison Tool | AI Cost Calculator</title>
-  <meta name="description" content="Compare AI models side-by-side with real-time cost calculations. GPT-4o, Claude, Gemini, Llama and more.">
+  <title>Compare | AI Cost Calculator</title>
+  <meta name="description" content="Compare common ai lab workflows before running the tool.">
   <link rel="canonical" href="https://ai-cost.agenthubs.org/compare/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta property="og:title" content="Compare | AI Cost Calculator">
+  <meta property="og:description" content="Compare common ai lab workflows before running the tool.">
+  <meta property="og:url" content="https://ai-cost.agenthubs.org/compare/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://ai-cost.agenthubs.org/assets/visual.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="google-adsense-account" content="ca-pub-0268893833921284">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0268893833921284" crossorigin="anonymous"></script>
+  <link rel="preload" as="image" href="../assets/visual.png">
   <link rel="stylesheet" href="../styles.css">
-  <style>
-    .compare-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-    .compare-col { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 18px; display: grid; gap: 12px; }
-    .compare-col.winner { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent), transparent 70%); }
-    .winner-badge { display: inline-block; background: var(--accent); color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 10px; text-transform: uppercase; letter-spacing: .04em; }
-    .compare-stat { padding: 10px; border: 1px solid var(--line); background: var(--surface); }
-    .compare-stat span { display: block; color: var(--muted); font-size: .78rem; }
-    .compare-stat strong { display: block; margin-top: 4px; font-size: 1.1rem; }
-    .inputs-panel { border: 1px solid var(--line); background: color-mix(in srgb, var(--surface), var(--panel) 34%); padding: 20px; }
-    .inputs-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
-    .side-nav-label { padding: 6px 11px 2px; color: var(--muted); font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
-    @media(max-width:800px){ .compare-grid, .inputs-row { grid-template-columns: 1fr; } }
-  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebPage","name":"Compare","description":"Compare common ai lab workflows before running the tool.","url":"https://ai-cost.agenthubs.org/compare/","applicationCategory":"BusinessApplication","isPartOf":{"@type":"WebSite","name":"AI Cost Calculator","url":"https://ai-cost.agenthubs.org/"}},{"@context":"https://schema.org","@type":"ItemList","name":"AI Cost Calculator Compare","itemListElement":[{"@type":"ListItem","position":1,"name":"Cost Simulator vs Workflow Board","url":"https://ai-cost.agenthubs.org/compare/cost-simulator-vs-workflow-board/"},{"@type":"ListItem","position":2,"name":"Prompt Editor vs Token Table","url":"https://ai-cost.agenthubs.org/compare/prompt-editor-vs-token-table/"},{"@type":"ListItem","position":3,"name":"Workflow Board vs Scenario Comparison","url":"https://ai-cost.agenthubs.org/compare/workflow-board-vs-scenario-comparison/"},{"@type":"ListItem","position":4,"name":"Token Table vs JSON Export","url":"https://ai-cost.agenthubs.org/compare/token-table-vs-json-export/"},{"@type":"ListItem","position":5,"name":"Scenario Comparison vs Cost Simulator","url":"https://ai-cost.agenthubs.org/compare/scenario-comparison-vs-cost-simulator/"},{"@type":"ListItem","position":6,"name":"JSON Export vs Prompt Editor","url":"https://ai-cost.agenthubs.org/compare/json-export-vs-prompt-editor/"},{"@type":"ListItem","position":7,"name":"Cost Simulator vs Workflow Board","url":"https://ai-cost.agenthubs.org/compare/cost-simulator-vs-workflow-board/"},{"@type":"ListItem","position":8,"name":"Prompt Editor vs Token Table","url":"https://ai-cost.agenthubs.org/compare/prompt-editor-vs-token-table/"},{"@type":"ListItem","position":9,"name":"Workflow Board vs Scenario Comparison","url":"https://ai-cost.agenthubs.org/compare/workflow-board-vs-scenario-comparison/"},{"@type":"ListItem","position":10,"name":"Token Table vs JSON Export","url":"https://ai-cost.agenthubs.org/compare/token-table-vs-json-export/"},{"@type":"ListItem","position":11,"name":"Scenario Comparison vs Cost Simulator","url":"https://ai-cost.agenthubs.org/compare/scenario-comparison-vs-cost-simulator/"},{"@type":"ListItem","position":12,"name":"JSON Export vs Prompt Editor","url":"https://ai-cost.agenthubs.org/compare/json-export-vs-prompt-editor/"}]}]</script>
 </head>
-<body style="--bg:#f0f4f8;--panel:#ffffff;--ink:#0d1117;--accent:#0ea5e9;--accent-2:#f59e0b;--line:#e2e8f0">
+<body style="--bg:#f7f6f1;--panel:#fffdfa;--ink:#161819;--muted:#626668;--accent:#0f5f69;--accent-2:#c17935;--line:#d8d5cc;--dark:#111517" data-archetype="ai" data-layout="split">
   <header class="topbar">
-    <a class="brand" href="../"><span class="brand-mark">AI</span><span>agenthubs.org</span></a>
-    <nav class="nav" aria-label="Primary">
-      <a href="../tool/">Tool</a>
-      <a href="../compare/">Compare</a>
-      <a href="../models/">Models</a>
-      <a href="../blog/">Blog</a>
-      <a href="../plans/">Plans</a>
-    </nav>
+    <a class="brand" href="../"><span class="brand-mark">AC</span><span>ai-cost.agenthubs.org</span></a>
+    <nav class="nav" aria-label="Primary"><a href="../tool/">Tool</a><a href="../guides/">Guides</a><a href="../library/">Library</a><a href="../templates/">Templates</a><a href="../compare/">Compare</a></nav>
   </header>
   <main>
-    <section class="app-grid">
-      <nav class="side-nav" aria-label="App sections">
-        <a href="../">Home</a>
-        <div class="side-nav-label">Tools</div>
-        <a href="../tool/">Cost Calculator</a>
-        <a href="../compare/" aria-current="page">Model Comparison</a>
-        <a href="../token-counter/">Token Counter</a>
-        <a href="../budget/">Budget Planner</a>
-        <a href="../roi/">ROI Calculator</a>
-        <a href="../batch/">Batch Calculator</a>
-        <a href="../model-picker/">Model Picker</a>
-        <a href="../cost-breakdown/">Cost Breakdown</a>
-        <a href="../estimator/">Project Estimator</a>
-        <a href="../prompt-optimizer/">Prompt Optimizer</a>
-        <a href="../usage-analyzer/">Usage Analyzer</a>
-        <a href="../calculator/">Advanced Calc</a>
-        <a href="../converter/">Converter</a>
-        <div class="side-nav-label">Reference</div>
-        <a href="../models/">AI Models</a>
-        <a href="../providers/">Providers</a>
-        <a href="../pricing-guide/">Pricing Guide</a>
-        <a href="../benchmarks/">Benchmarks</a>
-        <a href="../glossary/">Glossary</a>
-        <a href="../api-docs/">API Docs</a>
-        <a href="../library/">Library</a>
-        <div class="side-nav-label">Workspace</div>
-        <a href="../workspace/">My Workspace</a>
-        <a href="../templates/">Templates</a>
-        <a href="../reports/">Reports</a>
-        <a href="../settings/">Settings</a>
-        <div class="side-nav-label">Learn</div>
-        <a href="../guide/">Getting Started</a>
-        <a href="../tutorials/">Tutorials</a>
-        <a href="../case-studies/">Case Studies</a>
-        <a href="../blog/">Blog</a>
-        <a href="../examples/">Examples</a>
-        <div class="side-nav-label">Support</div>
-        <a href="../help/">Help Center</a>
-        <a href="../faq/">FAQ</a>
-        <a href="../feedback/">Feedback</a>
-        <a href="../contact/">Contact</a>
-        <div class="side-nav-label">More</div>
-        <a href="../plans/">Plans</a>
-        <a href="../pro/">Pro</a>
-        <a href="../roadmap/">Roadmap</a>
-        <a href="../changelog/">Changelog</a>
-        <a href="../about/">About</a>
-        <a href="../privacy/">Privacy</a>
-        <a href="../terms/">Terms</a>
-      </nav>
-      <div class="workspace-main">
-        <div class="page-title-panel">
-          <p class="eyebrow">Side-by-Side</p>
-          <h1>Model Comparison</h1>
-          <p class="lede">Compare up to three AI models simultaneously with real pricing data. Adjust usage to see real-time cost differences.</p>
-        </div>
-
-        <div class="ad-unit" style="margin:0">
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <!-- Shared inputs -->
-        <div class="inputs-panel">
-          <h2 style="margin-bottom:14px;font-size:1.1rem;">Usage Parameters</h2>
-          <div class="inputs-row">
-            <label class="field"><span>Daily requests</span><input type="number" id="dailyReqs" value="1000" min="1"></label>
-            <label class="field"><span>Input tokens / request</span><input type="number" id="inputTok" value="500" min="1"></label>
-            <label class="field"><span>Output tokens / request</span><input type="number" id="outputTok" value="300" min="1"></label>
-          </div>
-        </div>
-
-        <!-- Compare columns -->
-        <div class="compare-grid" id="compareGrid">
-          <!-- rendered by JS -->
-        </div>
-
-        <div class="ad-unit" style="margin:0">
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <!-- Info section -->
-        <div class="content-band" style="margin:0;padding:20px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface),var(--panel) 34%)">
-          <h2>How to read this comparison</h2>
-          <div class="example-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-            <article>
-              <h3>Monthly cost</h3>
-              <p>Calculated as daily requests × days (30) × blended token cost. Reflects your exact usage pattern.</p>
-            </article>
-            <article>
-              <h3>Cost per 1M tokens</h3>
-              <p>Blended rate weighting input and output by your token ratio. Useful for cross-model comparison.</p>
-            </article>
-            <article>
-              <h3>Winner badge</h3>
-              <p>The model with the lowest monthly cost for your usage pattern earns the winner badge.</p>
-            </article>
-          </div>
-        </div>
-
-        <div class="ad-unit" style="margin:0">
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
+    <section class="hero hero-split">
+    <div class="hero-copy">
+      <p class="eyebrow">Decision hub</p>
+      <h1>Compare</h1>
+      <p class="lede">Compare common ai lab workflows before running the tool.</p>
+      <div class="action-row">
+        <a class="button" href="../tool/">Model the workflow</a>
+        <a class="button secondary" href="../guides/">Read guides</a>
       </div>
-    </section>
+      <div class="hero-stats">
+        <div><span>Pages</span><strong>121</strong></div>
+        <div><span>Family</span><strong>AI Lab</strong></div>
+        <div><span>Export</span><strong>Copy / JSON</strong></div>
+      </div>
+    </div>
+    <figure class="visual-frame">
+      <img src="../assets/visual.png" alt="AI Cost Calculator visual interface concept">
+    </figure>
+  </section><section class="content-band">
+    <div class="section-heading"><span class="eyebrow">Featured Compare</span><h2>Featured Compare</h2></div>
+    <div class="card-grid"><a class="info-card" href="../compare/cost-simulator-vs-workflow-board/"><span>AI Lab comparison</span><h3>Cost Simulator vs Workflow Board</h3><p>Compare cost simulator and workflow board inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/prompt-editor-vs-token-table/"><span>AI Lab comparison</span><h3>Prompt Editor vs Token Table</h3><p>Compare prompt editor and token table inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/workflow-board-vs-scenario-comparison/"><span>AI Lab comparison</span><h3>Workflow Board vs Scenario Comparison</h3><p>Compare workflow board and scenario comparison inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/token-table-vs-json-export/"><span>AI Lab comparison</span><h3>Token Table vs JSON Export</h3><p>Compare token table and JSON export inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/scenario-comparison-vs-cost-simulator/"><span>AI Lab comparison</span><h3>Scenario Comparison vs Cost Simulator</h3><p>Compare scenario comparison and cost simulator inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/json-export-vs-prompt-editor/"><span>AI Lab comparison</span><h3>JSON Export vs Prompt Editor</h3><p>Compare JSON export and prompt editor inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/cost-simulator-vs-workflow-board/"><span>AI Lab comparison</span><h3>Cost Simulator vs Workflow Board</h3><p>Compare cost simulator and workflow board inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/prompt-editor-vs-token-table/"><span>AI Lab comparison</span><h3>Prompt Editor vs Token Table</h3><p>Compare prompt editor and token table inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/workflow-board-vs-scenario-comparison/"><span>AI Lab comparison</span><h3>Workflow Board vs Scenario Comparison</h3><p>Compare workflow board and scenario comparison inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/token-table-vs-json-export/"><span>AI Lab comparison</span><h3>Token Table vs JSON Export</h3><p>Compare token table and JSON export inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/scenario-comparison-vs-cost-simulator/"><span>AI Lab comparison</span><h3>Scenario Comparison vs Cost Simulator</h3><p>Compare scenario comparison and cost simulator inside the AI Cost Calculator workflow.</p></a><a class="info-card" href="../compare/json-export-vs-prompt-editor/"><span>AI Lab comparison</span><h3>JSON Export vs Prompt Editor</h3><p>Compare JSON export and prompt editor inside the AI Cost Calculator workflow.</p></a></div>
+  </section>
+  <section class="content-band">
+    <div class="section-heading"><span class="eyebrow">Directory</span><h2>All Compare</h2></div>
+    <div class="directory-list"><a href="../compare/cost-simulator-vs-workflow-board/"><strong>Cost Simulator vs Workflow Board</strong><span>Compare cost simulator and workflow board inside the AI Cost Calculator workflow.</span></a><a href="../compare/prompt-editor-vs-token-table/"><strong>Prompt Editor vs Token Table</strong><span>Compare prompt editor and token table inside the AI Cost Calculator workflow.</span></a><a href="../compare/workflow-board-vs-scenario-comparison/"><strong>Workflow Board vs Scenario Comparison</strong><span>Compare workflow board and scenario comparison inside the AI Cost Calculator workflow.</span></a><a href="../compare/token-table-vs-json-export/"><strong>Token Table vs JSON Export</strong><span>Compare token table and JSON export inside the AI Cost Calculator workflow.</span></a><a href="../compare/scenario-comparison-vs-cost-simulator/"><strong>Scenario Comparison vs Cost Simulator</strong><span>Compare scenario comparison and cost simulator inside the AI Cost Calculator workflow.</span></a><a href="../compare/json-export-vs-prompt-editor/"><strong>JSON Export vs Prompt Editor</strong><span>Compare JSON export and prompt editor inside the AI Cost Calculator workflow.</span></a><a href="../compare/cost-simulator-vs-workflow-board/"><strong>Cost Simulator vs Workflow Board</strong><span>Compare cost simulator and workflow board inside the AI Cost Calculator workflow.</span></a><a href="../compare/prompt-editor-vs-token-table/"><strong>Prompt Editor vs Token Table</strong><span>Compare prompt editor and token table inside the AI Cost Calculator workflow.</span></a><a href="../compare/workflow-board-vs-scenario-comparison/"><strong>Workflow Board vs Scenario Comparison</strong><span>Compare workflow board and scenario comparison inside the AI Cost Calculator workflow.</span></a><a href="../compare/token-table-vs-json-export/"><strong>Token Table vs JSON Export</strong><span>Compare token table and JSON export inside the AI Cost Calculator workflow.</span></a><a href="../compare/scenario-comparison-vs-cost-simulator/"><strong>Scenario Comparison vs Cost Simulator</strong><span>Compare scenario comparison and cost simulator inside the AI Cost Calculator workflow.</span></a><a href="../compare/json-export-vs-prompt-editor/"><strong>JSON Export vs Prompt Editor</strong><span>Compare JSON export and prompt editor inside the AI Cost Calculator workflow.</span></a></div>
+  </section><aside class="ad-unit" aria-label="Advertisement">
+    <span>Advertisement</span>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-0268893833921284" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </aside>
   </main>
-  <footer class="footer"><span>AI Cost Calculator · agenthubs.org</span><nav><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a> · <a href="../about/">About</a></nav></footer>
-
-<script>
-const MODELS = {
-  "GPT-4o":            { in: 2.5,   out: 10,   ctx: "128K", speed: "Fast",      provider: "OpenAI" },
-  "GPT-4o Mini":       { in: 0.15,  out: 0.6,  ctx: "128K", speed: "Very Fast", provider: "OpenAI" },
-  "GPT-4 Turbo":       { in: 10,    out: 30,   ctx: "128K", speed: "Fast",      provider: "OpenAI" },
-  "Claude 3.5 Sonnet": { in: 3,     out: 15,   ctx: "200K", speed: "Fast",      provider: "Anthropic" },
-  "Claude 3 Haiku":    { in: 0.25,  out: 1.25, ctx: "200K", speed: "Very Fast", provider: "Anthropic" },
-  "Claude 3 Opus":     { in: 15,    out: 75,   ctx: "200K", speed: "Moderate",  provider: "Anthropic" },
-  "Gemini 1.5 Pro":    { in: 1.25,  out: 5,    ctx: "1M",   speed: "Fast",      provider: "Google" },
-  "Gemini 1.5 Flash":  { in: 0.075, out: 0.3,  ctx: "1M",   speed: "Very Fast", provider: "Google" },
-  "Gemini 2.0 Flash":  { in: 0.1,   out: 0.4,  ctx: "1M",   speed: "Very Fast", provider: "Google" },
-  "Llama 3.1 70B":     { in: 0.59,  out: 0.79, ctx: "128K", speed: "Fast",      provider: "Meta/Together" },
-  "Llama 3.1 8B":      { in: 0.18,  out: 0.18, ctx: "128K", speed: "Very Fast", provider: "Meta/Together" },
-  "Mistral Large":     { in: 2,     out: 6,    ctx: "128K", speed: "Fast",      provider: "Mistral" },
-  "Mistral 7B":        { in: 0.25,  out: 0.25, ctx: "32K",  speed: "Very Fast", provider: "Mistral" }
-};
-
-const MODEL_NAMES = Object.keys(MODELS);
-const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
-const fmt4 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 4 });
-
-const DEFAULTS = ["GPT-4o", "Claude 3.5 Sonnet", "Gemini 1.5 Flash"];
-
-let selections = [...DEFAULTS];
-
-function buildSelect(idx) {
-  const sel = document.createElement('select');
-  sel.style.cssText = 'width:100%;margin-bottom:12px';
-  MODEL_NAMES.forEach(name => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    if (name === selections[idx]) opt.selected = true;
-    sel.appendChild(opt);
-  });
-  sel.addEventListener('change', e => { selections[idx] = e.target.value; render(); });
-  return sel;
-}
-
-function calcMonthlyCost(modelKey, dailyReqs, inputTok, outputTok) {
-  const m = MODELS[modelKey];
-  const inputCost  = (inputTok / 1_000_000) * m.in * dailyReqs * 30;
-  const outputCost = (outputTok / 1_000_000) * m.out * dailyReqs * 30;
-  return inputCost + outputCost;
-}
-
-function blendedPer1M(modelKey, inputTok, outputTok) {
-  const m = MODELS[modelKey];
-  const totalTok = inputTok + outputTok;
-  if (!totalTok) return 0;
-  return ((inputTok / totalTok) * m.in + (outputTok / totalTok) * m.out);
-}
-
-function render() {
-  const dailyReqs = Math.max(1, +document.getElementById('dailyReqs').value || 1000);
-  const inputTok  = Math.max(1, +document.getElementById('inputTok').value  || 500);
-  const outputTok = Math.max(1, +document.getElementById('outputTok').value || 300);
-
-  const costs = selections.map(s => calcMonthlyCost(s, dailyReqs, inputTok, outputTok));
-  const minCost = Math.min(...costs);
-
-  const grid = document.getElementById('compareGrid');
-  grid.innerHTML = '';
-
-  selections.forEach((modelKey, idx) => {
-    const m = MODELS[modelKey];
-    const monthly = costs[idx];
-    const isWinner = monthly === minCost;
-    const blended = blendedPer1M(modelKey, inputTok, outputTok);
-
-    const col = document.createElement('div');
-    col.className = 'compare-col' + (isWinner ? ' winner' : '');
-
-    col.innerHTML = `
-      ${isWinner ? '<span class="winner-badge">Best value</span>' : '<span style="display:inline-block;height:22px"></span>'}
-      <div></div>
-    `;
-    // Insert select
-    col.insertBefore(buildSelect(idx), col.children[1]);
-
-    col.innerHTML += `
-      <div class="compare-stat"><span>Provider</span><strong>${m.provider}</strong></div>
-      <div class="compare-stat"><span>Monthly cost</span><strong style="color:${isWinner?'var(--accent)':'inherit'}">${fmt.format(monthly)}</strong></div>
-      <div class="compare-stat"><span>Cost per 1M tokens</span><strong>${fmt4.format(blended)}</strong></div>
-      <div class="compare-stat"><span>Input rate (per 1M)</span><strong>${fmt4.format(m.in)}</strong></div>
-      <div class="compare-stat"><span>Output rate (per 1M)</span><strong>${fmt4.format(m.out)}</strong></div>
-      <div class="compare-stat"><span>Context window</span><strong>${m.ctx}</strong></div>
-      <div class="compare-stat"><span>Speed tier</span><strong>${m.speed}</strong></div>
-      <div class="compare-stat"><span>Daily cost</span><strong>${fmt.format(monthly / 30)}</strong></div>
-      <div class="compare-stat"><span>Annual cost</span><strong>${fmt.format(monthly * 12)}</strong></div>
-    `;
-    grid.appendChild(col);
-  });
-}
-
-document.getElementById('dailyReqs').addEventListener('input', render);
-document.getElementById('inputTok').addEventListener('input', render);
-document.getElementById('outputTok').addEventListener('input', render);
-
-render();
-</script>
+  <footer class="footer"><span>AI Cost Calculator for agenthubs.org</span><a href="../privacy/">Privacy</a><a href="../sitemap.xml">Sitemap</a></footer>
+  
+  <script src="../saas.js"></script>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </body>
 </html>

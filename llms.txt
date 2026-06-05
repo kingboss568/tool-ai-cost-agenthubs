@@ -1,0 +1,45 @@
+AI Cost Calculator
+
+AI Cost Calculator is a practical ai lab workspace for automation builder teams who need a working tool, reference pages, exportable notes, and SEO-ready guidance in one static site.
+
+Key sections:
+- https://ai-cost.agenthubs.org/
+- https://ai-cost.agenthubs.org/tool/
+- https://ai-cost.agenthubs.org/workspace/
+- https://ai-cost.agenthubs.org/reports/
+- https://ai-cost.agenthubs.org/guides/
+- https://ai-cost.agenthubs.org/library/
+- https://ai-cost.agenthubs.org/templates/
+- https://ai-cost.agenthubs.org/compare/
+- https://ai-cost.agenthubs.org/checklists/
+- https://ai-cost.agenthubs.org/integrations/
+- https://ai-cost.agenthubs.org/settings/
+- https://ai-cost.agenthubs.org/plans/
+- https://ai-cost.agenthubs.org/faq/
+- https://ai-cost.agenthubs.org/privacy/
+- https://ai-cost.agenthubs.org/about/
+- https://ai-cost.agenthubs.org/guides/estimate-token-spend-1/
+- https://ai-cost.agenthubs.org/guides/draft-a-prompt-system-2/
+- https://ai-cost.agenthubs.org/guides/compare-model-routes-3/
+- https://ai-cost.agenthubs.org/guides/plan-batch-capacity-4/
+- https://ai-cost.agenthubs.org/guides/audit-image-generation-costs-5/
+- https://ai-cost.agenthubs.org/guides/export-a-workflow-brief-6/
+- https://ai-cost.agenthubs.org/guides/estimate-token-spend-7/
+- https://ai-cost.agenthubs.org/guides/draft-a-prompt-system-8/
+- https://ai-cost.agenthubs.org/guides/compare-model-routes-9/
+- https://ai-cost.agenthubs.org/guides/plan-batch-capacity-10/
+- https://ai-cost.agenthubs.org/guides/audit-image-generation-costs-11/
+- https://ai-cost.agenthubs.org/guides/export-a-workflow-brief-12/
+- https://ai-cost.agenthubs.org/guides/estimate-token-spend-13/
+- https://ai-cost.agenthubs.org/guides/draft-a-prompt-system-14/
+- https://ai-cost.agenthubs.org/guides/compare-model-routes-15/
+- https://ai-cost.agenthubs.org/guides/plan-batch-capacity-16/
+- https://ai-cost.agenthubs.org/guides/audit-image-generation-costs-17/
+- https://ai-cost.agenthubs.org/guides/export-a-workflow-brief-18/
+- https://ai-cost.agenthubs.org/guides/estimate-token-spend-19/
+- https://ai-cost.agenthubs.org/guides/draft-a-prompt-system-20/
+- https://ai-cost.agenthubs.org/guides/compare-model-routes-21/
+- https://ai-cost.agenthubs.org/guides/plan-batch-capacity-22/
+- https://ai-cost.agenthubs.org/guides/audit-image-generation-costs-23/
+- https://ai-cost.agenthubs.org/guides/export-a-workflow-brief-24/
+- https://ai-cost.agenthubs.org/guides/estimate-token-spend-25/
